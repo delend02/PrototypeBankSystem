@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\AddClient.png" />
+    <None Remove="Resources\client.jpg" />
+    <None Remove="Resources\Credit.jpg" />
+    <None Remove="Resources\Investment.jpg" />
+    <None Remove="Resources\MoneyTransfer.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PrototypeBankSystem.Application\PrototypeBankSystem.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\AddClient.png" />
+    <Resource Include="Resources\client.jpg" />
+    <Resource Include="Resources\Credit.jpg" />
+    <Resource Include="Resources\Investment.jpg" />
+    <Resource Include="Resources\MoneyTransfer.png" />
+  </ItemGroup>
+
+</Project>

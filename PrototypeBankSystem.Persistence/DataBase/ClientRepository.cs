@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PrototypeBankSystem.Persistence.DataBase
 {
-    internal class ClientRepository : IRepository<ClientDTO>
+    public class ClientRepository : IRepository<ClientDTO>
     {
         public void Create(ClientDTO entity)
         {

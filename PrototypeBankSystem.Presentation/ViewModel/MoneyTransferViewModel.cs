@@ -13,19 +13,19 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class MoneyTransferViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<ClientDTO> _clientRepository;
+        private readonly IRepository<Client> _clientRepository;
 
         public MoneyTransferViewModel()
         {
-            _listViewClient = (ObservableCollection<ClientDTO>)_clientRepository.GetAll();
+            _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             AcceptTransfer = new LamdaCommand(OnAcceptTransfer, CanAcceptTransfer);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
 
         #region ListView
-        private ObservableCollection<ClientDTO> _listViewClient = new();
+        private ObservableCollection<Client> _listViewClient = new();
 
-        public ObservableCollection<ClientDTO> ListViewClient
+        public ObservableCollection<Client> ListViewClient
         {
             get => _listViewClient;
             set => Set(ref _listViewClient, value);
@@ -33,17 +33,17 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #endregion
 
         #region SelectedItem
-        private ClientDTO _selectedClientFrom;
+        private Client _selectedClientFrom;
 
-        public ClientDTO SelectedClientFrom
+        public Client SelectedClientFrom
         {
             get => _selectedClientFrom;
             set => Set(ref _selectedClientFrom, value);
         }
 
-        private ClientDTO _selectedClientTo;
+        private Client _selectedClientTo;
 
-        public ClientDTO SelectedClientTo
+        public Client SelectedClientTo
         {
             get => _selectedClientTo;
             set => Set(ref _selectedClientTo, value);

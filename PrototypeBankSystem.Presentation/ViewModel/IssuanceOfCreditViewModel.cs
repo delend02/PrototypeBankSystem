@@ -15,19 +15,19 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class IssuanceOfCreditViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<ClientDTO> _clientRepository;
+        private readonly IRepository<Client> _clientRepository;
 
         public IssuanceOfCreditViewModel()
         {
-            _listViewClient = (ObservableCollection<ClientDTO>)_clientRepository.GetAll();
+            _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             TakeCredit = new LamdaCommand(OnTakeCredit, CanTakeCredit);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
 
         #region ListView
-        private ObservableCollection<ClientDTO> _listViewClient = new();
+        private ObservableCollection<Client> _listViewClient = new();
 
-        public ObservableCollection<ClientDTO> ListViewClient
+        public ObservableCollection<Client> ListViewClient
         { 
             get => _listViewClient;
             set => Set(ref _listViewClient, value); 
@@ -35,9 +35,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #endregion
 
         #region SelectedItem
-        private ClientDTO _selectedClient;
+        private Client _selectedClient;
 
-        public ClientDTO SelectedClient 
+        public Client SelectedClient 
         {
             get
             {
@@ -170,7 +170,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 int index = ListViewClient.IndexOf(SelectedClient);
             
                 ListViewClient[index].ClientCard.CreditHistory.Add
-                    (new CreditDTO(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
+                    (new Credit(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
 
                 ListViewClient[index].ClientCard.Cash += double.Parse(TextSumCredit);
 

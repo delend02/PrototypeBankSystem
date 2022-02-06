@@ -14,7 +14,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddClientViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<ClientDTO> _clientRepository;
+        private readonly IRepository<Client> _clientRepository;
         public AddClientViewModel()
         {
             AddClient = new LamdaCommand(OnAddClient, CanAddClient);
@@ -148,8 +148,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             else
             {
-                _clientRepository.Create(new ClientDTO(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
-                    new CreditCardDTO(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
+                _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
+                    new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
                 MessageBox.Show("Клиент успешно внесен в базу!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
                 ShowMain();
                 ExitProgramm();

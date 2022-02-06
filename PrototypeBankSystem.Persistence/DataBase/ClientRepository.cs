@@ -8,29 +8,29 @@ using System.Threading.Tasks;
 
 namespace PrototypeBankSystem.Persistence.DataBase
 {
-    public class ClientRepository : IRepository<ClientDTO>
+    public class ClientRepository : IRepository<Client>
     {
-        public void Create(ClientDTO entity)
+        public void Create(Client entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(ClientDTO entity)
+        public void Delete(Client entity)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ClientDTO> GetAll()
+        public IEnumerable<Client> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public void Save(IEnumerable<ClientDTO> ts)
+        public void Save(IEnumerable<Client> ts)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(ClientDTO entity, ClientDTO entityOld)
+        public void Update(Client entity, Client entityOld)
         {
             throw new NotImplementedException();
         }

@@ -15,11 +15,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class OpeningADepositViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<ClientDTO> _clientRepository;
+        private readonly IRepository<Client> _clientRepository;
 
         public OpeningADepositViewModel()
         {
-            ListViewClient = (ObservableCollection<ClientDTO>)_clientRepository.GetAll();
+            ListViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             OpenDeposit = new LamdaCommand(OnOpenDeposit, CanOpenDeposit);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
@@ -35,9 +35,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #endregion
 
         #region ListView
-        private ObservableCollection<ClientDTO> _listViewClient = new();
+        private ObservableCollection<Client> _listViewClient = new();
 
-        public ObservableCollection<ClientDTO> ListViewClient
+        public ObservableCollection<Client> ListViewClient
         {
             get => _listViewClient;
             set => Set(ref _listViewClient, value);
@@ -45,9 +45,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #endregion
 
         #region SelectedItem
-        private ClientDTO _selectedClient;
+        private Client _selectedClient;
 
-        public ClientDTO SelectedClient
+        public Client SelectedClient
         {
             get
             {
@@ -190,7 +190,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 int index = ListViewClient.IndexOf(SelectedClient);
 
                 ListViewClient[index].ClientCard.CreditHistory.Add
-                    (new CreditDTO(int.Parse(_textSumDeposit), dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0])));
+                    (new Credit(int.Parse(_textSumDeposit), dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0])));
                 double finalPayment;
                 if (_checkCapitalization)
                 {

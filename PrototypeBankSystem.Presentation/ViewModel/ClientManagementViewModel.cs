@@ -16,17 +16,17 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class ClientManagementViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<ClientDTO> _clientRepository;
+        private readonly IRepository<Client> _clientRepository;
         public ClientManagementViewModel()
         {
-            _listViewClient = (ObservableCollection<ClientDTO>)_clientRepository.GetAll();
+            _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             Save = new LamdaCommand(OnSave, CanSave);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
 
-        private ObservableCollection<ClientDTO> _listViewClient = new();
+        private ObservableCollection<Client> _listViewClient = new();
 
-        public ObservableCollection<ClientDTO> ListViewClient
+        public ObservableCollection<Client> ListViewClient
         {
             get => _listViewClient;
             set => Set(ref _listViewClient, value);

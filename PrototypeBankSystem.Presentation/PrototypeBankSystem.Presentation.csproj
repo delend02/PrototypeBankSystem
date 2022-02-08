@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PrototypeBankSystem.Application\PrototypeBankSystem.Application.csproj" />
+    <ProjectReference Include="..\PrototypeBankSystem.Persistence\PrototypeBankSystem.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

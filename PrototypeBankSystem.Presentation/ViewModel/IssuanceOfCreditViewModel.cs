@@ -10,12 +10,14 @@ using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
+using PrototypeBankSystem.Persistence.DataBase;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class IssuanceOfCreditViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<Client> _clientRepository;
+        //private readonly IRepository<Client> _clientRepository;
+        private readonly ClientRepository _clientRepository = new();
 
         public IssuanceOfCreditViewModel()
         {

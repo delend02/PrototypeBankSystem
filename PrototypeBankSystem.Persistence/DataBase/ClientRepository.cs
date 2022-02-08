@@ -1,33 +1,31 @@
 ﻿using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace PrototypeBankSystem.Persistence.DataBase
 {
     public class ClientRepository : IRepository<Client>
     {
+        private static ObservableCollection<Client> _client = new();
+
         public void Create(Client entity)
         {
-            throw new NotImplementedException();
+            _client.Add(entity);
         }
 
         public void Delete(Client entity)
         {
-            throw new NotImplementedException();
+            _client.Remove(entity);
         }
 
         public IEnumerable<Client> GetAll()
         {
-            throw new NotImplementedException();
+            return _client;
         }
 
         public void Save(IEnumerable<Client> ts)
         {
-            throw new NotImplementedException();
+            _client = (ObservableCollection<Client>)ts;
         }
 
         public void Update(Client entity, Client entityOld)

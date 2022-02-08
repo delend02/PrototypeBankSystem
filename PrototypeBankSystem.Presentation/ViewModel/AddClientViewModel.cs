@@ -9,18 +9,20 @@ using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using System.Collections.Generic;
+using PrototypeBankSystem.Persistence.DataBase;
+using PrototypeBankSystem.Presentation.Notification;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddClientViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<Client> _clientRepository;
+        //private readonly IRepository<Client> _clientRepository;
+        private readonly ClientRepository _clientRepository = new();
         public AddClientViewModel()
         {
             AddClient = new LamdaCommand(OnAddClient, CanAddClient);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
-
 
         #region TextBlock
         private string? _textNumberCard;
@@ -144,17 +146,30 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnAddClient(object p)
         {
+            var notifi = new MessageBoxNotifi();
+            string text = null;
+
             if (_textFirstName == null || _textLastName == null || _textSurName == null || TextAge == null || _textPhone == null || _enumerationsPrivilege == null)
-                MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            {
+                text = "Есть незаполенные поля, заполните и попробуйте снова";
+                ShowNotifi += notifi.Error;
+            }    
             else
             {
                 _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
                     new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
-                MessageBox.Show("Клиент успешно внесен в базу!", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+
+                text = "Пользователь успешно добавился в базу клиентов";
+                ShowNotifi += notifi.Information;
+                
                 ShowMain();
                 ExitProgramm();
             }
+
+
+            ShowNotifi?.Invoke(text);
         }
+
 
         private bool CanAddClient(object p) => true;
 

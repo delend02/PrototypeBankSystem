@@ -8,12 +8,14 @@ using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
+using PrototypeBankSystem.Persistence.DataBase;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class MoneyTransferViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<Client> _clientRepository;
+        //private readonly IRepository<Client> _clientRepository;
+        private readonly ClientRepository _clientRepository = new();
 
         public MoneyTransferViewModel()
         {
@@ -110,6 +112,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         }
 
+
+
         private bool CanAcceptTransfer(object p) => true;
 
         public ICommand ExitMain { get; }
@@ -135,5 +139,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             MainWindow mainWindow = new();
             mainWindow.Show();
         }
+
     }
 }

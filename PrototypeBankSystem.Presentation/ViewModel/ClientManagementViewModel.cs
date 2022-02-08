@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Domain.Entities;
+using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Presentation.View;
 
@@ -16,9 +17,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class ClientManagementViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<Client> _clientRepository;
+        //private readonly IRepository<Client> _clientRepository;
+        private readonly ClientRepository _clientRepository = new();
         public ClientManagementViewModel()
         {
+            _clientRepository.GetAll();
             _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             Save = new LamdaCommand(OnSave, CanSave);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);

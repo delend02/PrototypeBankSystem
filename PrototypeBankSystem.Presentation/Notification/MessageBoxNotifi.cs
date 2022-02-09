@@ -9,12 +9,6 @@ namespace PrototypeBankSystem.Presentation.Notification
 {
     internal class MessageBoxNotifi
     {
-        public string Text { get; private set; }
-
-        public MessageBoxNotifi(string text)
-        {
-            Text = text;
-        }
 
         public void Error(string text)
         {
@@ -31,14 +25,5 @@ namespace PrototypeBankSystem.Presentation.Notification
             MessageBox.Show(text, "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private event Action<string> showNotify;
-
-
-
-        public event Action<string> ShowNotify
-        {
-            add { showNotify += value; }
-            remove { showNotify -= value; }
-        }
     }
 }

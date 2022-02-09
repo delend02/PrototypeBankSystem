@@ -146,30 +146,26 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnAddClient(object p)
         {
-            var notifi = new MessageBoxNotifi();
-            string text = null;
-
+            var a = new MessageBoxNotifi();
+            string text;
             if (_textFirstName == null || _textLastName == null || _textSurName == null || TextAge == null || _textPhone == null || _enumerationsPrivilege == null)
             {
-                text = "Есть незаполенные поля, заполните и попробуйте снова";
-                ShowNotifi += notifi.Error;
+                ShowNotifi += a.Error;
+                text = "Заполните все поля";
             }    
             else
             {
                 _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
                     new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
-
-                text = "Пользователь успешно добавился в базу клиентов";
-                ShowNotifi += notifi.Information;
-                
+                ShowNotifi += a.Information;
+                text = "Клиент успешно добавлен в список";
                 ShowMain();
                 ExitProgramm();
             }
-
-
             ShowNotifi?.Invoke(text);
         }
 
+        private event Action<string> ShowNotifi;
 
         private bool CanAddClient(object p) => true;
 

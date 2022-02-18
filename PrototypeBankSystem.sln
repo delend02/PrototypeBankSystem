@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Domain"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Presentation", "PrototypeBankSystem.Presentation\PrototypeBankSystem.Presentation.csproj", "{BAB137A1-D131-4370-B895-C3950A8FD1D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrototypeBankSystem.Persistence", "PrototypeBankSystem.Persistence\PrototypeBankSystem.Persistence.csproj", "{272CA3F8-98BE-473D-AADC-BB9334BFA4A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Persistence", "PrototypeBankSystem.Persistence\PrototypeBankSystem.Persistence.csproj", "{272CA3F8-98BE-473D-AADC-BB9334BFA4A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

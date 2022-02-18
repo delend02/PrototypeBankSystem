@@ -11,6 +11,7 @@ using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Persistence.DataBase;
+using PrototypeBankSystem.Presentation.Services;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -190,6 +191,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Information, 
                                 MessageBoxResult.OK);
+
+
                 ShowMain();
                 ExitProgramm();
             }

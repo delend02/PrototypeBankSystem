@@ -225,8 +225,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                                 "Успешно",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Information,
-                                MessageBoxResult.OK);
-
+                                MessageBoxResult.OK);;
             }
                 ShowMain();
                 ExitProgramm();

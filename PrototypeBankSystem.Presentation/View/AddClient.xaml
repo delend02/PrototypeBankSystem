@@ -9,7 +9,7 @@
         MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
-    
+
     <Window.DataContext>
         <local:AddClientViewModel/>
     </Window.DataContext>
@@ -38,9 +38,10 @@
 
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center">
+                    VerticalAlignment="Center"
+                    Margin="50 0">
 
-            <ComboBox    Margin="50 5"
+            <ComboBox    Margin="0 5"
                          Height="25"
                          Style="{StaticResource MaterialDesignComboBox}"
                          ItemsSource="{Binding BoxEnumerationsPrivilege}"
@@ -48,32 +49,46 @@
 
             <TextBox     materialDesign:HintAssist.Hint="Введите имя"
                          Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                         Margin="50 5"
+                         Margin="0 5"
                          Height="25"
                          Text="{Binding TextFirstName}"/>
 
             <TextBox     materialDesign:HintAssist.Hint="Введите фамилию"
                          Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                         Margin="50 5"
+                         Margin="0 5"
                          Height="25"
                          Text="{Binding TextLastName}"/>
 
             <TextBox    materialDesign:HintAssist.Hint="Введите отчество"
                         Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        Margin="50 5"
+                        Margin="0 5"
                         Height="25"
                         Text="{Binding TextSurName}"/>
             <TextBox    materialDesign:HintAssist.Hint="Введите возраст"
                         Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        Margin="50 5"
+                        Margin="0 5"
                         Height="25"
                         Text="{Binding TextAge}"/>
             <TextBox    materialDesign:HintAssist.Hint="Номер телефона"
                         Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        Margin="50 5"
+                        Margin="0 5"
                         Height="25"
                         Text="{Binding TextPhone}"/>
-
+            <StackPanel Orientation="Horizontal"  
+                        Margin="0 5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Button Content="Отправлять СМС"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
+                    Width="Auto"
+                    Height="Auto"
+                    Command="{Binding SendSMS}"/>
+                <Button Content="Не отправлять СМС"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
+                    Width="Auto"
+                    Height="Auto"
+                    Command="{Binding NotSendSMS}"/>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="1"
@@ -113,6 +128,7 @@
                            FontWeight="Normal" 
                            FontStyle="Italic"
                            FontSize="16"/>
+                
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
@@ -136,6 +152,7 @@
                            FontWeight="Normal" 
                            FontStyle="Italic"
                            FontSize="16"/>
+                
             </StackPanel>
 
         </StackPanel>
@@ -157,6 +174,5 @@
                     Margin="100 10"
                     Command="{Binding ExitMain}"/>
         </StackPanel>
-
     </Grid>
 </Window>

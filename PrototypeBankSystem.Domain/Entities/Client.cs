@@ -22,6 +22,6 @@
             Privilege = privilege;
             ClientCard = creditCard;
         }
-        
+
     }
 }

@@ -22,6 +22,7 @@ namespace PrototypeBankSystem.Presentation.View
         public AddClient()
         {
             InitializeComponent();
+            
         }
     }
 }

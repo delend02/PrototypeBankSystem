@@ -21,7 +21,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private readonly ClientRepository _clientRepository = new();
 
 
-
         public AddClientViewModel()
         {
             AddClient = new LamdaCommand(OnAddClient, CanAddClient);
@@ -160,6 +159,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 var cl = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
                     new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4)));
 
+               
                 _clientRepository.Create(cl);
 
                 MessageBox.Show($"Клиент успешно внесен в базу",
@@ -189,7 +189,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnNotSendSMS(object p)
         {
-            
             _CanCheck = false;
         }
 

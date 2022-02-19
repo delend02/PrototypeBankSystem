@@ -24,22 +24,38 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Окно управления клиентами" 
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Margin="10"
-                   Grid.ColumnSpan="2"
-                   Foreground="Black" 
-                   FontFamily="Yu Gothic UI Light"
-                   FontWeight="Normal" 
-                   FontStyle="Italic"
-                   FontSize="24"/>
+
+        <StackPanel Orientation="Horizontal"
+                    Grid.ColumnSpan="2"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Debug панель | Текущее время: " 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.ColumnSpan="2"
+                       Foreground="Black" 
+                       FontFamily="Yu Gothic UI Light"
+                       FontWeight="Normal" 
+                       FontStyle="Italic"
+                       FontSize="24"
+                       Margin="0 0 10 0"/>
+            <TextBlock Text="{Binding Path=CurrentTime, StringFormat=dd-MM-yyyy, UpdateSourceTrigger=PropertyChanged}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Grid.ColumnSpan="2"
+                       Foreground="Black" 
+                       FontFamily="Yu Gothic UI Light"
+                       FontWeight="Normal" 
+                       FontStyle="Italic"
+                       FontSize="24"/>
+        </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top">
 
-            <TextBlock Text="Список клиентов" 
+            <TextBlock Text="Присылаемые сообщения клиентам" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="10"
@@ -57,9 +73,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
-                        <GridViewColumn Header="Карта" DisplayMemberBinding="{Binding ClientCard.Number}"/>
-                        <GridViewColumn Header="Баланс" DisplayMemberBinding="{Binding ClientCard.Cash}"/>
+                        <GridViewColumn Header="Сообщение"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -70,7 +84,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top">
 
-            <TextBlock Text="Читерские настройки" 
+            <TextBlock Text="Тестовые настрйоки" 
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Margin="10"
@@ -111,12 +125,13 @@
                            FontWeight="Normal" 
                            FontStyle="Italic"
                            FontSize="18"/>
+                
+                
 
-                <TextBlock Text="{Binding TextCreditHistory, UpdateSourceTrigger=PropertyChanged}" 
-                           HorizontalAlignment="Center"
+                <CheckBox HorizontalAlignment="Center"
                            VerticalAlignment="Center"
+                           Margin="20 10 20 0"
                            Grid.ColumnSpan="2"
-                           Margin="0 10 20 0"
                            Foreground="Black" 
                            FontFamily="Yu Gothic UI Light"
                            FontWeight="Normal" 
@@ -124,7 +139,7 @@
                            FontSize="18"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Закрыть все вклады" 
+                <TextBlock Text="Закрыть все вклады:" 
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Margin="20 10 20 0"
@@ -135,31 +150,45 @@
                            FontStyle="Italic"
                            FontSize="18"/>
 
-                <TextBlock Text="{Binding SelectedClient.Privilege, UpdateSourceTrigger=PropertyChanged}" 
-                           HorizontalAlignment="Center"
+                <CheckBox HorizontalAlignment="Center"
                            VerticalAlignment="Center"
+                           Margin="20 10 20 0"
                            Grid.ColumnSpan="2"
                            Foreground="Black" 
                            FontFamily="Yu Gothic UI Light"
-                           Margin="0 10 20 0"
                            FontWeight="Normal" 
                            FontStyle="Italic"
                            FontSize="18"/>
 
             </StackPanel>
-
+            
+            <StackPanel  HorizontalAlignment="Stretch"
+                         VerticalAlignment="Bottom"
+                         Orientation="Horizontal"
+                         Margin="0 10 20 0">
+                <Button Content="Отправлять СМС"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
+                    Width="Auto"
+                    Height="Auto"
+                    Command="{Binding SendSMS}"/>
+                <Button Content="Не отправлять СМС"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
+                    Width="Auto"
+                    Height="Auto"
+                    Command="{Binding NotSendSMS}"/>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="2"
                     Grid.Row="2"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom">
-            <Button Content="Добавить клиента"
+            <Button Content="5 дней спустя..."
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
                     Width="Auto"
                     Height="Auto"
                     Margin="100 0"
-                    Command="{Binding Save}"/>
+                    Command="{Binding RewindTime}"/>
             <Button Content="Выйти в главное меню"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
                     Width="Auto"

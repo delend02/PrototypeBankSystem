@@ -100,7 +100,7 @@
                         Height="auto">
                 <Image Source="/Resources/client.jpg"
                    Height="70"/>
-                <TextBlock Text="Управление клиентами" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
+                <TextBlock Text="Debug панель" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
 

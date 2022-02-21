@@ -12,12 +12,15 @@ using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation;
+using PrototypeBankSystem.Presentation.Services;
 using PrototypeBankSystem.Presentation.View;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class ClientManagementViewModel : ViewModel, INotifyPropertyChanged
     {
+
+
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
         public ClientManagementViewModel()
@@ -68,6 +71,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private async Task OnRewindTime(object p)
         {
             CurrentTime = CurrentTime.AddDays(5);
+            MessageService.SendMessage("Берите кредит 5 процентов!");
         }
 
         private bool CanRewindTime(object p) => true;

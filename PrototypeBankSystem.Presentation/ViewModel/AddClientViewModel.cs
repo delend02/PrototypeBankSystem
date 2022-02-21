@@ -20,6 +20,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
 
+        private Client cl;
 
         public AddClientViewModel()
         {
@@ -156,9 +157,13 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             else
             {
 
-                var cl = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
+                cl = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
                     new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4)));
 
+                if (_CanCheck)
+                {
+                    MessageService.OnMessageSend += MessageService_OnMessageSend;
+                }
                
                 _clientRepository.Create(cl);
 
@@ -170,6 +175,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 ShowMain();
                 ExitProgramm();
             }
+        }
+
+        private void MessageService_OnMessageSend(string obj)
+        {
+            Debug.WriteLine($"|| [Сообщение для {cl.FirstName} {cl.LastName} На номер телефона: {cl.NumberPhone}] | {obj} ||");
         }
 
         private bool CanAddClient(object p) => true;

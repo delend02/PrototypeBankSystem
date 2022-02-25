@@ -10,8 +10,9 @@
         public string NumberPhone { get; set; }
         public string Privilege { get; set; }
         public CreditCard ClientCard { get; set; }
+        public bool DoEvent { get; set; }
 
-        public Client(string firstName, string lastName, string surName, int age, string numberPhone, string privilege, CreditCard creditCard)
+        public Client(string firstName, string lastName, string surName, int age, string numberPhone, string privilege, CreditCard creditCard, bool doEvent)
         {
             ID = Guid.NewGuid();
             FirstName = firstName;
@@ -21,6 +22,7 @@
             NumberPhone = numberPhone;
             Privilege = privilege;
             ClientCard = creditCard;
+            DoEvent = doEvent;
         }
 
     }

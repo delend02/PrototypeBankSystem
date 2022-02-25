@@ -12,6 +12,7 @@ using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation.Services;
+using System.Diagnostics;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -19,6 +20,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
     {
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
+
+        private Client cl;
+        private Credit credit;
 
         public IssuanceOfCreditViewModel()
         {
@@ -167,18 +171,27 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             else
             {
-                var dateCreate = DateTime.UtcNow;
+                var dateCreate = DateTime.Now;
                 var rate = LoanRates.Split('%');
                 
                 int index = ListViewClient.IndexOf(SelectedClient);
-            
+
+                credit = new Credit(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0]));
+
                 ListViewClient[index].ClientCard.CreditHistory.Add
-                    (new Credit(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
+                    (credit);
 
                 ListViewClient[index].ClientCard.Cash += double.Parse(TextSumCredit);
 
                 double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
                 double monthlyPayment = Math.Round(endingCredit / int.Parse(TextCreditTerm), 2);
+
+                cl = ListViewClient[index];
+
+                if (cl.DoEvent)
+                {
+                    MessageService.OnMessageSend += MessageService_OnMessageSend;
+                }
 
                 _clientRepository.Save(ListViewClient);
 
@@ -195,6 +208,17 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 ShowMain();
                 ExitProgramm();
+            }
+        }
+
+        private void MessageService_OnMessageSend(string obj)
+        {
+            ClientManagementViewModel clientManagement = new();
+            var index = cl.ClientCard.CreditHistory.IndexOf(credit);
+            var dateStop = cl.ClientCard.CreditHistory[index].CreditStop;
+            if ((dateStop - clientManagement.CurrentTime).TotalDays < 6)
+            {
+                Debug.WriteLine($"[Кому: {cl.FirstName} | {cl.NumberPhone}]: Уважаемый клиент, до выплаты кредиита вам осталось менее 6 дней");
             }
         }
 

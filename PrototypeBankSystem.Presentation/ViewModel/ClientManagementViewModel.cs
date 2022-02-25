@@ -45,7 +45,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             get => _currentTime;
             
-            set => Set(ref _currentTime, value);
+            private set => Set(ref _currentTime, value);
         }
 
 
@@ -71,7 +71,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private async Task OnRewindTime(object p)
         {
             CurrentTime = CurrentTime.AddDays(5);
-            MessageService.SendMessage("Берите кредит 5 процентов!");
+            MessageService.SendMessage("");
         }
 
         private bool CanRewindTime(object p) => true;

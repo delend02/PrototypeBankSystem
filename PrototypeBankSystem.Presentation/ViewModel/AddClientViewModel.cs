@@ -10,8 +10,6 @@ using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using System.Collections.Generic;
 using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Presentation.Services;
-using System.Diagnostics;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -158,12 +156,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             {
 
                 cl = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
-                    new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4)));
-
-                if (_CanCheck)
-                {
-                    MessageService.OnMessageSend += MessageService_OnMessageSend;
-                }
+                    new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4)), _CanCheck);
                
                 _clientRepository.Create(cl);
 
@@ -175,11 +168,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 ShowMain();
                 ExitProgramm();
             }
-        }
-
-        private void MessageService_OnMessageSend(string obj)
-        {
-            Debug.WriteLine($"|| [Сообщение для {cl.FirstName} {cl.LastName} На номер телефона: {cl.NumberPhone}] | {obj} ||");
         }
 
         private bool CanAddClient(object p) => true;

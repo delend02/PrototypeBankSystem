@@ -10,8 +10,4 @@
     <ProjectReference Include="..\PrototypeBankSystem.Domain\PrototypeBankSystem.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
 </Project>

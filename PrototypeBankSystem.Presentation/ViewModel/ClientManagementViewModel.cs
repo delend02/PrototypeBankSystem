@@ -29,9 +29,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             RewindTime = new LamdaCommand(OnRewindTime, CanRewindTime);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
-            SendSMS = new LamdaCommand(OnSendSMS, CanSendSMS);
-            NotSendSMS = new LamdaCommand(OnNotSendSMS, CanNotSendSMS);
-
         }
 
         static ClientManagementViewModel()
@@ -71,7 +68,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private async Task OnRewindTime(object p)
         {
             CurrentTime = CurrentTime.AddDays(5);
-            MessageService.SendMessage("");
+            MessageService.SendMessage();
         }
 
         private bool CanRewindTime(object p) => true;
@@ -85,26 +82,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         }
 
         private bool CanExitMain(object p) => true;
-
-        public ICommand SendSMS { get; }
-
-        private bool _CanCheck = false;
-
-        private async Task OnSendSMS(object p)
-        {
-            _CanCheck = true;
-        }
-
-        private bool CanSendSMS(object p) => !_CanCheck;
-
-        public ICommand NotSendSMS { get; }
-
-        private async Task OnNotSendSMS(object p)
-        {
-            _CanCheck = false;
-        }
-
-        private bool CanNotSendSMS(object p) => _CanCheck;
         #endregion
 
         private void ExitProgramm()

@@ -5,11 +5,11 @@ namespace PrototypeBankSystem.Presentation.Services
 {
     static internal class MessageService 
     {
-        static internal event Action<string> OnMessageSend;
+        static internal event Action OnMessageSend;
         
-        static internal void SendMessage(string text)
+        static internal void SendMessage()
         {
-            OnMessageSend?.Invoke(text);
+            OnMessageSend?.Invoke();
         }
     }
 }

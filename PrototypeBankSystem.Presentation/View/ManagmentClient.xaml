@@ -162,21 +162,6 @@
 
             </StackPanel>
             
-            <StackPanel  HorizontalAlignment="Stretch"
-                         VerticalAlignment="Bottom"
-                         Orientation="Horizontal"
-                         Margin="0 10 20 0">
-                <Button Content="Отправлять СМС"
-                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
-                    Width="Auto"
-                    Height="Auto"
-                    Command="{Binding SendSMS}"/>
-                <Button Content="Не отправлять СМС"
-                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
-                    Width="Auto"
-                    Height="Auto"
-                    Command="{Binding NotSendSMS}"/>
-            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="2"

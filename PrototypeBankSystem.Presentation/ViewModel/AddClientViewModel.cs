@@ -18,14 +18,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
 
-        private Client cl;
-
         public AddClientViewModel()
         {
             AddClient = new LamdaCommand(OnAddClient, CanAddClient);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
-            SendSMS = new LamdaCommand(OnSendSMS, CanSendSMS);
-            NotSendSMS = new LamdaCommand(OnNotSendSMS, CanNotSendSMS);
         }
         
         #region TextBlock
@@ -153,12 +149,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             if (_textFirstName == null || _textLastName == null || _textSurName == null || TextAge == null || _textPhone == null || _enumerationsPrivilege == null)
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             else
-            {
-
-                cl = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
-                    new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4)), _CanCheck);
-               
-                _clientRepository.Create(cl);
+            { 
+                _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
+                    new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
 
                 MessageBox.Show($"Клиент успешно внесен в базу",
                                 "Успешно",
@@ -171,26 +164,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         }
 
         private bool CanAddClient(object p) => true;
-
-        public ICommand SendSMS { get; }
-
-        private bool _CanCheck = false;
-
-        private async Task OnSendSMS(object p)
-        {
-            _CanCheck = true;
-        }
-
-        private bool CanSendSMS(object p) => !_CanCheck;
-
-        public ICommand NotSendSMS { get; }
-
-        private async Task OnNotSendSMS(object p)
-        {
-            _CanCheck = false;
-        }
-
-        private bool CanNotSendSMS(object p) => _CanCheck;
 
         public ICommand ExitMain { get; }
 

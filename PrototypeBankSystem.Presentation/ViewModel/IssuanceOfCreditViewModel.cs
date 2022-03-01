@@ -188,11 +188,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 cl = ListViewClient[index];
 
-                if (cl.DoEvent)
-                {
-                    MessageService.OnMessageSend += MessageService_OnMessageSend;
-                }
-
+                MessageService.OnMessageSend += MessageService_OnMessageSend;
+                
                 _clientRepository.Save(ListViewClient);
 
                 MessageBox.Show($"Клиенту был одобрен и выдан кредит!\nСумма: {_textSumCredit} рублей" +
@@ -211,7 +208,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             }
         }
 
-        private void MessageService_OnMessageSend(string obj)
+        private void MessageService_OnMessageSend()
         {
             ClientManagementViewModel clientManagement = new();
             var index = cl.ClientCard.CreditHistory.IndexOf(credit);
@@ -247,8 +244,5 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             MainWindow mainWindow = new();
             mainWindow.Show();
         }
-
-
-        
     }
 }

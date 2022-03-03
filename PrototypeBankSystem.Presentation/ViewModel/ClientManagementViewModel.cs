@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Timers;
-using System.Windows;
 using System.Windows.Input;
-using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Presentation.Services;
 using PrototypeBankSystem.Presentation.View;
 

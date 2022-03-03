@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
-using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Domain.Entities;
-using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
@@ -20,7 +18,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
 
-        private readonly MainWindow _mainWindow;
+        private readonly MainWindow _mainWindow = new();
 
         public OpeningADepositViewModel()
         {

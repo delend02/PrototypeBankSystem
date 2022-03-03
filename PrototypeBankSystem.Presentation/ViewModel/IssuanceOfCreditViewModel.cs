@@ -7,8 +7,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using PrototypeBankSystem.Domain.Entities;
-using PrototypeBankSystem.Presentation;
-using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation.Services;
@@ -25,7 +23,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private Client cl;
         private Credit credit;
 
-        private readonly MainWindow _mainWindow;
+        private readonly MainWindow _mainWindow = new();
 
         public IssuanceOfCreditViewModel()
         {

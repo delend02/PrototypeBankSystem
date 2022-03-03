@@ -6,9 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using PrototypeBankSystem.Domain.Entities;
-using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
-using System.Collections.Generic;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
 

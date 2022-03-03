@@ -10,13 +10,17 @@ using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using System.Collections.Generic;
 using PrototypeBankSystem.Persistence.DataBase;
+using PrototypeBankSystem.Application.HelpersMethodsSession;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddClientViewModel : ViewModel, INotifyPropertyChanged
     {
+
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
+
+        private readonly MainWindow _mainWindow = new();
 
         public AddClientViewModel()
         {
@@ -71,7 +75,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public string TextFirstName
         {
-            get => _textFirstName ?? "";
+            get => _textFirstName;
             set => Set(ref _textFirstName, value);
         }
 
@@ -79,7 +83,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public string TextLastName
         {
-            get => _textLastName ?? "";
+            get => _textLastName;
             set => Set(ref _textLastName, value);
         }
 
@@ -87,11 +91,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public string TextSurName
         {
-            get => _textSurName ?? "";
+            get => _textSurName;
             set => Set(ref _textSurName, value);
         }
 
-        private string _textAge;
+        private string? _textAge;
 
         public string TextAge
         {
@@ -119,7 +123,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private string? _textPhone;
         public string TextPhone
         {
-            get => _textPhone ?? "";
+            get => _textPhone;
             set => Set(ref _textPhone, value);
         }
 
@@ -146,47 +150,45 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnAddClient(object p)
         {
-            if (_textFirstName == null || _textLastName == null || _textSurName == null || TextAge == null || _textPhone == null || _enumerationsPrivilege == null)
-                MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            else
-            { 
-                _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
-                    new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
+            try
+            {
+                if (_textFirstName == null || _textLastName == null || _textSurName == null || TextAge == null || _textPhone == null || _enumerationsPrivilege == null)
+                    throw new ArgumentNullException();
+                    //MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                else
+                {
+                    _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
+                        new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
 
-                MessageBox.Show($"Клиент успешно внесен в базу",
-                                "Успешно",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information,
-                                MessageBoxResult.OK);
-                ShowMain();
-                ExitProgramm();
+                    MessageBox.Show($"Клиент успешно внесен в базу",
+                                    "Успешно",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information,
+                                    MessageBoxResult.OK);
+                    _mainWindow.TransitionWithClosureToMain();
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("Есть незаполненные поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Инная ошибка. {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
         }
 
-        private bool CanAddClient(object p) => true;
+    private bool CanAddClient(object p) => true;
 
         public ICommand ExitMain { get; }
 
         private async Task OnExitMain(object p)
         {
-            ShowMain();
-            ExitProgramm();
+            _mainWindow.TransitionWithClosureToMain();
         }
 
         private bool CanExitMain(object p) => true;
         #endregion
-
-        private static void ExitProgramm()
-        {
-            var window = System.Windows.Application.Current.Windows[0];
-            if (window != null)
-                window.Close();
-        }
-
-        private static void ShowMain()
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-        }
     }
 }

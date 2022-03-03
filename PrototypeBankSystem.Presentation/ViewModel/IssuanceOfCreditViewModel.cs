@@ -13,6 +13,7 @@ using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation.Services;
 using System.Diagnostics;
+using PrototypeBankSystem.Application.HelpersMethodsSession;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -23,6 +24,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private Client cl;
         private Credit credit;
+
+        private readonly MainWindow _mainWindow;
 
         public IssuanceOfCreditViewModel()
         {
@@ -202,9 +205,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                                 MessageBoxImage.Information, 
                                 MessageBoxResult.OK);
 
+                _mainWindow.TransitionWithClosureToMain();
 
-                ShowMain();
-                ExitProgramm();
             }
         }
 
@@ -225,24 +227,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnExitMain(object p)
         {
-            ShowMain();
-            ExitProgramm();
+            _mainWindow.TransitionWithClosureToMain();
         }
 
         private bool CanExitMain(object p) => true;
         #endregion
 
-        private static void ExitProgramm()
-        {
-            var window = System.Windows.Application.Current.Windows[0];
-            if (window != null)
-                window.Close();
-        }
-
-        private static void ShowMain()
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-        }
     }
 }

@@ -9,6 +9,7 @@ using PrototypeBankSystem.Presentation;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Persistence.DataBase;
+using PrototypeBankSystem.Application.HelpersMethodsSession;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -16,6 +17,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
     {
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
+
+        private readonly MainWindow _mainWindow;
 
         public MoneyTransferViewModel()
         {
@@ -106,8 +109,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                                 MessageBoxImage.Information,
                                 MessageBoxResult.OK);
 
-                ShowMain();
-                ExitProgramm();
+                _mainWindow.TransitionWithClosureToMain();
             }
 
         }
@@ -120,25 +122,12 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnExitMain(object p)
         {
-            ShowMain();
-            ExitProgramm();
+            _mainWindow.TransitionWithClosureToMain();
         }
 
         private bool CanExitMain(object p) => true;
         #endregion
 
-        private static void ExitProgramm()
-        {
-            var window = System.Windows.Application.Current.Windows[0];
-            if (window != null)
-                window.Close();
-        }
-
-        private static void ShowMain()
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-        }
 
     }
 }

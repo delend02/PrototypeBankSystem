@@ -43,8 +43,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnListClient(object p)
         {
-            
-            
             ManagmentClient managment = new();
             managment.Show();
             ExitProgramm();

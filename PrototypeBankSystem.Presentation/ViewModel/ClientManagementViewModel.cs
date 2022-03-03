@@ -9,6 +9,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using PrototypeBankSystem.Application.DateBase;
+using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation;
@@ -23,6 +24,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         //private readonly IRepository<Client> _clientRepository;
         private readonly ClientRepository _clientRepository = new();
+
+        private readonly MainWindow _mainWindow = new();
+
         public ClientManagementViewModel()
         {
             _clientRepository.GetAll();
@@ -77,25 +81,12 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async Task OnExitMain(object p)
         {
-            ShowMain();
-            ExitProgramm();
+            _mainWindow.TransitionWithClosureToMain();
         }
 
         private bool CanExitMain(object p) => true;
         #endregion
 
-        private void ExitProgramm()
-        {
-            var window = System.Windows.Application.Current.Windows[0];
-            if (window != null)
-                window.Close();
-        }
-
-        private void ShowMain()
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-        }
 
     }
 }

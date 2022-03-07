@@ -6,13 +6,13 @@ namespace PrototypeBankSystem.Presentation.ViewModel
     internal class LamdaCommand : Command
     {
 
-        private readonly Func<object, Task> _Execute;
+        private readonly Action<object> _Execute;
 
         private readonly Func<object, bool> _CanExecute;
 
 
 
-        public LamdaCommand(Func<object, Task> Execute, Func<object, bool>? CanExecute = null) {
+        public LamdaCommand(Action<object> Execute, Func<object, bool>? CanExecute = null) {
 
             _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
 

@@ -179,7 +179,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand OpenDeposit { get; }
 
-        private async Task OnOpenDeposit(object p)
+        private void OnOpenDeposit(object p)
         {
             if (_textSumDeposit == null || _DepositTerm == null || SelectedClient == null)
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
@@ -237,7 +237,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand ExitMain { get; }
 
-        private async Task OnExitMain(object p)
+        private void OnExitMain(object p)
         {
             _mainWindow.TransitionWithClosureToMain();
         }

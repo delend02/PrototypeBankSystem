@@ -84,7 +84,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AcceptTransfer { get; }
 
-        private async Task OnAcceptTransfer(object p)
+        private void OnAcceptTransfer(object p)
         {
             if (_selectedClientFrom == null || _selectedClientTo == null || _sumOfTransfer == null)
                 MessageBox.Show("Есть незаполненные/не выбранные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
@@ -118,7 +118,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand ExitMain { get; }
 
-        private async Task OnExitMain(object p)
+        private void OnExitMain(object p)
         {
             _mainWindow.TransitionWithClosureToMain();
         }

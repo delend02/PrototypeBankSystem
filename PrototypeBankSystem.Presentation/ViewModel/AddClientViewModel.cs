@@ -146,7 +146,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AddClient { get; }
 
-        private async Task OnAddClient(object p)
+        private void OnAddClient(object p)
         {
             try
             {
@@ -181,7 +181,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand ExitMain { get; }
 
-        private async Task OnExitMain(object p)
+        private void OnExitMain(object p)
         {
             _mainWindow.TransitionWithClosureToMain();
         }

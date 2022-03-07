@@ -18,7 +18,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         }
         public ICommand ListClient { get; }
 
-        private async Task OnListClient(object p)
+        private void OnListClient(object p)
         {
             ManagmentClient managment = new();
             managment.Show();
@@ -29,7 +29,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand AddClientButton { get; }
         
-        private async Task OnAddClient(object p)
+        private void OnAddClient(object p)
         {
             
             AddClient addClient = new();
@@ -41,7 +41,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand TransferMoneyButton { get; }
 
-        private async Task OnTransferMoney(object p)
+        private void OnTransferMoney(object p)
         {
             MoneyTransfer moneyTransfer = new();
             moneyTransfer.Show();
@@ -52,7 +52,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand InvestmentButton { get; }
 
-        private async Task OnInvestment(object p)
+        private void OnInvestment(object p)
         {
             OpeningADeposit openingADeposit = new();
             openingADeposit.Show();
@@ -63,7 +63,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand GiveCreditButton { get; }
 
-        private async Task OnGiveCredit(object p)
+        private void OnGiveCredit(object p)
         {
             IssuanceOfCredit issuanceOfCredit = new();
             issuanceOfCredit.Show();
@@ -72,7 +72,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private bool CanGiveCredit(object p) => true;
 
-        private void ExitProgramm()
+        private static void ExitProgramm()
         {
             var window = System.Windows.Application.Current.Windows[0];
             if (window != null)

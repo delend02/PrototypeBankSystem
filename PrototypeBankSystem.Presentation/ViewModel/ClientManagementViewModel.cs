@@ -62,7 +62,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand RewindTime { get; }
 
-        private async Task OnRewindTime(object p)
+        private void OnRewindTime(object p)
         {
             CurrentTime = CurrentTime.AddDays(5);
             MessageService.SendMessage();
@@ -72,7 +72,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand ExitMain { get; }
 
-        private async Task OnExitMain(object p)
+        private void OnExitMain(object p)
         {
             _mainWindow.TransitionWithClosureToMain();
         }

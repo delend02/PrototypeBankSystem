@@ -166,7 +166,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand TakeCredit { get; }
 
-        private async Task OnTakeCredit(object p)
+        private void OnTakeCredit(object p)
         {
             if (_textSumCredit == null || _creditTerm == null || SelectedClient == null)
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
@@ -223,7 +223,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ICommand ExitMain { get; }
 
-        private async Task OnExitMain(object p)
+        private void OnExitMain(object p)
         {
             _mainWindow.TransitionWithClosureToMain();
         }

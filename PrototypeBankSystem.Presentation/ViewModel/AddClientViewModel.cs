@@ -177,7 +177,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             }
         }
 
-    private bool CanAddClient(object p) => true;
+        private bool CanAddClient(object p) => true;
 
         public ICommand ExitMain { get; }
 

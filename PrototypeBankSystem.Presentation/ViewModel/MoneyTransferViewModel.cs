@@ -112,8 +112,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         }
 
-
-
         private bool CanAcceptTransfer(object p) => true;
 
         public ICommand ExitMain { get; }

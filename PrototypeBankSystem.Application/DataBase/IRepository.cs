@@ -4,9 +4,9 @@
         where T : class
     {
         IEnumerable<T> GetAll();
-        void Create(T entity);
-        void Update(T entity, T entityOld);
-        void Delete(T entity);
-        void Save(IEnumerable<T> ts); 
+        Task Create(T entity);
+        Task Update(T entity, T entityOld);
+        Task Delete(T entity);
+        Task Save(IEnumerable<T> ts); 
     }
 }

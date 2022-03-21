@@ -15,8 +15,6 @@
         {
             Number = number;
             CarrierName = carrierName;
-            //DateCreate = DateTime.Now;
-            //ExpirationDate = DateTime.Now.AddYears(4);
             DateCreate = dateCreate;
             ExpirationDate = expirationDate;
         }

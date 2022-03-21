@@ -2,7 +2,6 @@
 {
     public class Client
     {
-        public Guid ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string SurName { get; set; }
@@ -13,7 +12,6 @@
 
         public Client(string firstName, string lastName, string surName, int age, string numberPhone, string privilege, CreditCard creditCard)
         {
-            ID = Guid.NewGuid();
             FirstName = firstName;
             LastName = lastName;
             SurName = surName;

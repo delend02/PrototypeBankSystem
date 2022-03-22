@@ -22,7 +22,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public OpeningADepositViewModel()
         {
-            ListViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            //ListViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             OpenDeposit = new LamdaCommand(OnOpenDeposit, CanOpenDeposit);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }

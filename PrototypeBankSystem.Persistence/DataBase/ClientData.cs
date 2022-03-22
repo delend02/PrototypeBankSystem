@@ -8,7 +8,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
     {
         private const string ConnectionString = @"Server=.\SQLExpress;Database=PrototypeBankSystemDB;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=root;pwd=root";
 
-        public async Task<IEnumerable<T>> LoadData<T, U>(string sql, U parameters, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<T>> LoadData<T>(string sql, object parameters, CancellationToken cancellationToken = default)
         {
             using IDbConnection connection = new SqlConnection(ConnectionString);
 

@@ -27,7 +27,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public IssuanceOfCreditViewModel()
         {
-            _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             TakeCredit = new LamdaCommand(OnTakeCredit, CanTakeCredit);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }

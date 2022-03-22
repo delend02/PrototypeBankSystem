@@ -25,7 +25,19 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             AddClient = new LamdaCommand(OnAddClient, CanAddClient);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
-        
+
+        #region CheckBox
+
+        private bool _generateCard;
+
+        public bool GenerateCard
+        { 
+            get => _generateCard;
+            set => Set(ref _generateCard, value); 
+        }
+
+        #endregion
+
         #region TextBlock
         private string? _textNumberCard;
 
@@ -146,17 +158,21 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AddClient { get; }
 
-        private void OnAddClient(object p)
+        private async void OnAddClient(object p)
         {
             try
             {
                 if (_textFirstName == null || _textLastName == null || _textSurName == null || TextAge == null || _textPhone == null || _enumerationsPrivilege == null)
                     throw new ArgumentNullException();
-                    //MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
                 else
                 {
-                    _clientRepository.Create(new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege,
-                        new CreditCard(_textNumberCard, $"{_textLastName} {_textFirstName}", DateTime.UtcNow, DateTime.UtcNow.AddYears(4))));
+                    var client = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege);
+                     _ = _clientRepository.CreateClient(client);
+
+                    if (_generateCard)
+                    {
+                        _ = _clientRepository.CreateCard(new CreditCard(client.ID, _textNumberCard, $"{_textLastName} {_textFirstName}"));
+                    }
 
                     MessageBox.Show($"Клиент успешно внесен в базу",
                                     "Успешно",
@@ -169,7 +185,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             catch (ArgumentNullException)
             {
                 MessageBox.Show("Есть незаполненные поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-
             }
             catch (Exception ex)
             {
@@ -177,7 +192,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             }
         }
 
-    private bool CanAddClient(object p) => true;
+        private bool CanAddClient(object p) => true;
 
         public ICommand ExitMain { get; }
 

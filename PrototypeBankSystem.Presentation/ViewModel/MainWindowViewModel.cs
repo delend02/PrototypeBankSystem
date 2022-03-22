@@ -15,6 +15,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             InvestmentButton = new LamdaCommand(OnInvestment, CanInvestment);
             GiveCreditButton = new LamdaCommand(OnGiveCredit, CanGiveCredit);
             ListClient = new LamdaCommand(OnListClient, CanListClient);
+            AddCardClient = new LamdaCommand(OnAddCardClient, CanAddCardClient);
         }
         public ICommand ListClient { get; }
 
@@ -71,6 +72,17 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         }
 
         private bool CanGiveCredit(object p) => true;
+
+        public ICommand AddCardClient { get; }
+
+        private void OnAddCardClient(object p)
+        {
+            AddClientCard addClientCard = new();
+            addClientCard.Show();
+            ExitProgramm();
+        }
+
+        private bool CanAddCardClient(object p) => true;
 
         private static void ExitProgramm()
         {

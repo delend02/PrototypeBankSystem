@@ -4,25 +4,20 @@ using System.Collections.ObjectModel;
 
 namespace PrototypeBankSystem.Persistence.DataBase
 {
-    public class ClientRepository : IRepository<Client>
+    public class ClientRepository 
+            : IRepository<Client>
     {
         private static ObservableCollection<Client> _client = new();
 
         private ClientData _clientData = new();
 
-        public async Task Create(Client entity)
-        {
-            await _clientData.SaveData(@"INSERT INTO[dbo].[ClientCard]
-           ([NUMBER]
-           ,[DATE_CREATE]
-           ,[ExpirationDate]
-           ,[Cash])
-     VALUES (
-           @Number,
-           GETDATE(),
-           GETDATE(),
-           @Cash)", new { entity.ClientCard.Number, entity.ClientCard.ExpirationDate, entity.ClientCard.Cash});
 
+
+
+
+
+        public async Task CreateClient(Client entity)
+        {
             await _clientData.SaveData(@"INSERT INTO [dbo].[Client]
            ([ID]
            ,[FIRST_NAME]
@@ -44,13 +39,54 @@ namespace PrototypeBankSystem.Persistence.DataBase
                                 entity.NumberPhone, entity.Privilege, entity.ClientCard.Number});
         }
 
+        public async Task CreateCard(CreditCard entity)
+        {
+     //       await _clientData.SaveData(@"INSERT INTO[dbo].[ClientCard]
+     //      ([NUMBER]
+     //      ,[DATE_CREATE]
+     //      ,[ExpirationDate]
+     //      ,[Cash])
+     //VALUES (
+     //      @Number,
+     //      GETDATE(),
+     //      DATEADD(year,4,GETDATE()),
+     //      @Cash)", new { entity.ClientCard.Number, entity.ClientCard.ExpirationDate, entity.ClientCard.Cash });
+        }
+
+        public async Task CreateCredit(Credit entity)
+        {
+            
+        }
+
+        public async Task CreateDeposit(Deposit entity)
+        {
+            
+        }
+
+
+
+
+
+
+
+
         public async Task Delete(Client entity)
         {
             _client.Remove(entity);
         }
 
-        public  IEnumerable<Client> GetAll()
+        public async Task<IEnumerable<Client>> GetAll()
         {
+            await _clientData.LoadData<Client>(
+                @"SELECT [ID] as id
+                  ,[FIRST_NAME] as FirstName
+                  ,[LAST_NAME]  as LastName
+                  ,[SUR_NAME] as SurName
+                  ,[AGE] as Age
+                  ,[NUMBER_PHONE] as NumberPhone
+                  ,[PRIVILAGE] as Privilege
+                  ,[CLIENT_CARD_NUMBER] as Number
+                FROM [dbo].[Client]", null);
             return _client;
         }
 

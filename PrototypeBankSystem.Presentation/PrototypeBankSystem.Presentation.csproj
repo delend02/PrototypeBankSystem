@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\AddCard.png" />
     <None Remove="Resources\AddClient.png" />
     <None Remove="Resources\client.jpg" />
     <None Remove="Resources\Credit.jpg" />
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\AddCard.png" />
     <Resource Include="Resources\AddClient.png" />
     <Resource Include="Resources\client.jpg" />
     <Resource Include="Resources\Credit.jpg" />

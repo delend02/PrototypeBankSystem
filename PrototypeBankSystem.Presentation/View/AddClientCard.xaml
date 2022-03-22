@@ -38,7 +38,7 @@
         
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Margin="50 0">
 
             <TextBlock Text="Выберите клиента" 
@@ -61,7 +61,7 @@
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
                         <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
                         <GridViewColumn Header="Возраст" DisplayMemberBinding="{Binding Age}"/>
-                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding NumberPhone}"/>
+                        <GridViewColumn Header="Телефон" DisplayMemberBinding="{Binding NumberPhone}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

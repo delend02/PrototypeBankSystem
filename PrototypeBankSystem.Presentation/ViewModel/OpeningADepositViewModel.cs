@@ -54,34 +54,34 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             get
             {
-                if (_selectedClient != null)
-                {
-                    List<bool> creditStory = new();
-                    if (_selectedClient.ClientCard.CreditHistory != null)
-                        foreach (var item in _selectedClient.ClientCard.CreditHistory)
-                            creditStory.Add(item.RepaidLoan);
+                //if (_selectedClient != null)
+                //{
+                //    List<bool> creditStory = new();
+                //    if (_selectedClient.ClientCard.CreditHistory != null)
+                //        foreach (var item in _selectedClient.ClientCard.CreditHistory)
+                //            creditStory.Add(item.RepaidLoan);
 
-                    int goodStory = creditStory.Count(x => x == true);
-                    int badStory = creditStory.Count(x => x == false);
+                //    int goodStory = creditStory.Count(x => x == true);
+                //    int badStory = creditStory.Count(x => x == false);
 
-                    string story = "Нулевая";
-                    float percentStory = 1.5f;
+                //    string story = "Нулевая";
+                //    float percentStory = 1.5f;
 
-                    if (goodStory > badStory) { story = "Хорошая"; percentStory = 3; }
-                    else if (goodStory == 0 && badStory == 0) { story = "Нулевая"; percentStory = 1.5f; }
-                    else if (goodStory < badStory) { story = "Плохая"; percentStory = 1; }
+                //    if (goodStory > badStory) { story = "Хорошая"; percentStory = 3; }
+                //    else if (goodStory == 0 && badStory == 0) { story = "Нулевая"; percentStory = 1.5f; }
+                //    else if (goodStory < badStory) { story = "Плохая"; percentStory = 1; }
 
-                    TextCreditHistory = story;
+                //    TextCreditHistory = story;
 
-                    float percent = default;
-                    if (_selectedClient.Privilege == "V.I.P")
-                        percent = 3 + percentStory * 1.5f;
-                    else if (_selectedClient.Privilege == "Юридическое лицо")
-                        percent = 2 + percentStory * 1.5f;
-                    else if (_selectedClient.Privilege == "Физическое лицо")
-                        percent = 1 + percentStory * 1.5f;
-                    TextDepositRates = $"{percent}%";
-                }
+                //    float percent = default;
+                //    if (_selectedClient.Privilege == "V.I.P")
+                //        percent = 3 + percentStory * 1.5f;
+                //    else if (_selectedClient.Privilege == "Юридическое лицо")
+                //        percent = 2 + percentStory * 1.5f;
+                //    else if (_selectedClient.Privilege == "Физическое лицо")
+                //        percent = 1 + percentStory * 1.5f;
+                //    TextDepositRates = $"{percent}%";
+                //}
                 return _selectedClient;
             }
             set => Set(ref _selectedClient, value);
@@ -181,55 +181,55 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private void OnOpenDeposit(object p)
         {
-            if (_textSumDeposit == null || _DepositTerm == null || SelectedClient == null)
-                MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            else if (SelectedClient.ClientCard.Cash < int.Parse(_textSumDeposit))
-                MessageBox.Show("Недостаточно средств для открытия вклада", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            else
-            {
-                var dateCreate = DateTime.UtcNow;
-                var rate = TextDepositRates.Split('%');
+            //if (_textSumDeposit == null || _DepositTerm == null || SelectedClient == null)
+            //    MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            //else if (SelectedClient.ClientCard.Cash < int.Parse(_textSumDeposit))
+            //    MessageBox.Show("Недостаточно средств для открытия вклада", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            //else
+            //{
+            //    var dateCreate = DateTime.UtcNow;
+            //    var rate = TextDepositRates.Split('%');
 
-                int index = ListViewClient.IndexOf(SelectedClient);
+            //    int index = ListViewClient.IndexOf(SelectedClient);
 
-                ListViewClient[index].ClientCard.CreditHistory.Add
-                    (new Credit(int.Parse(_textSumDeposit), dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0])));
-                double finalPayment;
-                if (_checkCapitalization)
-                {
-                    var sumOfDeposit = double.Parse(_textSumDeposit);
-                    for (int i = 0; i < int.Parse(_DepositTerm); i++)
-                    {
-                        double nextMounthPay = sumOfDeposit * (double.Parse(rate[0]) / 100) / int.Parse(_DepositTerm);
-                        sumOfDeposit += nextMounthPay;
-                    }
-                    finalPayment = sumOfDeposit - double.Parse(_textSumDeposit);
-                }
-                else
-                    finalPayment = double.Parse(_textSumDeposit) * (double.Parse(rate[0]) / 100);
+            //    ListViewClient[index].ClientCard.CreditHistory.Add
+            //        (new Credit(int.Parse(_textSumDeposit), dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0])));
+            //    double finalPayment;
+            //    if (_checkCapitalization)
+            //    {
+            //        var sumOfDeposit = double.Parse(_textSumDeposit);
+            //        for (int i = 0; i < int.Parse(_DepositTerm); i++)
+            //        {
+            //            double nextMounthPay = sumOfDeposit * (double.Parse(rate[0]) / 100) / int.Parse(_DepositTerm);
+            //            sumOfDeposit += nextMounthPay;
+            //        }
+            //        finalPayment = sumOfDeposit - double.Parse(_textSumDeposit);
+            //    }
+            //    else
+            //        finalPayment = double.Parse(_textSumDeposit) * (double.Parse(rate[0]) / 100);
 
-                finalPayment = Math.Round(finalPayment, 2);
+            //    finalPayment = Math.Round(finalPayment, 2);
 
-                ListViewClient[index].ClientCard.Cash += finalPayment;
+            //    ListViewClient[index].ClientCard.Cash += finalPayment;
 
-                _clientRepository.Save(ListViewClient);
+            //    _clientRepository.Save(ListViewClient);
 
 
-                var capitalization = _checkCapitalization ? "есть" : "нет";
+            //    var capitalization = _checkCapitalization ? "есть" : "нет";
 
-                MessageBox.Show($"Клиенту был одобрен и открыт вклад!" +
-                    $"\nСумма: {_textSumDeposit} рублей" +
-                    $"\nCтавка: {_textDepositRates}" +
-                    $"\nНа срок: {_DepositTerm} месяца" +
-                    $"\nКапитализация: {capitalization}" +
-                    $"\nКлиенту будет в плюсе на: {finalPayment} рублей",
-                                "Успешно",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information,
-                                MessageBoxResult.OK);;
+                //MessageBox.Show($"Клиенту был одобрен и открыт вклад!" +
+                //    $"\nСумма: {_textSumDeposit} рублей" +
+                //    $"\nCтавка: {_textDepositRates}" +
+                //    $"\nНа срок: {_DepositTerm} месяца" +
+                //    $"\nКапитализация: {capitalization}" +
+                //    $"\nКлиенту будет в плюсе на: {finalPayment} рублей",
+                //                "Успешно",
+                //                MessageBoxButton.OK,
+                //                MessageBoxImage.Information,
+                //                MessageBoxResult.OK);;
                 
                 _mainWindow.TransitionWithClosureToMain();
-            }
+            //}
 
         }
 

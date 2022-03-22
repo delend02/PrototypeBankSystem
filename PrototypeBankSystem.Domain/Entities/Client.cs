@@ -9,7 +9,6 @@
         public int Age { get; set; }
         public string NumberPhone { get; set; }
         public string Privilege { get; set; }
-        public CreditCard ClientCard { get; set; }
 
         public Client( string firstName, string lastName, string surName, int age, string numberPhone, string privilege)
         {

@@ -1,3 +1,6 @@
+using PrototypeBankSystem.Domain.Entities;
+using PrototypeBankSystem.Persistence.DataBase;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -23,7 +23,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         public ClientManagementViewModel()
         {
             _clientRepository.GetAll();
-            _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             RewindTime = new LamdaCommand(OnRewindTime, CanRewindTime);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }

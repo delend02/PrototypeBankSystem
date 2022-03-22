@@ -11,7 +11,7 @@
         public string Privilege { get; set; }
         public CreditCard ClientCard { get; set; }
 
-        public Client(string firstName, string lastName, string surName, int age, string numberPhone, string privilege, CreditCard creditCard)
+        public Client( string firstName, string lastName, string surName, int age, string numberPhone, string privilege)
         {
             ID = Guid.NewGuid();
             FirstName = firstName;
@@ -20,7 +20,6 @@
             Age = age;
             NumberPhone = numberPhone;
             Privilege = privilege;
-            ClientCard = creditCard;
         }
     }
 }

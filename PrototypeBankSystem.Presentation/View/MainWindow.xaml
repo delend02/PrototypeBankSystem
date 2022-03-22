@@ -104,5 +104,21 @@
             </StackPanel>
         </Button>
 
+        <Button Background="White"
+                Margin="30" 
+                BorderBrush="White"
+                Width="auto"
+                Height="auto"
+                Grid.Column="2"
+                Grid.Row="1"
+                Command="{Binding AddCardClient}">
+            <StackPanel Width="auto"
+                        Height="auto">
+                <Image Source="/Resources/AddCard.png"
+                   Height="70"/>
+                <TextBlock Text="Добавить карту" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
+            </StackPanel>
+        </Button>
+
     </Grid>
 </Window>

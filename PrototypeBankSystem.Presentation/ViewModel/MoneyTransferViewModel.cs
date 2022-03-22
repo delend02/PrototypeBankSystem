@@ -20,7 +20,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public MoneyTransferViewModel()
         {
-            _listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             AcceptTransfer = new LamdaCommand(OnAcceptTransfer, CanAcceptTransfer);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }

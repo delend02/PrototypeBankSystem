@@ -1,31 +1,20 @@
-﻿<Window x:Class="PrototypeBankSystem.Presentation.View.AddClient"
+﻿<Window x:Class="PrototypeBankSystem.Presentation.AddClientCard"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PrototypeBankSystem.Presentation.ViewModel"
         mc:Ignorable="d"
         MinHeight="450" MinWidth="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None">
 
-    <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=CheckBoxForeground, Path=IsChecked}"
-                        Value="True">
-                    <Setter Property="Foreground" Value="#541763" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
-    
     <Window.DataContext>
-        <local:AddClientViewModel/>
+        <local:AddCardViewModel/>
     </Window.DataContext>
 
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -36,7 +25,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Окно добавлеения нового клиента" 
+        <TextBlock Text="Окно добавление карты клиенту" 
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Margin="10"
@@ -46,45 +35,37 @@
                    FontWeight="Normal" 
                    FontStyle="Italic"
                    FontSize="24"/>
-
+        
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center"
                     Margin="50 0">
 
-            <ComboBox    Margin="0 5"
-                         Height="25"
-                         Style="{StaticResource MaterialDesignComboBox}"
-                         ItemsSource="{Binding BoxEnumerationsPrivilege}"
-                         SelectedItem="{Binding EnumerationsPrivilege}"/>
+            <TextBlock Text="Выберите клиента" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="10"
+                   Grid.ColumnSpan="2"
+                   Foreground="Black" 
+                   FontFamily="Yu Gothic UI Light"
+                   FontWeight="Normal" 
+                   FontStyle="Italic"
+                   FontSize="20"/>
 
-            <TextBox     materialDesign:HintAssist.Hint="Введите имя"
-                         Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                         Margin="0 5"
-                         Height="25"
-                         Text="{Binding TextFirstName}"/>
+            <ListView HorizontalAlignment="Center"
+                      VerticalAlignment="Top"
+                      ItemsSource="{Binding ListViewClient, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
+                        <GridViewColumn Header="Возраст" DisplayMemberBinding="{Binding Age}"/>
+                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding NumberPhone}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-            <TextBox     materialDesign:HintAssist.Hint="Введите фамилию"
-                         Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                         Margin="0 5"
-                         Height="25"
-                         Text="{Binding TextLastName}"/>
-
-            <TextBox    materialDesign:HintAssist.Hint="Введите отчество"
-                        Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        Margin="0 5"
-                        Height="25"
-                        Text="{Binding TextSurName}"/>
-            <TextBox    materialDesign:HintAssist.Hint="Введите возраст"
-                        Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        Margin="0 5"
-                        Height="25"
-                        Text="{Binding TextAge}"/>
-            <TextBox    materialDesign:HintAssist.Hint="Номер телефона"
-                        Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
-                        Margin="0 5"
-                        Height="25"
-                        Text="{Binding TextPhone}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1"
@@ -92,11 +73,6 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
 
-            <CheckBox Content="Создать карту сейчас"
-                      Margin="0 0 0 20"
-                      Name="CheckBoxForeground"
-                      IsChecked="{Binding GenerateCard}">
-            </CheckBox>
             <TextBlock Text="Сгенерированная карта:" 
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -106,7 +82,7 @@
                        FontWeight="Black"
                        FontStyle="Italic"
                        FontSize="20"/>
-            
+
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock Text="Номер карты:" 
@@ -127,7 +103,7 @@
                            FontWeight="Normal" 
                            FontStyle="Italic"
                            FontSize="20"/>
-                
+
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
@@ -158,12 +134,12 @@
                     Grid.Row="2"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom">
-            <Button Content="Добавить клиента"
+            <Button Content="Создать карту"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
                     Width="Auto"
                     Height="Auto"
                     Margin="100 0"
-                    Command="{Binding AddClient}"/>
+                    Command="{Binding AddCard}"/>
             <Button Content="Выйти в главное меню"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
                     Width="Auto"
@@ -171,5 +147,6 @@
                     Margin="100 10"
                     Command="{Binding ExitMain}"/>
         </StackPanel>
+
     </Grid>
 </Window>

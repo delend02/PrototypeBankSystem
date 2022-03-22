@@ -7,14 +7,8 @@ namespace PrototypeBankSystem.Persistence.DataBase
     public class ClientRepository 
             : IRepository<Client>
     {
-        private static ObservableCollection<Client> _client = new();
 
         private ClientData _clientData = new();
-
-
-
-
-
 
         public async Task CreateClient(Client entity)
         {
@@ -25,8 +19,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
            ,[SUR_NAME]
            ,[AGE]
            ,[NUMBER_PHONE]
-           ,[PRIVILAGE]
-           ,[CLIENT_CARD_NUMBER])
+           ,[PRIVILAGE])
      VALUES
            (NEWID(),
            @FirstName, 
@@ -34,23 +27,22 @@ namespace PrototypeBankSystem.Persistence.DataBase
            @SurName, 
            @Age,
            @NumberPhone,
-           @Privilege,
-           @Number)", new {entity.FirstName, entity.LastName, entity.SurName, entity.Age,
-                                entity.NumberPhone, entity.Privilege, entity.ClientCard.Number});
+           @Privilege)", new {entity.FirstName, entity.LastName, entity.SurName, entity.Age,
+                                entity.NumberPhone, entity.Privilege});
         }
 
         public async Task CreateCard(CreditCard entity)
         {
-     //       await _clientData.SaveData(@"INSERT INTO[dbo].[ClientCard]
-     //      ([NUMBER]
-     //      ,[DATE_CREATE]
-     //      ,[ExpirationDate]
-     //      ,[Cash])
-     //VALUES (
-     //      @Number,
-     //      GETDATE(),
-     //      DATEADD(year,4,GETDATE()),
-     //      @Cash)", new { entity.ClientCard.Number, entity.ClientCard.ExpirationDate, entity.ClientCard.Cash });
+            await _clientData.SaveData(@"INSERT INTO[dbo].[ClientCard]
+                  ([NUMBER]
+                  ,[DATE_CREATE]
+                  ,[ExpirationDate]
+                  ,[Cash])
+            VALUES (
+                  @Number,
+                  GETDATE(),
+                  DATEADD(year,4,GETDATE()),
+                  @Cash)", new { entity.Number, entity.Cash });
         }
 
         public async Task CreateCredit(Credit entity)
@@ -64,15 +56,9 @@ namespace PrototypeBankSystem.Persistence.DataBase
         }
 
 
-
-
-
-
-
-
         public async Task Delete(Client entity)
         {
-            _client.Remove(entity);
+            
         }
 
         public async Task<IEnumerable<Client>> GetAll()
@@ -87,12 +73,12 @@ namespace PrototypeBankSystem.Persistence.DataBase
                   ,[PRIVILAGE] as Privilege
                   ,[CLIENT_CARD_NUMBER] as Number
                 FROM [dbo].[Client]", null);
-            return _client;
+            return null;
         }
 
         public async Task Save(IEnumerable<Client> ts)
         {
-            _client = (ObservableCollection<Client>)ts;
+            
         }
 
         public async Task Update(Client entity, Client entityOld)

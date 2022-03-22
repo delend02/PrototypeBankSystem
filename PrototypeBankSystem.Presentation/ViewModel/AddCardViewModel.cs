@@ -26,6 +26,16 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
 
+        #region SelectedItem
+        private Client _selectedClient;
+
+        public Client SelectedClient 
+        { 
+            get => _selectedClient;
+            set => Set(ref _selectedClient, value); 
+        }
+        #endregion
+
         #region TextBlock
         private string? _textNumberCard;
 
@@ -55,33 +65,36 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public string TextDateEnd
         {
-            get
-            {
-                var mounth = DateTime.UtcNow.Month;
-                var year = DateTime.UtcNow.Year + 4;
-                _textDateEnd = $"{mounth}/{year}";
-                return _textDateEnd;
-            }
+            get => _textDateEnd = $"{DateTime.UtcNow.Month}/{DateTime.UtcNow.Year + 4}";
             set => Set(ref _textDateEnd, value);
         }
         #endregion
+
+        #region Button
 
         public ICommand AddCard { get; }
 
         private async void OnAddCard(object p)
         {
-           
-            //_ = _clientRepository.CreateCard(new CreditCard(client.ID, _textNumberCard, $"{_textLastName} {_textFirstName}"));
-                  
+            if (_textNumberCard != null || _selectedClient != null)
+            {
+                _  = _clientRepository.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, $"{_selectedClient.LastName} {_selectedClient.FirstName}"));
+                MessageBox.Show($"Карта успешно прикреплена к клиенту",
+                                "Успешно",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information,
+                                MessageBoxResult.OK);
 
-            MessageBox.Show($"Клиент успешно внесен в базу",
-                            "Успешно",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information,
-                            MessageBoxResult.OK);
-            _mainWindow.TransitionWithClosureToMain();
-           
-           
+                _mainWindow.TransitionWithClosureToMain();
+            }
+            else
+            {
+                MessageBox.Show($"Перед добавлением карты, выберите клиента",
+                              "Предупреждение",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Warning,
+                              MessageBoxResult.OK);
+            }
         }
 
         private bool CanAddCard(object p) => true;
@@ -94,5 +107,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         }
 
         private bool CanExitMain(object p) => true;
+        #endregion
     }
 }

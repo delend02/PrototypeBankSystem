@@ -2,6 +2,7 @@
 {
     public class Deposit
     {
+        public string NumberCreditCard { get; set; }
         public double AmountOfDeposit { get; set; }
         public string RateType { get; set; }    
         public DateTime DepositStart { get; set; }

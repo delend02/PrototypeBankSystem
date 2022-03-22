@@ -86,29 +86,29 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private void OnAcceptTransfer(object p)
         {
-            if (_selectedClientFrom == null || _selectedClientTo == null || _sumOfTransfer == null)
-                MessageBox.Show("Есть незаполненные/не выбранные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            else if (SelectedClientFrom.ClientCard.Cash < double.Parse(_sumOfTransfer))
-                MessageBox.Show("Невозможно выполнить перевод, недостаточно средств.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            else if (SelectedClientTo == SelectedClientFrom)
-                MessageBox.Show("Невозможно выполнить перевод самому себе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            else
-            {
-                var index = ListViewClient.IndexOf(_selectedClientFrom);
-                ListViewClient[index].ClientCard.Cash -= double.Parse(_sumOfTransfer);
+            //if (_selectedClientFrom == null || _selectedClientTo == null || _sumOfTransfer == null)
+            //    MessageBox.Show("Есть незаполненные/не выбранные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            //else if (SelectedClientFrom.ClientCard.Cash < double.Parse(_sumOfTransfer))
+            //    MessageBox.Show("Невозможно выполнить перевод, недостаточно средств.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            //else if (SelectedClientTo == SelectedClientFrom)
+            //    MessageBox.Show("Невозможно выполнить перевод самому себе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            //else
+            //{
+            //    var index = ListViewClient.IndexOf(_selectedClientFrom);
+            //    ListViewClient[index].ClientCard.Cash -= double.Parse(_sumOfTransfer);
 
-                index = ListViewClient.IndexOf(_selectedClientTo);
-                ListViewClient[index].ClientCard.Cash += double.Parse(_sumOfTransfer);
-                _clientRepository.Save(ListViewClient);
+            //    index = ListViewClient.IndexOf(_selectedClientTo);
+            //    ListViewClient[index].ClientCard.Cash += double.Parse(_sumOfTransfer);
+            //    _clientRepository.Save(ListViewClient);
 
-                MessageBox.Show($"Перевод денег успешно прошел!",
-                                "Успешно",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information,
-                                MessageBoxResult.OK);
+            //    MessageBox.Show($"Перевод денег успешно прошел!",
+            //                    "Успешно",
+            //                    MessageBoxButton.OK,
+            //                    MessageBoxImage.Information,
+            //                    MessageBoxResult.OK);
 
-                _mainWindow.TransitionWithClosureToMain();
-            }
+            //    _mainWindow.TransitionWithClosureToMain();
+            //}
 
         }
 

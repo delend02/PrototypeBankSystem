@@ -40,6 +40,14 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             get => _listViewClient;
             set => Set(ref _listViewClient, value); 
         }
+
+        private ObservableCollection<CreditCard> _listViewCard = new();
+
+        public ObservableCollection<CreditCard> ListViewCard
+        {
+            get => _listViewCard;
+            set => Set(ref _listViewCard, value);
+        }
         #endregion
 
         #region SelectedItem
@@ -51,31 +59,32 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             {
                 if (_selectedClient != null)
                 {
-                    List<bool> creditStory = new();
-                    if (_selectedClient.ClientCard.CreditHistory != null)
-                        foreach (var item in _selectedClient.ClientCard.CreditHistory)
-                            creditStory.Add(item.RepaidLoan);
 
-                    int goodStory = creditStory.Count(x => x == true);
-                    int badStory = creditStory.Count(x => x == false);
+                    //List<bool> creditStory = new();
+                    //if (_selectedClient.ClientCard.CreditHistory != null)
+                    //    foreach (var item in _selectedClient.ClientCard.CreditHistory)
+                    //        creditStory.Add(item.RepaidLoan);
 
-                    string story = "Нулевая";
-                    float percentStory = 1.5f;
+                    //int goodStory = creditStory.Count(x => x == true);
+                    //int badStory = creditStory.Count(x => x == false);
 
-                    if (goodStory > badStory) { story = "Хорошая"; percentStory = 0; }
-                    else if (goodStory == 0 &&  badStory == 0) { story = "Нулевая";  percentStory = 1.5f; }
-                    else if (goodStory < badStory) {  story = "Плохая";  percentStory = 3; }
+                    //string story = "Нулевая";
+                    //float percentStory = 1.5f;
 
-                    TextCreditHistory = story;
+                    //if (goodStory > badStory) { story = "Хорошая"; percentStory = 0; }
+                    //else if (goodStory == 0 && badStory == 0) { story = "Нулевая"; percentStory = 1.5f; }
+                    //else if (goodStory < badStory) { story = "Плохая"; percentStory = 3; }
 
-                    float percent = default;
-                    if (_selectedClient.Privilege == "V.I.P")
-                        percent = 1 + percentStory * 1.5f;
-                    else if (_selectedClient.Privilege == "Юридическое лицо")
-                        percent = 2 + percentStory * 1.5f;
-                    else if (_selectedClient.Privilege == "Физическое лицо")
-                        percent = 3 + percentStory * 1.5f;
-                    LoanRates = $"{percent}%";
+                    //TextCreditHistory = story;
+
+                    //float percent = default;
+                    //if (_selectedClient.Privilege == "V.I.P")
+                    //    percent = 1 + percentStory * 1.5f;
+                    //else if (_selectedClient.Privilege == "Юридическое лицо")
+                    //    percent = 2 + percentStory * 1.5f;
+                    //else if (_selectedClient.Privilege == "Физическое лицо")
+                    //    percent = 3 + percentStory * 1.5f;
+                    //LoanRates = $"{percent}%";
                 }
                 return _selectedClient;
             }  
@@ -172,36 +181,36 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             else
             {
-                var dateCreate = DateTime.Now;
-                var rate = LoanRates.Split('%');
-                
-                int index = ListViewClient.IndexOf(SelectedClient);
+                //var dateCreate = DateTime.Now;
+                //var rate = LoanRates.Split('%');
 
-                credit = new Credit(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0]));
+                //int index = ListViewClient.IndexOf(SelectedClient);
 
-                ListViewClient[index].ClientCard.CreditHistory.Add
-                    (credit);
+                //credit = new Credit(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0]));
 
-                ListViewClient[index].ClientCard.Cash += double.Parse(TextSumCredit);
+                //ListViewClient[index].ClientCard.CreditHistory.Add
+                //    (credit);
 
-                double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
-                double monthlyPayment = Math.Round(endingCredit / int.Parse(TextCreditTerm), 2);
+                //ListViewClient[index].ClientCard.Cash += double.Parse(TextSumCredit);
 
-                cl = ListViewClient[index];
+                //double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
+                //double monthlyPayment = Math.Round(endingCredit / int.Parse(TextCreditTerm), 2);
 
-                MessageService.OnMessageSend += MessageService_OnMessageSend;
-                
-                _clientRepository.Save(ListViewClient);
+                //cl = ListViewClient[index];
 
-                MessageBox.Show($"Клиенту был одобрен и выдан кредит!\nСумма: {_textSumCredit} рублей" +
-                    $"\nCтавка: {_loanRates}" +
-                    $"\nНа срок: {_creditTerm} месяца" +
-                    $"\nЕжемесячная выплата: {monthlyPayment}" +
-                    $"\nПо окончанию кредита клиент должен: {endingCredit}",
-                                "Успешно",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information, 
-                                MessageBoxResult.OK);
+                //MessageService.OnMessageSend += MessageService_OnMessageSend;
+
+                //_clientRepository.Save(ListViewClient);
+
+                //MessageBox.Show($"Клиенту был одобрен и выдан кредит!\nСумма: {_textSumCredit} рублей" +
+                //    $"\nCтавка: {_loanRates}" +
+                //    $"\nНа срок: {_creditTerm} месяца"
+                //    //$"\nЕжемесячная выплата: {monthlyPayment}" +
+                //    //$"\nПо окончанию кредита клиент должен: {endingCredit}",
+                //                ,"Успешно",
+                //                MessageBoxButton.OK,
+                //                MessageBoxImage.Information,
+                //                MessageBoxResult.OK);
 
                 _mainWindow.TransitionWithClosureToMain();
 
@@ -210,13 +219,13 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private void MessageService_OnMessageSend()
         {
-            ClientManagementViewModel clientManagement = new();
-            var index = cl.ClientCard.CreditHistory.IndexOf(credit);
-            var dateStop = cl.ClientCard.CreditHistory[index].CreditStop;
-            if ((dateStop - clientManagement.CurrentTime).TotalDays < 6)
-            {
-                Debug.WriteLine($"[Кому: {cl.FirstName} | {cl.NumberPhone}]: Уважаемый клиент, до выплаты кредиита вам осталось менее 6 дней");
-            }
+            //ClientManagementViewModel clientManagement = new();
+            //var index = cl.ClientCard.CreditHistory.IndexOf(credit);
+            //var dateStop = cl.ClientCard.CreditHistory[index].CreditStop;
+            //if ((dateStop - clientManagement.CurrentTime).TotalDays < 6)
+            //{
+            //    Debug.WriteLine($"[Кому: {cl.FirstName} | {cl.NumberPhone}]: Уважаемый клиент, до выплаты кредиита вам осталось менее 6 дней");
+            //}
         }
 
         private bool CanTakeCredit(object p) => true;

@@ -188,8 +188,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 //credit = new Credit(double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0]));
 
+
                 //ListViewClient[index].ClientCard.CreditHistory.Add
                 //    (credit);
+
 
                 //ListViewClient[index].ClientCard.Cash += double.Parse(TextSumCredit);
 
@@ -219,6 +221,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private void MessageService_OnMessageSend()
         {
+
             //ClientManagementViewModel clientManagement = new();
             //var index = cl.ClientCard.CreditHistory.IndexOf(credit);
             //var dateStop = cl.ClientCard.CreditHistory[index].CreditStop;
@@ -226,6 +229,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             //{
             //    Debug.WriteLine($"[Кому: {cl.FirstName} | {cl.NumberPhone}]: Уважаемый клиент, до выплаты кредиита вам осталось менее 6 дней");
             //}
+
         }
 
         private bool CanTakeCredit(object p) => true;

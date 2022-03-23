@@ -9,6 +9,10 @@
         public float InterestRate { get; set; }
         public bool RepaidLoan { get; set; }
 
+        public Credit()
+        {
+        }
+
         public Credit(double amountOfCredit, DateTime creditStart, DateTime creditStop, float interestRate, bool repaidLoan = false)
         {
             AmountOfCredit = amountOfCredit;

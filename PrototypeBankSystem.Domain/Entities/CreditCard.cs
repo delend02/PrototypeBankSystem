@@ -10,11 +10,12 @@
         public double Cash { get; set; }
         public bool Blocked { get; set; }
 
-        public CreditCard(Guid clientID, string number, string carrierName)
+        public CreditCard(Guid clientID, string number, string carrierName, double cash)
         {
             ClientID = clientID;
             Number = number;
             CarrierName = carrierName;
+            Cash = cash;
         }
     }
 }

@@ -171,7 +171,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                     if (_generateCard)
                     {
-                        _ = _clientRepository.CreateCard(new CreditCard(client.ID, _textNumberCard, $"{_textLastName} {_textFirstName}"));
+                        _ = _clientRepository.CreateCard(new CreditCard(client.ID, _textNumberCard, $"{_textLastName} {_textFirstName}", 0));
                     }
 
                     MessageBox.Show($"Клиент успешно внесен в базу",

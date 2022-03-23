@@ -6,6 +6,7 @@ namespace PrototypeBankSystem.Application.DateBase
         where T: class
     {
         Task<IEnumerable<T>> GetAll();
+        Task<IEnumerable<T>> GetAllClient();
         Task CreateClient(Client entity);
         Task CreateCard(CreditCard entity);
         Task CreateCredit(Credit entity);

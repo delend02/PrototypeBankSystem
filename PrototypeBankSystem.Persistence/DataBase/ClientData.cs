@@ -11,7 +11,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
         public async Task<IEnumerable<T>> LoadData<T>(string sql, object parameters, CancellationToken cancellationToken = default)
         {
             using IDbConnection connection = new SqlConnection(ConnectionString);
-
+           
             var rows = await connection.QueryAsync<T>(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken));
 
             return rows;
@@ -34,5 +34,16 @@ namespace PrototypeBankSystem.Persistence.DataBase
             return true;
             
         }
+
+        //public async Task<TReturn> LoadDataMultipleSingle<T1, T2, TReturn>(string sql, object parameters,
+        //    Func<T1, T2, TReturn> dataBound, CancellationToken cancellationToken = default)
+        //{
+        //    using IDbConnection connection = new SqlConnection(ConnectionString);
+
+        //    var rows = await connection.QueryAsync(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken));
+
+        //    return rows;
+        //}
+
     }
 }

@@ -10,6 +10,8 @@ namespace PrototypeBankSystem.Persistence.DataBase
 
         private ClientData _clientData = new();
 
+        
+
         public async Task CreateClient(Client entity)
         {
             await _clientData.SaveData(@"INSERT INTO [dbo].[Client]
@@ -20,29 +22,33 @@ namespace PrototypeBankSystem.Persistence.DataBase
            ,[AGE]
            ,[NUMBER_PHONE]
            ,[PRIVILAGE])
-     VALUES
-           (NEWID(),
-           @FirstName, 
-           @LastName, 
-           @SurName, 
-           @Age,
-           @NumberPhone,
-           @Privilege)", new {entity.FirstName, entity.LastName, entity.SurName, entity.Age,
+                VALUES
+            (@ID,
+            @FirstName, 
+            @LastName, 
+            @SurName, 
+            @Age,
+            @NumberPhone,
+            @Privilege)",
+            new {entity.ID, entity.FirstName, entity.LastName, entity.SurName, entity.Age,
                                 entity.NumberPhone, entity.Privilege});
         }
 
         public async Task CreateCard(CreditCard entity)
         {
-            await _clientData.SaveData(@"INSERT INTO[dbo].[ClientCard]
-                  ([NUMBER]
-                  ,[DATE_CREATE]
-                  ,[ExpirationDate]
-                  ,[Cash])
-            VALUES (
-                  @Number,
-                  GETDATE(),
-                  DATEADD(year,4,GETDATE()),
-                  @Cash)", new { entity.Number, entity.Cash });
+            await _clientData.SaveData(@"INSERT INTO [dbo].[ClientCard]
+                                       ([NUMBER]
+                                       ,[DATE_CREATE]
+                                       ,[ExpirationDate]
+                                       ,[Cash]
+                                       ,[CLIENT_ID])
+                                            VALUES(
+                                        @Number,
+                                        GETDATE(),
+                                        DATEADD(year,4,GETDATE()),
+                                        @Cash,
+                                        @ClientID)",
+                                       new { entity.Number, entity.Cash, entity.ClientID});
         }
 
         public async Task CreateCredit(Credit entity)
@@ -59,6 +65,21 @@ namespace PrototypeBankSystem.Persistence.DataBase
         public async Task Delete(Client entity)
         {
             
+        }
+        
+        public async Task<IEnumerable<Client>> GetAllClient()
+        {
+            var res = await _clientData.LoadData<Client>(
+            @"SELECT [ID] as id
+                ,[FIRST_NAME] as firstName
+                ,[LAST_NAME] as lastName
+                ,[SUR_NAME] as surName
+                ,[AGE] as age
+                ,[NUMBER_PHONE] as numberPhone
+                ,[PRIVILAGE] as privilege
+            FROM [dbo].[Client]", null);
+
+            return res;
         }
 
         public async Task<IEnumerable<Client>> GetAll()
@@ -85,5 +106,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
         {
             
         }
+
+        
     }
 }

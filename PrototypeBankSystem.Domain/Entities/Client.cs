@@ -10,7 +10,11 @@
         public string NumberPhone { get; set; }
         public string Privilege { get; set; }
 
-        public Client( string firstName, string lastName, string surName, int age, string numberPhone, string privilege)
+        public Client()
+        {
+        }
+
+        public Client(string firstName, string lastName, string surName, int age, string numberPhone, string privilege)
         {
             ID = Guid.NewGuid();
             FirstName = firstName;
@@ -20,5 +24,6 @@
             NumberPhone = numberPhone;
             Privilege = privilege;
         }
+
     }
 }

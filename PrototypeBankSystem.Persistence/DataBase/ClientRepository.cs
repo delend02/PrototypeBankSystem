@@ -1,4 +1,5 @@
 ﻿using PrototypeBankSystem.Application.DateBase;
+using PrototypeBankSystem.Application.DTO;
 using PrototypeBankSystem.Domain.Entities;
 using System.Collections.ObjectModel;
 
@@ -10,8 +11,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
 
         private ClientData _clientData = new();
 
-        
-
+        #region create
         public async Task CreateClient(Client entity)
         {
             await _clientData.SaveData(@"INSERT INTO [dbo].[Client]
@@ -50,7 +50,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
                                         @ClientID)",
                                        new { entity.Number, entity.Cash, entity.ClientID});
         }
-
+        
         public async Task CreateCredit(Credit entity)
         {
             
@@ -61,12 +61,30 @@ namespace PrototypeBankSystem.Persistence.DataBase
             
         }
 
+        #endregion
 
-        public async Task Delete(Client entity)
+        #region GetData
+        public async Task<IEnumerable<ClientCardInfoDTO>> GetClientInfoCard()
         {
-            
+            var res = await _clientData.LoadData<ClientCardInfoDTO>(
+            @"SELECT 
+                CLIENT_ID as ClientID, 
+                FIRST_NAME as FirstName, 
+                LAST_NAME as LastName,
+                SUR_NAME as SurName,
+                AGE as Age, 
+                NUMBER_PHONE as NumberPhone, 
+                PRIVILAGE as Privilege, 
+                NUMBER as NumberCard,
+                DATE_CREATE as DateCreate, 
+                ExpirationDate as ExpirationDate, 
+                Cash as Cash
+                FROM [dbo].[Client]
+                LEFT JOIN ClientCard ON ID = CLIENT_ID", 
+                null);
+            return res;
         }
-        
+
         public async Task<IEnumerable<Client>> GetAllClient()
         {
             var res = await _clientData.LoadData<Client>(
@@ -82,30 +100,8 @@ namespace PrototypeBankSystem.Persistence.DataBase
             return res;
         }
 
-        public async Task<IEnumerable<Client>> GetAll()
-        {
-            await _clientData.LoadData<Client>(
-                @"SELECT [ID] as id
-                  ,[FIRST_NAME] as FirstName
-                  ,[LAST_NAME]  as LastName
-                  ,[SUR_NAME] as SurName
-                  ,[AGE] as Age
-                  ,[NUMBER_PHONE] as NumberPhone
-                  ,[PRIVILAGE] as Privilege
-                  ,[CLIENT_CARD_NUMBER] as Number
-                FROM [dbo].[Client]", null);
-            return null;
-        }
+        #endregion
 
-        public async Task Save(IEnumerable<Client> ts)
-        {
-            
-        }
-
-        public async Task Update(Client entity, Client entityOld)
-        {
-            
-        }
 
         
     }

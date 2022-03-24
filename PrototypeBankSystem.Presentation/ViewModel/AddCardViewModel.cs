@@ -91,7 +91,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             if (_textNumberCard != null || _selectedClient != null)
             {
                 //_clientRepositor.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, $"{_selectedClient.LastName} {_selectedClient.FirstName}", 0));
-                _  = _clientRepository.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, $"{_selectedClient.LastName} {_selectedClient.FirstName}", 0));
+                _  = _clientRepository.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, 0));
                 MessageBox.Show($"Карта успешно прикреплена к клиенту",
                                 "Успешно",
                                 MessageBoxButton.OK,

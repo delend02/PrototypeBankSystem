@@ -22,8 +22,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ClientManagementViewModel()
         {
-            _clientRepository.GetAll();
-            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
             RewindTime = new LamdaCommand(OnRewindTime, CanRewindTime);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
@@ -79,7 +77,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private bool CanExitMain(object p) => true;
         #endregion
-
 
     }
 }

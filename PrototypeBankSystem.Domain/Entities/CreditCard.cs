@@ -4,17 +4,20 @@
     {
         public string Number { get; set; }
         public Guid ClientID { get; set; }
-        public string CarrierName { get; set; }
         public DateTime DateCreate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public double Cash { get; set; }
         public bool Blocked { get; set; }
 
-        public CreditCard(Guid clientID, string number, string carrierName, double cash)
+        public CreditCard()
+        {
+
+        }
+
+        public CreditCard(Guid clientID, string number,  double cash)
         {
             ClientID = clientID;
             Number = number;
-            CarrierName = carrierName;
             Cash = cash;
         }
     }

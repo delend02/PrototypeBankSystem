@@ -8,15 +8,6 @@ namespace PrototypeBankSystem.Persistence.DataBase
     {
         private const string ConnectionString = @"Server=.\SQLExpress;Database=PrototypeBankSystemDB;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=root;pwd=root";
 
-        public async Task<IEnumerable<T>> LoadData<T>(string sql, object parameters, CancellationToken cancellationToken = default)
-        {
-            using IDbConnection connection = new SqlConnection(ConnectionString);
-           
-            var rows = await connection.QueryAsync<T>(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken));
-
-            return rows;
-        }
-
         public async Task<T> LoadSingle<T>(string sql, object parameters, CancellationToken cancellationToken = default)
         {
             using IDbConnection connection = new SqlConnection(ConnectionString);
@@ -34,16 +25,34 @@ namespace PrototypeBankSystem.Persistence.DataBase
             return true;
             
         }
+        public async Task<IEnumerable<T>> LoadData<T>(string sql, object parameters, CancellationToken cancellationToken = default)
+        {
+            using IDbConnection connection = new SqlConnection(ConnectionString);
+           
+            var rows = await connection.QueryAsync<T>(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken));
 
-        //public async Task<TReturn> LoadDataMultipleSingle<T1, T2, TReturn>(string sql, object parameters,
-        //    Func<T1, T2, TReturn> dataBound, CancellationToken cancellationToken = default)
-        //{
-        //    using IDbConnection connection = new SqlConnection(ConnectionString);
+            return rows;
+        }
 
-        //    var rows = await connection.QueryAsync(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken));
+        public async Task<TReturn> LoadDataMultipleSingle<T1, T2, TReturn>(string sql, object parameters,
+            Func<T1, T2, TReturn> dataBound, string split, CancellationToken cancellationToken = default)
+        {
+            using IDbConnection connection = new SqlConnection(ConnectionString);
 
-        //    return rows;
-        //}
+            var rows = (await connection.QueryAsync(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken), dataBound, split)).SingleOrDefault();
+
+            return rows;
+        }
+
+        public async Task<TReturn> LoadDataMultipleSingle<T1, T2, T3, TReturn>(string sql, object parameters,
+           Func<T1, T2, T3, TReturn> dataBound, string split, CancellationToken cancellationToken = default)
+        {
+            using IDbConnection connection = new SqlConnection(ConnectionString);
+
+            var rows = (await connection.QueryAsync(new CommandDefinition(sql, parameters, cancellationToken: cancellationToken), dataBound, split)).SingleOrDefault();
+
+            return rows;
+        }
 
     }
 }

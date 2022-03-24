@@ -30,8 +30,16 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ObservableCollection<Client> ListViewClient
         {
-            get => _listViewClient;
+            get => _listViewClient;   
             set => Set(ref _listViewClient, value);
+        }
+
+        private ObservableCollection<Client> _listViewCard = new();
+
+        public ObservableCollection<Client> ListViewCard
+        {
+            get => _listViewCard;
+            set => Set(ref _listViewCard, value);
         }
         #endregion
 
@@ -124,6 +132,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private bool CanExitMain(object p) => true;
         #endregion
 
-
+        private async void LoadData()
+        {
+            
+        }
     }
 }

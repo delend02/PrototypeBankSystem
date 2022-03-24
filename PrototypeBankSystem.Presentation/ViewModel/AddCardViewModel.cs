@@ -1,9 +1,11 @@
-﻿using PrototypeBankSystem.Application.HelpersMethodsSession;
+﻿using PrototypeBankSystem.Application.DateBase;
+using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -15,16 +17,26 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddCardViewModel : ViewModel, INotifyPropertyChanged
     {
-
+        private readonly IRepository<Client> _clientRepositor;
         private readonly ClientRepository _clientRepository = new();
 
         private readonly MainWindow _mainWindow = new();
 
         public AddCardViewModel()
         {
+            LoadDataClient();
             AddCard = new LamdaCommand(OnAddCard, CanAddCard);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
+        #region ListView
+        private ObservableCollection<Client> _listViewClient = new();
+
+        public ObservableCollection<Client> ListViewClient 
+        {
+            get => _listViewClient;
+            set => Set(ref _listViewClient, value);
+        }
+        #endregion
 
         #region SelectedItem
         private Client _selectedClient;
@@ -78,7 +90,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             if (_textNumberCard != null || _selectedClient != null)
             {
-                _  = _clientRepository.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, $"{_selectedClient.LastName} {_selectedClient.FirstName}"));
+                //_clientRepositor.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, $"{_selectedClient.LastName} {_selectedClient.FirstName}", 0));
+                _  = _clientRepository.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, 0));
                 MessageBox.Show($"Карта успешно прикреплена к клиенту",
                                 "Успешно",
                                 MessageBoxButton.OK,
@@ -108,5 +121,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private bool CanExitMain(object p) => true;
         #endregion
+
+        private async void LoadDataClient()
+        {
+            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+        }
     }
 }

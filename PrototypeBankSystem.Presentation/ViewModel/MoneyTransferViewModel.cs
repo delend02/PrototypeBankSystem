@@ -20,7 +20,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public MoneyTransferViewModel()
         {
-            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            LoadDataClient();
             AcceptTransfer = new LamdaCommand(OnAcceptTransfer, CanAcceptTransfer);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
@@ -132,9 +132,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private bool CanExitMain(object p) => true;
         #endregion
 
-        private async void LoadData()
+        private async void LoadDataClient()
         {
-            
+            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
         }
     }
 }

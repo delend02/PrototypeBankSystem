@@ -1,5 +1,4 @@
-﻿using PrototypeBankSystem.Application.DTO;
-using PrototypeBankSystem.Domain.Entities;
+﻿using PrototypeBankSystem.Domain.Entities;
 
 namespace PrototypeBankSystem.Application.DateBase
 {
@@ -7,10 +6,15 @@ namespace PrototypeBankSystem.Application.DateBase
         where T : class
     {
         Task<IEnumerable<Client>> GetAllClient();
-        Task<IEnumerable<ClientCardInfoDTO>> GetClientInfoCard();
+
         Task CreateClient(Client entity);
-        Task CreateCard(CreditCard entity);
+        Task CreateCard(ClientCard entity);
         Task CreateCredit(Credit entity);
         Task CreateDeposit(Deposit entity);
+
+        //Task DeleteClientCard(ClientCard entity);
+        //Task DeleteClient(Client entity);
+        //Task DeleteDeposit(Deposit entity);
+        //Task DeleteCredit(Credit entity);
     }
 }

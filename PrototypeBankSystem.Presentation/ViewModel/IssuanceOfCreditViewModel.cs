@@ -27,7 +27,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public IssuanceOfCreditViewModel()
         {
-            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            LoadDataClient();
             TakeCredit = new LamdaCommand(OnTakeCredit, CanTakeCredit);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
@@ -41,9 +41,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             set => Set(ref _listViewClient, value); 
         }
 
-        private ObservableCollection<CreditCard> _listViewCard = new();
+        private ObservableCollection<ClientCard> _listViewCard = new();
 
-        public ObservableCollection<CreditCard> ListViewCard
+        public ObservableCollection<ClientCard> ListViewCard
         {
             get => _listViewCard;
             set => Set(ref _listViewCard, value);
@@ -244,5 +244,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private bool CanExitMain(object p) => true;
         #endregion
 
+        private async void LoadDataClient()
+        {
+            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+        }
     }
 }

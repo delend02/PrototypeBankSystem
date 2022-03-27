@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnectionMSSQLDatabase": "Server =.\\SQLExpress; Database = PrototypeBankSystemDB; Trusted_Connection = True; MultipleActiveResultSets = true; User ID = root; pwd = root"
+  }
+}

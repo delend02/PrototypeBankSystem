@@ -17,7 +17,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddCardViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly IRepository<Client> _clientRepositor;
         private readonly ClientRepository _clientRepository = new();
 
         private readonly MainWindow _mainWindow = new();
@@ -88,10 +87,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void OnAddCard(object p)
         {
-            if (_textNumberCard != null || _selectedClient != null)
+            if (_textNumberCard != null && _selectedClient != null)
             {
-                //_clientRepositor.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, $"{_selectedClient.LastName} {_selectedClient.FirstName}", 0));
-                _  = _clientRepository.CreateCard(new CreditCard(_selectedClient.ID, _textNumberCard, 0));
+
+                _  = _clientRepository.CreateCard(new ClientCard(_selectedClient.ID, _textNumberCard, 0));
                 MessageBox.Show($"Карта успешно прикреплена к клиенту",
                                 "Успешно",
                                 MessageBoxButton.OK,

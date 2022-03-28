@@ -158,7 +158,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AddClient { get; }
 
-        private async void OnAddClient(object p)
+        private void OnAddClient(object p)
         {
             try
             {

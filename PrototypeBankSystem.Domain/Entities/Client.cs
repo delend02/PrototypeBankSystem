@@ -11,7 +11,7 @@ namespace PrototypeBankSystem.Domain.Entities
         public byte Age { get; set; }
         public string NumberPhone { get; set; }
         public string Privilege { get; set; }
-        public IEnumerable<ClientCard> ClientCard { get; set; } = new ObservableCollection<ClientCard>();
+        public ObservableCollection<ClientCard> ClientCard { get; set; } = new ObservableCollection<ClientCard>();
 
 
         public Client()

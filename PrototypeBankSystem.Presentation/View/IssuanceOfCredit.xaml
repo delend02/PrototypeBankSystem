@@ -36,38 +36,27 @@
                    FontStyle="Italic"
                    FontSize="24"/>
 
-        <StackPanel Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
+        
 
-            <TextBlock Text="Список клиентов" 
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Margin="10"
-                   Grid.ColumnSpan="2"
-                   Foreground="Black" 
-                   FontFamily="Yu Gothic UI Light"
-                   FontWeight="Normal" 
-                   FontStyle="Italic"
-                   FontSize="20"/>
-
+        
             <ListView HorizontalAlignment="Center"
-                      VerticalAlignment="Top"
-                      ItemsSource="{Binding ListViewClient, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
-                        <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
-                        <GridViewColumn Header="Карта" DisplayMemberBinding="{Binding ClientCard.Number}"/>
-                        <GridViewColumn Header="Баланс" DisplayMemberBinding="{Binding ClientCard.Cash}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                          VerticalAlignment="Top"
+                          ItemsSource="{Binding ListViewClient, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedClient, UpdateSourceTrigger=PropertyChanged}"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          Grid.Row="1"
+                          Grid.Column="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
+                            <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
+                            <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding SurName}"/>
+                            <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding NumberPhone}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-        </StackPanel>
-
+        
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top">
@@ -194,11 +183,37 @@
                            FontSize="18"/>
 
             </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Карта:" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="20 10 20 0"
+                           Grid.ColumnSpan="2"
+                           Foreground="Black" 
+                           FontFamily="Yu Gothic UI Light"
+                           FontWeight="Normal" 
+                           FontStyle="Italic"
+                           FontSize="18"/>
+                <ComboBox  ItemsSource="{Binding ComboBoxCard, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding SelectedCard, UpdateSourceTrigger=PropertyChanged}"
+                           Width="200">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Number}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 20 0"/>
+                                <TextBlock Text="{Binding Cash}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
+
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.ColumnSpan="3"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     VerticalAlignment="Center">
             <Button Content="Выдать кредит"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"

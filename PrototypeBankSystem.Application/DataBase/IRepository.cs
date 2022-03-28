@@ -12,9 +12,9 @@ namespace PrototypeBankSystem.Application.DateBase
         Task CreateCredit(Credit entity);
         Task CreateDeposit(Deposit entity);
 
-        //Task DeleteClientCard(ClientCard entity);
-        //Task DeleteClient(Client entity);
-        //Task DeleteDeposit(Deposit entity);
-        //Task DeleteCredit(Credit entity);
+        Task UpdateClientCard(ClientCard entity);
+        Task UpdateClient(Client entity);
+        Task UpdateDeposit(Deposit entity);
+        Task UpdateCredit(Credit entity);
     }
 }

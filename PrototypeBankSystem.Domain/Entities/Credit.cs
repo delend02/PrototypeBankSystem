@@ -14,8 +14,9 @@
         {
         }
 
-        public Credit(double amountOfCredit, DateTime creditStart, DateTime creditStop, float interestRate, bool repaidLoan = false)
+        public Credit(int clCardID, double amountOfCredit, DateTime creditStart, DateTime creditStop, float interestRate, bool repaidLoan = false)
         {
+            ClientCardID = clCardID;
             AmountOfCredit = amountOfCredit;
             CreditStart = creditStart;
             CreditStop = creditStop;

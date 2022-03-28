@@ -10,8 +10,8 @@ namespace PrototypeBankSystem.Domain.Entities
         public DateTime DateCreate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public int Cash { get; set; }
-        public IEnumerable<Credit> Credits { get; set; } = new ObservableCollection<Credit>();
-        public IEnumerable<Deposit> Deposits { get; set; } = new ObservableCollection<Deposit>();
+        public ObservableCollection<Credit> Credits { get; set; } = new ObservableCollection<Credit>();
+        public ObservableCollection<Deposit> Deposits { get; set; } = new ObservableCollection<Deposit>();
         public Client Client { get; set; }
 
 
@@ -23,6 +23,8 @@ namespace PrototypeBankSystem.Domain.Entities
         public ClientCard(Guid clientID, string number,  int cash)
         {
             ClientID = clientID;
+            DateCreate = DateTime.Now;
+            ExpirationDate = DateTime.Now.AddYears(5);
             Number = number;
             Cash = cash;
         }

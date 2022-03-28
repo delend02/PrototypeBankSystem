@@ -6,7 +6,6 @@ using System.Windows.Input;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Presentation.Services;
 using PrototypeBankSystem.Presentation.View;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
@@ -63,7 +62,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private void OnRewindTime(object p)
         {
             CurrentTime = CurrentTime.AddDays(5);
-            MessageService.SendMessage();
         }
 
         private bool CanRewindTime(object p) => true;

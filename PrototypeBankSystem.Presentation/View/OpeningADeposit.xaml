@@ -60,8 +60,8 @@
                     <GridView>
                         <GridViewColumn Header="Фамилия" DisplayMemberBinding="{Binding LastName}"/>
                         <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding FirstName}"/>
-                        <GridViewColumn Header="Карта" DisplayMemberBinding="{Binding ClientCard.Number}"/>
-                        <GridViewColumn Header="Баланс" DisplayMemberBinding="{Binding ClientCard.Cash}"/>
+                        <GridViewColumn Header="Отчество" DisplayMemberBinding="{Binding SurName}"/>
+                        <GridViewColumn Header="Номер телефона" DisplayMemberBinding="{Binding NumberPhone}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -208,6 +208,33 @@
                           FontWeight="Normal" 
                           FontStyle="Italic"
                           FontSize="18"/>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Карта:" 
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="20 10 20 0"
+                           Grid.ColumnSpan="2"
+                           Foreground="Black" 
+                           FontFamily="Yu Gothic UI Light"
+                           FontWeight="Normal" 
+                           FontStyle="Italic"
+                           FontSize="18"/>
+                <ComboBox  ItemsSource="{Binding ComboBoxCard, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItem="{Binding SelectedCard, UpdateSourceTrigger=PropertyChanged}"
+                           Width="200">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Number}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 20 0"/>
+                                <TextBlock Text="{Binding Cash}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+
 
             </StackPanel>
 

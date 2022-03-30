@@ -17,11 +17,23 @@ namespace PrototypeBankSystem.Persistence.DataBase
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //var builder = new ConfigurationBuilder();
-            //builder.AddJsonFile("settings.json");
-            //var config = builder.Build();
-            //string connection = config.GetConnectionString("DefaultConnectionMSSQLDatabase");
-            optionsBuilder.UseSqlServer("Server =.\\SQLExpress; Database = PrototypeBankSystemDB; Trusted_Connection = True; MultipleActiveResultSets = true; User ID = root; pwd = root");
+            try
+            {
+                var builder = new ConfigurationBuilder();
+                builder.AddJsonFile(@"C:\Users\Maksim\source\repos\PrototypeBankSystem\PrototypeBankSystem.Persistence\settings.json");
+                var config = builder.Build();
+                string connection = config.GetConnectionString("DefaultConnectionMSSQLDatabase");
+                optionsBuilder.UseSqlServer(connection);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Connection DB done!");
+            }
+            
         }
     }
 }

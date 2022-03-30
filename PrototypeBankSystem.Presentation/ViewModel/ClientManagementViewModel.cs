@@ -15,30 +15,14 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
 
         //private readonly IRepository<Client> _clientRepository;
-        private readonly ClientRepository _clientRepository = new();
+        //private readonly ClientRepository _clientRepository = new();
 
         private readonly MainWindow _mainWindow = new();
 
         public ClientManagementViewModel()
         {
-            RewindTime = new LamdaCommand(OnRewindTime, CanRewindTime);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
-
-        static ClientManagementViewModel()
-        {
-            _currentTime = DateTime.Now;
-        }
-
-        private static DateTime _currentTime;
-
-        public DateTime CurrentTime
-        {
-            get => _currentTime;
-            
-            private set => Set(ref _currentTime, value);
-        }
-
 
         private ObservableCollection<Client> _listViewClient = new();
 
@@ -57,15 +41,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         }
         #endregion
         #region Button
-        public ICommand RewindTime { get; }
-
-        private void OnRewindTime(object p)
-        {
-            CurrentTime = CurrentTime.AddDays(5);
-        }
-
-        private bool CanRewindTime(object p) => true;
-
         public ICommand ExitMain { get; }
 
         private void OnExitMain(object p)

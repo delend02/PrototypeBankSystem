@@ -22,7 +22,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public OpeningADepositViewModel()
         {
-            //ListViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            LoadDataClient();
             OpenDeposit = new LamdaCommand(OnOpenDeposit, CanOpenDeposit);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
@@ -35,6 +35,21 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             get => _checkCapitalization; 
             set => Set(ref _checkCapitalization, value);
         }
+
+
+        #endregion
+
+        #region ComboBox
+        private ObservableCollection<ClientCard> _comboBoxCard = new();
+
+        public ObservableCollection<ClientCard> ComboBoxCard
+        {
+            get
+            {
+                return _comboBoxCard;
+            }
+            set => Set(ref _comboBoxCard, value);
+        }
         #endregion
 
         #region ListView
@@ -44,47 +59,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             get => _listViewClient;
             set => Set(ref _listViewClient, value);
-        }
-        #endregion
-
-        #region SelectedItem
-        private Client _selectedClient;
-
-        public Client SelectedClient
-        {
-            get
-            {
-                //if (_selectedClient != null)
-                //{
-                //    List<bool> creditStory = new();
-                //    if (_selectedClient.ClientCard.CreditHistory != null)
-                //        foreach (var item in _selectedClient.ClientCard.CreditHistory)
-                //            creditStory.Add(item.RepaidLoan);
-
-                //    int goodStory = creditStory.Count(x => x == true);
-                //    int badStory = creditStory.Count(x => x == false);
-
-                //    string story = "Нулевая";
-                //    float percentStory = 1.5f;
-
-                //    if (goodStory > badStory) { story = "Хорошая"; percentStory = 3; }
-                //    else if (goodStory == 0 && badStory == 0) { story = "Нулевая"; percentStory = 1.5f; }
-                //    else if (goodStory < badStory) { story = "Плохая"; percentStory = 1; }
-
-                //    TextCreditHistory = story;
-
-                //    float percent = default;
-                //    if (_selectedClient.Privilege == "V.I.P")
-                //        percent = 3 + percentStory * 1.5f;
-                //    else if (_selectedClient.Privilege == "Юридическое лицо")
-                //        percent = 2 + percentStory * 1.5f;
-                //    else if (_selectedClient.Privilege == "Физическое лицо")
-                //        percent = 1 + percentStory * 1.5f;
-                //    TextDepositRates = $"{percent}%";
-                //}
-                return _selectedClient;
-            }
-            set => Set(ref _selectedClient, value);
         }
         #endregion
 
@@ -121,6 +95,66 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             set => Set(ref _textDepositApproval, value);
         }
         #endregion
+
+        #region SelectedItem
+        private Client _selectedClient;
+
+        public Client SelectedClient
+        {
+            get => _selectedClient;
+            set 
+            {
+                TextDepositApproval = "";
+                TextDepositRates = "";
+                TextCreditHistory = "";
+                TextPrivilege = "";
+
+                Set(ref _selectedClient, value);
+                if(_selectedClient != null)
+                    ComboBoxCard = _selectedClient.ClientCard;
+            } 
+        }
+
+        private ClientCard _selectedCard;
+
+        public ClientCard SelectedCard
+        {
+            get
+            {
+                if (_selectedCard != null)
+                {
+                    List<bool> creditStory = new();
+                    if (_selectedCard.Credits != null)
+                        foreach (var item in _selectedCard.Credits)
+                            creditStory.Add(item.RepaidLoan);
+
+                    int goodStory = creditStory.Count(x => x == true);
+                    int badStory = creditStory.Count(x => x == false);
+
+                    string story = "Нулевая";
+                    float percentStory = 1.5f;
+
+                    if (goodStory > badStory) { story = "Хорошая"; percentStory = 3; }
+                    else if (goodStory == 0 && badStory == 0) { story = "Нулевая"; percentStory = 1.5f; }
+                    else if (goodStory < badStory) { story = "Плохая"; percentStory = 1; }
+
+                    TextCreditHistory = story;
+
+                    float percent = default;
+                    if (_selectedClient.Privilege == "V.I.P")
+                        percent = 1 + percentStory * 1.5f;
+                    else if (_selectedClient.Privilege == "Юридическое лицо")
+                        percent = 2 + percentStory * 1.5f;
+                    else if (_selectedClient.Privilege == "Физическое лицо")
+                        percent = 3 + percentStory * 1.5f;
+                    TextDepositRates = $"{percent}%";
+                }
+                return _selectedCard;
+            }
+            set => Set(ref _selectedCard, value);
+        }
+        #endregion
+
 
         #region TextBox
         private string? _DepositTerm;
@@ -244,5 +278,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private bool CanExitMain(object p) => true;
         #endregion
+
+        private async void LoadDataClient()
+        {
+            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+        }
     }
 }

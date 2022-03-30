@@ -158,7 +158,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AddClient { get; }
 
-        private async void OnAddClient(object p)
+        private void OnAddClient(object p)
         {
             try
             {
@@ -166,12 +166,12 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                     throw new ArgumentNullException();
                 else
                 {
-                    var client = new Client(_textFirstName, _textLastName, _textSurName, int.Parse(_textAge), _textPhone, _enumerationsPrivilege);
-                     _ = _clientRepository.CreateClient(client);
-
+                    var client = new Client(_textFirstName, _textLastName, _textSurName, byte.Parse(_textAge), _textPhone, _enumerationsPrivilege);
+                    _ = _clientRepository.CreateClient(client);
+                    
                     if (_generateCard)
                     {
-                        _ = _clientRepository.CreateCard(new CreditCard(client.ID, _textNumberCard, 0));
+                        _ = _clientRepository.CreateCard(new ClientCard(client.ID, _textNumberCard, 0));
                     }
 
                     MessageBox.Show($"Клиент успешно внесен в базу",
@@ -186,10 +186,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             {
                 MessageBox.Show("Есть незаполненные поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Инная ошибка. {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            }
+            
         }
 
         private bool CanAddClient(object p) => true;

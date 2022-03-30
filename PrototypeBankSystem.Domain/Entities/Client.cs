@@ -1,4 +1,6 @@
-﻿namespace PrototypeBankSystem.Domain.Entities
+﻿using System.Collections.ObjectModel;
+
+namespace PrototypeBankSystem.Domain.Entities
 {
     public class Client
     {
@@ -6,15 +8,17 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string SurName { get; set; }
-        public int Age { get; set; }
+        public byte Age { get; set; }
         public string NumberPhone { get; set; }
         public string Privilege { get; set; }
+        public ObservableCollection<ClientCard> ClientCard { get; set; } = new ObservableCollection<ClientCard>();
+
 
         public Client()
         {
         }
 
-        public Client(string firstName, string lastName, string surName, int age, string numberPhone, string privilege)
+        public Client(string firstName, string lastName, string surName, byte age, string numberPhone, string privilege)
         {
             ID = Guid.NewGuid();
             FirstName = firstName;

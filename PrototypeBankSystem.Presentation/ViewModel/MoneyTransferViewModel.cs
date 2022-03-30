@@ -20,10 +20,47 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public MoneyTransferViewModel()
         {
-            //_listViewClient = (ObservableCollection<Client>)_clientRepository.GetAll();
+            LoadDataClient();
             AcceptTransfer = new LamdaCommand(OnAcceptTransfer, CanAcceptTransfer);
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
+
+        #region ComboBox
+        private ObservableCollection<ClientCard> _comboBoxCardTo = new();
+
+        public ObservableCollection<ClientCard> ComboBoxCardTo
+        {
+            get => _comboBoxCardTo;
+            set => Set(ref _comboBoxCardTo, value);
+        }
+
+        private ObservableCollection<ClientCard> _comboBoxCardFrom = new();
+
+        public ObservableCollection<ClientCard> ComboBoxCardFrom
+        {
+            get => _comboBoxCardFrom;
+            set => Set(ref _comboBoxCardFrom, value);
+        }
+        #endregion
+
+        #region SelectedItem
+        private ClientCard _selectedCardTo;
+
+        public ClientCard SelectedCardTo
+        {
+            get => _selectedCardTo;
+            set => Set(ref _selectedCardTo, value);
+            
+        }
+
+        private ClientCard _selectedCardFrom;
+
+        public ClientCard SelectedCardFrom
+        {
+            get => _selectedCardFrom;
+            set => Set(ref _selectedCardFrom, value);
+        }
+        #endregion
 
         #region ListView
         private ObservableCollection<Client> _listViewClient = new();
@@ -49,7 +86,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         public Client SelectedClientFrom
         {
             get => _selectedClientFrom;
-            set => Set(ref _selectedClientFrom, value);
+            set
+            {
+                Set(ref _selectedClientFrom, value);
+                ComboBoxCardFrom = _selectedClientFrom.ClientCard;
+            }
         }
 
         private Client _selectedClientTo;
@@ -57,7 +98,11 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         public Client SelectedClientTo
         {
             get => _selectedClientTo;
-            set => Set(ref _selectedClientTo, value);
+            set
+            {
+                Set(ref _selectedClientTo, value);
+                ComboBoxCardTo = _selectedClientTo.ClientCard;
+            }
         }
         #endregion
 
@@ -92,32 +137,30 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AcceptTransfer { get; }
 
-        private void OnAcceptTransfer(object p)
+        private async void OnAcceptTransfer(object p)
         {
-            //if (_selectedClientFrom == null || _selectedClientTo == null || _sumOfTransfer == null)
-            //    MessageBox.Show("Есть незаполненные/не выбранные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            //else if (SelectedClientFrom.ClientCard.Cash < double.Parse(_sumOfTransfer))
-            //    MessageBox.Show("Невозможно выполнить перевод, недостаточно средств.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            //else if (SelectedClientTo == SelectedClientFrom)
-            //    MessageBox.Show("Невозможно выполнить перевод самому себе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            //else
-            //{
-            //    var index = ListViewClient.IndexOf(_selectedClientFrom);
-            //    ListViewClient[index].ClientCard.Cash -= double.Parse(_sumOfTransfer);
+            if (_selectedClientFrom == null || _selectedClientTo == null || _sumOfTransfer == null || _selectedCardTo == null || _selectedCardFrom == null)
+                MessageBox.Show("Есть незаполненные/не выбранные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            else if (SelectedCardFrom.Cash < double.Parse(_sumOfTransfer))
+                MessageBox.Show("Невозможно выполнить перевод, недостаточно средств.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            else if (SelectedClientTo == SelectedClientFrom || SelectedCardFrom == SelectedCardTo)
+                MessageBox.Show("Невозможно выполнить перевод самому себе", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            else
+            {
+                SelectedCardFrom.Cash -= int.Parse(_sumOfTransfer);
+                SelectedCardTo.Cash += int.Parse(_sumOfTransfer);
 
-            //    index = ListViewClient.IndexOf(_selectedClientTo);
-            //    ListViewClient[index].ClientCard.Cash += double.Parse(_sumOfTransfer);
-            //    _clientRepository.Save(ListViewClient);
+                await _clientRepository.UpdateClientCard(SelectedCardFrom);
+                await _clientRepository.UpdateClientCard(SelectedCardTo);
 
-            //    MessageBox.Show($"Перевод денег успешно прошел!",
-            //                    "Успешно",
-            //                    MessageBoxButton.OK,
-            //                    MessageBoxImage.Information,
-            //                    MessageBoxResult.OK);
+                MessageBox.Show($"Перевод денег успешно прошел!",
+                                "Успешно",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information,
+                                MessageBoxResult.OK);
 
-            //    _mainWindow.TransitionWithClosureToMain();
-            //}
-
+                _mainWindow.TransitionWithClosureToMain();
+            }
         }
 
         private bool CanAcceptTransfer(object p) => true;
@@ -132,9 +175,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         private bool CanExitMain(object p) => true;
         #endregion
 
-        private async void LoadData()
+        private async void LoadDataClient()
         {
-            
+            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
         }
     }
 }

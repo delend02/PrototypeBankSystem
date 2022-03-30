@@ -1,4 +1,7 @@
-﻿using PrototypeBankSystem.Presentation.View;
+﻿using PrototypeBankSystem.Domain.Entities;
+using PrototypeBankSystem.Presentation.View;
+using System;
+using System.Collections.ObjectModel;
 
 namespace PrototypeBankSystem.Application.HelpersMethodsSession
 {

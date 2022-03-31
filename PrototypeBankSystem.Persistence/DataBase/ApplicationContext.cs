@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PrototypeBankSystem.Domain.Entities;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
+using System.Collections.Specialized;
 
 namespace PrototypeBankSystem.Persistence.DataBase
 {
@@ -20,10 +23,11 @@ namespace PrototypeBankSystem.Persistence.DataBase
             try
             {
                 var builder = new ConfigurationBuilder();
-                builder.AddJsonFile(@"C:\Users\Maksim\source\repos\PrototypeBankSystem\PrototypeBankSystem.Persistence\settings.json");
+                builder.AddJsonFile(@"appsettings.json");
                 var config = builder.Build();
-                string connection = config.GetConnectionString("DefaultConnectionMSSQLDatabase");
-                optionsBuilder.UseSqlServer(connection);
+                var section = config.GetSection("ConnectionString");
+                var connectionDB = section.GetSection("DefaultConnectionMSSQLDatabase").Value;
+                optionsBuilder.UseSqlServer(connectionDB);
             }
             catch (Exception ex)
             {

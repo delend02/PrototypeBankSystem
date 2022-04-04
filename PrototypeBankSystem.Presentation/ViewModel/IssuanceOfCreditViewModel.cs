@@ -203,7 +203,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 await _clientRepository.UpdateClientCard(_selectedCard);
 
-                await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, double.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
+                await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
 
                 double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
                 double monthlyPayment = Math.Round(endingCredit / int.Parse(TextCreditTerm), 2);

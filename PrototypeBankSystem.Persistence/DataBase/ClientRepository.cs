@@ -48,8 +48,9 @@ namespace PrototypeBankSystem.Persistence.DataBase
             using ApplicationContext db = new();
             var result = db.Client
                .Include(cc => cc.ClientCard)
-                   .ThenInclude(c => c.Deposits)
+                    .ThenInclude(c => c.Credits)
                        .ToList();
+
             return result;
         }
         #endregion

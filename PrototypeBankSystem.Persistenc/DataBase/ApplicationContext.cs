@@ -33,6 +33,11 @@ namespace PrototypeBankSystem.Persistence.DataBase
             {
                 Console.WriteLine(ex.Message);
             }
+            finally
+            {
+                Console.WriteLine("Connection DB done!");
+            }
+            
         }
     }
 }

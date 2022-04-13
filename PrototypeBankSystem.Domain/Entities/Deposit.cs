@@ -1,4 +1,6 @@
-﻿namespace PrototypeBankSystem.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace PrototypeBankSystem.Domain.Entities
 {
     public class Deposit
     {
@@ -9,6 +11,7 @@
         public DateTime DepositStop { get; set; }
         public float InterestRate { get; set; }
         public int ClientCardID { get; set; }
+        [JsonIgnore]
         public ClientCard ClientCard { get; set; }
 
         public Deposit(double amountOfDeposit, string rateType ,DateTime depositStart, DateTime depositStop, float interestRate)

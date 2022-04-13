@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Text.Json.Serialization;
 
 namespace PrototypeBankSystem.Domain.Entities
 {
@@ -12,6 +13,7 @@ namespace PrototypeBankSystem.Domain.Entities
         public int Cash { get; set; }
         public ObservableCollection<Credit> Credits { get; set; } = new ObservableCollection<Credit>();
         public ObservableCollection<Deposit> Deposits { get; set; } = new ObservableCollection<Deposit>();
+        [JsonIgnore]
         public Client Client { get; set; }
 
 

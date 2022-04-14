@@ -13,26 +13,10 @@ namespace PrototypeBankSystem.Persistence.DataBase
         public DbSet<ClientCard> ClientCard { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
 
-        public ApplicationContext()
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+            : base(options)
         {
             Database.EnsureCreated();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            try
-            {
-                var builder = new ConfigurationBuilder();
-                builder.AddJsonFile(@"appsettings.json");
-                var config = builder.Build();
-                var section = config.GetSection("ConnectionString");
-                var connectionDB = section.GetSection("DefaultConnectionMSSQLDatabase").Value;
-                optionsBuilder.UseSqlServer(connectionDB);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
         }
     }
 }

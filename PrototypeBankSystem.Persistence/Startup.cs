@@ -11,7 +11,6 @@ using Microsoft.OpenApi.Models;
 using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Persistence.Middleware;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +20,8 @@ namespace PrototypeBankSystem.Persistenc
 {
     public class Startup
     {
+
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,6 +32,18 @@ namespace PrototypeBankSystem.Persistenc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            try
+            {
+                var section = Configuration.GetSection("ConnectionString");
+                var connectionDB = section.GetSection("DefaultConnectionMSSQLDatabase").Value;
+                services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionDB));
+                
+                Console.WriteLine("Connection successfully!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             services.AddControllers();
         }
 
@@ -53,7 +66,6 @@ namespace PrototypeBankSystem.Persistenc
                 endpoints.MapControllers();
             });
 
-            app.UseMiddleware<ExceptionMiddleware>();
         }
 
     }

@@ -1,7 +1,7 @@
 ﻿using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
+using PrototypeBankSystem.Application.Models.Api;
 using PrototypeBankSystem.Domain.Entities;
-using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation.View;
 using System;
 using System.Collections.Generic;
@@ -17,8 +17,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddCardViewModel : ViewModel, INotifyPropertyChanged
     {
-        private readonly ClientRepository _clientRepository = new();
-
         private readonly MainWindow _mainWindow = new();
 
         public AddCardViewModel()
@@ -89,8 +87,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             if (_textNumberCard != null && _selectedClient != null)
             {
-                
-                _  = _clientRepository.CreateCard(new ClientCard(_selectedClient.ID, _textNumberCard, 0));
+               // _  = _clientRepository.CreateCard(new ClientCard(_selectedClient.ID, _textNumberCard, 0));
                 MessageBox.Show($"Карта успешно прикреплена к клиенту",
                                 "Успешно",
                                 MessageBoxButton.OK,
@@ -123,7 +120,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            ListViewClient = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
         }
     }
 }

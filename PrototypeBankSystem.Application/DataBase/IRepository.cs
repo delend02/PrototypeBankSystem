@@ -8,7 +8,7 @@ namespace PrototypeBankSystem.Application.DateBase
         Task<IEnumerable<T>> GetAll();
         Task<T> Create(T entity);
         Task<T> Update(T entity);
-        Task<T> Delete(T entity);
+        Task<T> Delete(string id);
         Task<T> GetByID(string id);
     }
 }

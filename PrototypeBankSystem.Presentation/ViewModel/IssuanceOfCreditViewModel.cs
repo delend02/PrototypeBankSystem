@@ -8,7 +8,6 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
-using PrototypeBankSystem.Persistence.DataBase;
 using System.Diagnostics;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
 
@@ -16,8 +15,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class IssuanceOfCreditViewModel : ViewModel, INotifyPropertyChanged
     {
-        //private readonly IRepository<Client> _clientRepository;
-        private readonly ClientRepository _clientRepository = new();
 
         private readonly MainWindow _mainWindow = new();
 
@@ -201,9 +198,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 _selectedCard.Cash += int.Parse(TextSumCredit);
 
-                await _clientRepository.UpdateClientCard(_selectedCard);
+                //await _clientRepository.UpdateClientCard(_selectedCard);
 
-                await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
+                //await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
 
                 double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
                 double monthlyPayment = Math.Round(endingCredit / int.Parse(TextCreditTerm), 2);
@@ -236,7 +233,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            //ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
         }
     }
 }

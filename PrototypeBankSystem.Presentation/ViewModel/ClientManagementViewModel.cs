@@ -5,18 +5,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Domain.Entities;
-using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Presentation.View;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class ClientManagementViewModel : ViewModel, INotifyPropertyChanged
     {
-
-
-        //private readonly IRepository<Client> _clientRepository;
-        //private readonly ClientRepository _clientRepository = new();
-
         private readonly MainWindow _mainWindow = new();
 
         public ClientManagementViewModel()

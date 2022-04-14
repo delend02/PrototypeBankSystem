@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PrototypeBankSystem.Domain.Entities;
+using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Persistence.DataBase.Repository;
 
 namespace PrototypeBankSystem.Persistence.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ClientsController : Controller
     {
-        private static readonly ClientRepository _repository = new();
+        private readonly ClientRepository _repository;
 
+        public ClientsController(ApplicationContext db)
+        {
+            _repository = new ClientRepository(db);
+        }
+        
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Client client)
         {
@@ -35,6 +41,17 @@ namespace PrototypeBankSystem.Persistence.Controllers
         {
             return Ok(await _repository.GetByID(id));
         }
-        
+
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] Client card)
+        {
+            return Ok(await _repository.Update(card));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromQuery] string id)
+        {
+            return Ok(await _repository.Delete(id));
+        }
     }
 }

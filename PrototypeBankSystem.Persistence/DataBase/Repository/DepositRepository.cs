@@ -1,31 +1,50 @@
-﻿using PrototypeBankSystem.Application.DateBase;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Domain.Entities;
 
 namespace PrototypeBankSystem.Persistence.DataBase.Repository
 {
     public class DepositRepository : IRepository<Deposit>
     {
+        readonly ApplicationContext context;
+
+        public DepositRepository(ApplicationContext db)
+        {
+            context = db;
+        }
+
         public async Task<Deposit> Create(Deposit entity)
         {
             if (entity == null)
                 throw new ArgumentNullException();
-            using ApplicationContext context = new();
+
             await context.Deposit.AddAsync(entity);
             return context.Deposit.Where(c => c.ID == entity.ID).SingleOrDefault();
         }
 
-        public async Task<Deposit> Delete(Deposit entity)
+        public async Task<Deposit> Delete(string id)
         {
-            if (entity == null)
-                throw new ArgumentNullException();
-            using ApplicationContext context = new();
-            context.Deposit.Remove(entity);
-            return entity;
+            //var res = int.TryParse(id, out var cardID);
+
+            //var card = context.Deposit.Where(c => c.ID == cardID).SingleOrDefault();
+
+            //if (id == null || !res || card == null)
+            //    throw new ArgumentNullException();
+
+            //var param1 = new SqlParameter("@cardID", cardID);
+
+            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ClientCardID = @cardID", param1);
+
+            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Deposit WHERE ClientCardID = @cardID", param1);
+
+            //await context.Database.ExecuteSqlRawAsync("DELETE FROM ClientCard WHERE ID = @cardID", param1);
+
+            //return card;
         }
 
         public async Task<IEnumerable<Deposit>> GetAll()
         {
-            using ApplicationContext context = new();
             return context.Deposit.ToList();
         }
 
@@ -34,7 +53,7 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             var res = int.TryParse(id, out var cardID);
             if (id == null || !res)
                 throw new ArgumentNullException();
-            using ApplicationContext context = new();
+
             return context.Deposit.Where(c => c.ID == cardID).SingleOrDefault();
         }
 
@@ -42,7 +61,7 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
         {
             if (entity == null)
                 throw new ArgumentNullException();
-            using ApplicationContext context = new();
+
             context.Deposit.Update(entity);
             return entity;
         }

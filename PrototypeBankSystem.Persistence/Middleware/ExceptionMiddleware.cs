@@ -4,7 +4,7 @@ namespace PrototypeBankSystem.Persistence.Middleware
 {
     public class ExceptionMiddleware
     {
-        private RequestDelegate _next;
+        private readonly RequestDelegate _next;
 
         public ExceptionMiddleware(RequestDelegate next)
         {

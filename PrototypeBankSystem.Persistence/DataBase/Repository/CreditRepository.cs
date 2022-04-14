@@ -1,31 +1,46 @@
-﻿using PrototypeBankSystem.Application.DateBase;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using PrototypeBankSystem.Application.DateBase;
 using PrototypeBankSystem.Domain.Entities;
 
 namespace PrototypeBankSystem.Persistence.DataBase.Repository
 {
     public class CreditRepository : IRepository<Credit>
     {
+        readonly ApplicationContext context;
+
+        public CreditRepository(ApplicationContext db)
+        {
+            context = db;
+        }
+
         public async Task<Credit> Create(Credit entity)
         {
             if (entity == null)
                 throw new ArgumentNullException();
-            using ApplicationContext context = new();
+
             await context.Credit.AddAsync(entity);
             return context.Credit.Where(c => c.ID == entity.ID).SingleOrDefault();
         }
 
-        public async Task<Credit> Delete(Credit entity)
+        public async Task<Credit> Delete(string id)
         {
-            if (entity == null)
-                throw new ArgumentNullException();
-            using ApplicationContext context = new();
-            context.Credit.Remove(entity);
-            return entity;
+            //var res = int.TryParse(id, out var cardID);
+
+            //var card = context.Credit.Where(c => c.ID == cardID).SingleOrDefault();
+
+            //if (id == null || !res || card == null)
+            //    throw new ArgumentNullException();
+
+            //var param1 = new SqlParameter("@cardID", cardID);
+
+            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ClientCardID = @cardID", param1);
+
+            //return card;
         }
 
         public async Task<IEnumerable<Credit>> GetAll()
         {
-            using ApplicationContext context = new();
             return context.Credit.ToList();
         }
 
@@ -34,7 +49,7 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             var res = int.TryParse(id, out var cardID);
             if (id == null || !res)
                 throw new ArgumentNullException();
-            using ApplicationContext context = new();
+
             return context.Credit.Where(c => c.ID == cardID).SingleOrDefault();
         }
 
@@ -42,7 +57,7 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
         {
             if (entity == null)
                 throw new ArgumentNullException();
-            using ApplicationContext context = new();
+
             context.Credit.Update(entity);
             return entity;
         }

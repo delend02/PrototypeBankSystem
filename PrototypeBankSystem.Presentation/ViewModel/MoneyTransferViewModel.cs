@@ -1,21 +1,16 @@
-﻿using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
+﻿using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
-using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Application.HelpersMethodsSession;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class MoneyTransferViewModel : ViewModel, INotifyPropertyChanged
     {
-        //private readonly IRepository<Client> _clientRepository;
-        private readonly ClientRepository _clientRepository = new();
-
         private readonly MainWindow _mainWindow = new();
 
         public MoneyTransferViewModel()
@@ -50,7 +45,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             get => _selectedCardTo;
             set => Set(ref _selectedCardTo, value);
-            
+
         }
 
         private ClientCard _selectedCardFrom;
@@ -67,7 +62,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public ObservableCollection<Client> ListViewClient
         {
-            get => _listViewClient;   
+            get => _listViewClient;
             set => Set(ref _listViewClient, value);
         }
 
@@ -150,8 +145,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 SelectedCardFrom.Cash -= int.Parse(_sumOfTransfer);
                 SelectedCardTo.Cash += int.Parse(_sumOfTransfer);
 
-                await _clientRepository.UpdateClientCard(SelectedCardFrom);
-                await _clientRepository.UpdateClientCard(SelectedCardTo);
+                // await _clientRepository.UpdateClientCard(SelectedCardFrom);
+                // await _clientRepository.UpdateClientCard(SelectedCardTo);
 
                 MessageBox.Show($"Перевод денег успешно прошел!",
                                 "Успешно",
@@ -177,7 +172,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            //ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
         }
     }
 }

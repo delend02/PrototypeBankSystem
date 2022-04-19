@@ -13,7 +13,6 @@ namespace PrototypeBankSystem.Domain.Entities
         public string Privilege { get; set; }
         public ObservableCollection<ClientCard> ClientCard { get; set; } = new ObservableCollection<ClientCard>();
 
-
         public Client()
         {
         }

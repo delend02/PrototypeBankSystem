@@ -1,4 +1,6 @@
-﻿namespace PrototypeBankSystem.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace PrototypeBankSystem.Domain.Entities
 {
     public class Credit
     {
@@ -9,7 +11,6 @@
         public double InterestRate { get; set; }
         public bool RepaidLoan { get; set; }
         public int ClientCardID { get; set; }
-        public ClientCard ClientCard { get; set; }
 
         public Credit()
         {

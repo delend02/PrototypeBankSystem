@@ -8,15 +8,12 @@ using System.Windows.Input;
 using System.Collections.ObjectModel;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
-using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class OpeningADepositViewModel : ViewModel, INotifyPropertyChanged
     {
-        //private readonly IRepository<Client> _clientRepository;
-        private readonly ClientRepository _clientRepository = new();
 
         private readonly MainWindow _mainWindow = new();
 
@@ -281,7 +278,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            //ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
         }
     }
 }

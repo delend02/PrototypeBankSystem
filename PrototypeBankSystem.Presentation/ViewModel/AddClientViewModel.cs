@@ -7,17 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
-using PrototypeBankSystem.Persistence.DataBase;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
+using PrototypeBankSystem.Application.Models.Api;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
     internal class AddClientViewModel : ViewModel, INotifyPropertyChanged
     {
-
-        //private readonly IRepository<Client> _clientRepository;
-        private readonly ClientRepository _clientRepository = new();
-
         private readonly MainWindow _mainWindow = new();
 
         public AddClientViewModel()
@@ -158,7 +154,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand AddClient { get; }
 
-        private void OnAddClient(object p)
+        private async void OnAddClient(object p)
         {
             try
             {
@@ -167,11 +163,13 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 else
                 {
                     var client = new Client(_textFirstName, _textLastName, _textSurName, byte.Parse(_textAge), _textPhone, _enumerationsPrivilege);
-                    _ = _clientRepository.CreateClient(client);
+                    var a = await ApiClient.GetAllAsync();
+                    client = await ApiClient.CreateAsync(client);
+                   // _ = _clientRepository.CreateClient(client);
                     
                     if (_generateCard)
                     {
-                        _ = _clientRepository.CreateCard(new ClientCard(client.ID, _textNumberCard, 0));
+                       // _ = _clientRepository.CreateCard(new ClientCard(client.ID, _textNumberCard, 0));
                     }
 
                     MessageBox.Show($"Клиент успешно внесен в базу",

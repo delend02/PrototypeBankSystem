@@ -23,5 +23,12 @@ namespace PrototypeBankSystem.Application.Models.Api
             return await Api.Client.PostAsJsonAsync<Deposit, Deposit>(url, client, cancellationToken);
         }
 
+        public static async Task<Deposit> UpdateAsync(Deposit deposit, CancellationToken cancellationToken = default)
+        {
+            var url = $"{ApiEndpoints.Deposit}";
+
+            return await Api.Client.PutAsJsonAsync<Deposit, Deposit>(url, deposit, cancellationToken);
+        }
+
     }
 }

@@ -43,6 +43,20 @@ namespace PrototypeBankSystem.Application.Models.Http
             return await GetDataFromResponseAsync<TOut>(response);
         }
 
+        public async Task<T> PutAsync<T>(string endpoint, FormUrlEncodedContent formData, CancellationToken cancellationToken = default)
+        {
+            var response = await Client.PutAsync(endpoint, formData, cancellationToken);
+
+            return await GetDataFromResponseAsync<T>(response);
+        }
+
+        public async Task<TOut> PutAsJsonAsync<TIn, TOut>(string endpoint, TIn data, CancellationToken cancellationToken = default)
+        {
+            var response = await Client.PutAsJsonAsync(endpoint, data, JsonUtility.JsonOptions, cancellationToken: cancellationToken);
+
+            return await GetDataFromResponseAsync<TOut>(response);
+        }
+
         private static async Task<T> GetDataFromResponseAsync<T>(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)

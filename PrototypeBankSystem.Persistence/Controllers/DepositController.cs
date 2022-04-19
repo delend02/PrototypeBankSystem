@@ -36,7 +36,7 @@ namespace PrototypeBankSystem.Persistence.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetClient(string id)
+        public async Task<IActionResult> GetByID(string id)
         {
             return Ok(await _repository.GetByID(id));
         }
@@ -48,7 +48,7 @@ namespace PrototypeBankSystem.Persistence.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromQuery] string id)
+        public async Task<IActionResult> Delete([FromRoute] string id)
         {
             return Ok(await _repository.Delete(id));
         }

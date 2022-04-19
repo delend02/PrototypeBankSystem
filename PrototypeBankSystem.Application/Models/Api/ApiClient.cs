@@ -23,5 +23,11 @@ namespace PrototypeBankSystem.Application.Models.Api
             return await Api.Client.PostAsJsonAsync<Client, Client>(url, client, cancellationToken);
         }
 
+        public static async Task<Client> UpdateAsync(Client client, CancellationToken cancellationToken = default)
+        {
+            var url = $"{ApiEndpoints.Client}";
+
+            return await Api.Client.PutAsJsonAsync<Client, Client>(url, client, cancellationToken);
+        }
     }
 }

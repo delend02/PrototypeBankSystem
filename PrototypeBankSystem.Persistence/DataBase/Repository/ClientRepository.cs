@@ -13,38 +13,57 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
         {
             context = db;
         }
+
         public async Task<Client> Create(Client entity)
         {
             if (entity == null)
                 throw new ArgumentNullException();
 
-            entity.ID = Guid.NewGuid();
-            context.Client.Add(entity);
+
+            var paramID = new SqlParameter("@ID", entity.ID);
+            var paramFirstName = new SqlParameter("@FirstName", entity.FirstName);
+            var paramLastName = new SqlParameter("@LastName", entity.LastName);
+            var paramSurName = new SqlParameter("@SurName", entity.SurName);
+            var paramAge = new SqlParameter("@Age", entity.Age);
+            var paramNumberPhone = new SqlParameter("@NumberPhone", entity.NumberPhone);
+            var paramPrivilage = new SqlParameter("@Privilege", entity.Privilege);
+
+            await context.Database.ExecuteSqlRawAsync(
+                   @"INSERT INTO [dbo].[Client]
+                                ([ID]
+                                ,[FirstName]
+                                ,[LastName]
+                                ,[SurName]
+                                ,[Age]
+                                ,[NumberPhone]
+                                ,[Privilege])
+                            VALUES
+                                (@ID,
+                                 @FirstName,
+                                 @LastName,
+                                 @SurName,
+                                 @Age,
+                                 @NumberPhone,
+                                 @Privilege)",
+                   paramID, paramFirstName, paramLastName, paramSurName, paramAge, paramNumberPhone, paramPrivilage);
+
             return context.Client.Where(c => c.ID == entity.ID).SingleOrDefault();
         }
 
         public async Task<Client> Delete(string id)
         {
-            //var res = Guid.TryParse(id, out var clientID);
+            var res = Guid.TryParse(id, out var clientID);
 
-            //var client = context.Client.Where(c => c.ID == clientID).SingleOrDefault();
+            var client = context.Client.Where(c => c.ID == clientID).SingleOrDefault();
 
-            //if (id == null || !res || client == null)
-            //    throw new ArgumentNullException();
+            if (id == null || !res || client == null)
+                throw new ArgumentNullException();
 
+            var paramClient = new SqlParameter("@clientID", clientID);
 
-            //var paramClient = new SqlParameter("@clientID", clientID);
-            ////var paramCard = new SqlParameter("@cardID", )
+            await context.Database.ExecuteSqlRawAsync("DELETE FROM Client WHERE ID = @clientID", paramClient);
 
-            ////await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ClientCardID = @cardID", );
-
-            ////await context.Database.ExecuteSqlRawAsync("DELETE FROM Deposit WHERE ClientCardID = @cardID", );
-
-            ////await context.Database.ExecuteSqlRawAsync("DELETE FROM ClientCard WHERE ID = @cardID", );
-
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Client WHERE ID = @clientID", paramClient);
-
-            //return client;
+            return client;
         }
 
         public async Task<IEnumerable<Client>> GetAll()
@@ -67,7 +86,27 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            context.Client.Update(entity);
+            var paramID = new SqlParameter("@ID", entity.ID);
+
+            var paramFirstName = new SqlParameter("@FirstName", entity.FirstName);
+            var paramLastName = new SqlParameter("@LastName", entity.LastName);
+            var paramSurName = new SqlParameter("@SurName", entity.SurName);
+            var paramAge = new SqlParameter("@Age", entity.Age);
+            var paramNumberPhone = new SqlParameter("@NumberPhone", entity.NumberPhone);
+            var paramPrivilage = new SqlParameter("@Privilege", entity.Privilege);
+
+            await context.Database.
+                ExecuteSqlRawAsync(@"UPDATE [dbo].[Client]
+                                       SET [FirstName] = @FirstName,
+                                           [LastName] = @LastName,
+                                           [SurName] = @SurName,
+                                           [Age] = @Age,
+                                           [NumberPhone] = @NumberPhone,
+                                           [Privilege] = @Privilege
+                                     WHERE ID = @ID",
+                                    paramFirstName, paramLastName, paramSurName, paramAge, 
+                                    paramNumberPhone, paramPrivilage, paramID);
+
             return entity;
         }
     }

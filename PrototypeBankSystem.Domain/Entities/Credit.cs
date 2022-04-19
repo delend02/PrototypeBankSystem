@@ -11,8 +11,6 @@ namespace PrototypeBankSystem.Domain.Entities
         public double InterestRate { get; set; }
         public bool RepaidLoan { get; set; }
         public int ClientCardID { get; set; }
-        [JsonIgnore]
-        public ClientCard ClientCard { get; set; }
 
         public Credit()
         {

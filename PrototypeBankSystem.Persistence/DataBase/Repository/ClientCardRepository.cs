@@ -19,28 +19,44 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            await context.ClientCard.AddAsync(entity);
+            var paramNumber = new SqlParameter("@Number", entity.Number);
+            var paramDateCreate = new SqlParameter("@DateCreate", entity.DateCreate);
+            var paramDateExperation = new SqlParameter("@ExpirationDate", entity.ExpirationDate);
+            var paramCash = new SqlParameter("@Cash", entity.Cash);
+            var paramClientID = new SqlParameter("@ClientID", entity.ClientID);
+
+            await context.Database.ExecuteSqlRawAsync(
+                   @"INSERT INTO [dbo].[ClientCard]
+                                ([Number]
+                                ,[DateCreate]
+                                ,[ExpirationDate]
+                                ,[Cash]
+                                ,[ClientID])
+                            VALUES
+                                (@Number,
+                                @DateCreate,
+                                @ExpirationDate,
+                                @Cash,
+                                @ClientID)",
+                   paramNumber, paramDateCreate, paramDateExperation, paramCash, paramClientID);
+
             return context.ClientCard.Where(c => c.ID == entity.ID).SingleOrDefault();
         }
 
         public async Task<ClientCard> Delete(string id)
         {
-            //var res = int.TryParse(id, out var cardID);
+            var res = int.TryParse(id, out var cardID);
 
-            //var card = context.ClientCard.Where(c => c.ID == cardID).SingleOrDefault();
+            var card = context.ClientCard.Where(c => c.ID == cardID).SingleOrDefault();
 
-            //if (id == null || !res || card == null)
-            //    throw new ArgumentNullException();
+            if (id == null || !res || card == null)
+                throw new ArgumentNullException();
 
-            //var param1 = new SqlParameter("@cardID", cardID);
+            var param1 = new SqlParameter("@cardID", cardID);
 
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ClientCardID = @cardID", param1);
+            await context.Database.ExecuteSqlRawAsync("DELETE FROM ClientCard WHERE ID = @cardID", param1);
 
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Deposit WHERE ClientCardID = @cardID", param1);
-
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM ClientCard WHERE ID = @cardID", param1);
-
-            //return card;
+            return card;
         }
 
         public async Task<IEnumerable<ClientCard>> GetAll()
@@ -54,7 +70,6 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (id == null || !res)
                 throw new ArgumentNullException();
 
-            await context.Database.ExecuteSqlRawAsync($"");
             return context.ClientCard.Where(c => c.ID == cardID).SingleOrDefault();
         }
 
@@ -63,7 +78,27 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            context.ClientCard.Update(entity);
+            var paramID = new SqlParameter("@ID", entity.ID);
+
+            var paramNumber = new SqlParameter("@Number", entity.Number);
+            var paramDateCreate = new SqlParameter("@DateCreate", entity.DateCreate);
+            var paramExpDate = new SqlParameter("@ExpirationDate", entity.ExpirationDate);
+            var paramCash = new SqlParameter("@Cash", entity.Cash);
+            var paramClientID = new SqlParameter("@ClientID", entity.ClientID);
+
+            await context.Database.
+                ExecuteSqlRawAsync(@"UPDATE [dbo].[ClientCard]
+                                    SET  [Number] = @Number,
+                                         [DateCreate] = @DateCreate,
+                                         [ExpirationDate] = @ExpirationDate,
+                                         [Cash] = @Cash,
+                                         [ClientID] = @ClientID
+                                    WHERE ID = @ID",
+                                    paramNumber, paramDateCreate, paramExpDate, 
+                                    paramCash, paramClientID, paramID);
+            
+
+
             return entity;
         }
     }

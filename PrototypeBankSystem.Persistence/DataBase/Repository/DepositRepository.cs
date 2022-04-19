@@ -19,28 +19,47 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            await context.Deposit.AddAsync(entity);
+            var paramAmout = new SqlParameter("@AmountOfDeposit", entity.AmountOfDeposit);
+            var paramRateType = new SqlParameter("@RateType", entity.RateType);
+            var paramDepositStart = new SqlParameter("@DepositStart", entity.DepositStart);
+            var paramDepositStop = new SqlParameter("@DepositStop", entity.DepositStop);
+            var paramInterestRate = new SqlParameter("@InterestRate", entity.InterestRate);
+            var paramNumberCardID = new SqlParameter("@ClientCardID", entity.ClientCardID);
+
+            await context.Database.ExecuteSqlRawAsync(
+                   @"INSERT INTO [dbo].[Deposit]
+                                ([AmountOfDeposit]
+                                ,[RateType]
+                                ,[DepositStart]
+                                ,[DepositStop]
+                                ,[InterestRate]
+                                ,[ClientCardID])
+                            VALUES
+                                (@AmountOfDeposit,
+                                 @RateType,
+                                 @DepositStart,
+                                 @DepositStop,
+                                 @InterestRate,
+                                 @ClientCardID)",
+                   paramAmout, paramRateType, paramDepositStart, paramDepositStop, paramInterestRate, paramNumberCardID);
+
             return context.Deposit.Where(c => c.ID == entity.ID).SingleOrDefault();
         }
 
         public async Task<Deposit> Delete(string id)
         {
-            //var res = int.TryParse(id, out var cardID);
+            var res = int.TryParse(id, out var depositID);
 
-            //var card = context.Deposit.Where(c => c.ID == cardID).SingleOrDefault();
+            var deposit = context.Deposit.Where(c => c.ID == depositID).SingleOrDefault();
 
-            //if (id == null || !res || card == null)
-            //    throw new ArgumentNullException();
+            if (id == null || !res || deposit == null)
+                throw new ArgumentNullException();
 
-            //var param1 = new SqlParameter("@cardID", cardID);
+            var param1 = new SqlParameter("@depositID", depositID);
 
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ClientCardID = @cardID", param1);
+            await context.Database.ExecuteSqlRawAsync("DELETE FROM Deposit WHERE ID = @depositID", param1);
 
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Deposit WHERE ClientCardID = @cardID", param1);
-
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM ClientCard WHERE ID = @cardID", param1);
-
-            //return card;
+            return deposit;
         }
 
         public async Task<IEnumerable<Deposit>> GetAll()
@@ -62,7 +81,26 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            context.Deposit.Update(entity);
+            var paramID = new SqlParameter("@ID", entity.ID);
+
+            var paramAmout = new SqlParameter("@AmountOfDeposit", entity.AmountOfDeposit);
+            var paramRateType = new SqlParameter("@RateType", entity.RateType);
+            var paramDepositStart = new SqlParameter("@DepositStart", entity.DepositStart);
+            var paramDepositStop = new SqlParameter("@DepositStop", entity.DepositStop);
+            var paramInterestRate = new SqlParameter("@InterestRate", entity.InterestRate);
+            var paramNumberCardID = new SqlParameter("@ClientCardID", entity.ClientCardID);
+
+            await context.Database.ExecuteSqlRawAsync(
+                   @"UPDATE [dbo].[Deposit]
+                        SET [AmountOfDeposit] = @AmountOfDeposit,
+                            [RateType] = @RateType,
+                            [DepositStart] = @DepositStart,
+                            [DepositStop] = @DepositStop,
+                            [InterestRate] = @InterestRate,
+                            [ClientCardID] = @ClientCardID
+                        WHERE ID = @ID",
+                   paramAmout, paramRateType, paramDepositStart, paramDepositStop, paramInterestRate, paramNumberCardID, paramID);
+
             return entity;
         }
     }

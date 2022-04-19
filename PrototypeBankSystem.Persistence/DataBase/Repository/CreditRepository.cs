@@ -19,24 +19,47 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            await context.Credit.AddAsync(entity);
-            return context.Credit.Where(c => c.ID == entity.ID).SingleOrDefault();
+            var paramAmout = new SqlParameter("@AmountOfCredit", entity.AmountOfCredit);
+            var paramCreditStart = new SqlParameter("@CreditStart", entity.CreditStart);
+            var paramCreditStop = new SqlParameter("@CreditStop", entity.CreditStop);
+            var paramInterestRate = new SqlParameter("@InterestRate", entity.InterestRate);
+            var paramReapidLoan = new SqlParameter("@RepaidLoan", entity.RepaidLoan);
+            var paramNumberCardID = new SqlParameter("@ClientCardID", entity.ClientCardID);
+
+            await context.Database.ExecuteSqlRawAsync(
+                   @"INSERT INTO [dbo].[Credit]
+                    ([AmountOfCredit]
+                    ,[CreditStart]
+                    ,[CreditStop]
+                    ,[InterestRate]
+                    ,[RepaidLoan]
+                    ,[ClientCardID])
+                VALUES
+                    (@AmountOfCredit,
+                     @CreditStart,
+                     @CreditStop,
+                     @InterestRate,
+                     @RepaidLoan,
+                     @ClientCardID)",
+                   paramAmout, paramCreditStart, paramCreditStop, paramInterestRate, paramReapidLoan, paramNumberCardID);
+
+            return entity;
         }
 
         public async Task<Credit> Delete(string id)
         {
-            //var res = int.TryParse(id, out var cardID);
+            var res = int.TryParse(id, out var creditID);
 
-            //var card = context.Credit.Where(c => c.ID == cardID).SingleOrDefault();
+            var card = context.Credit.Where(c => c.ID == creditID).SingleOrDefault();
 
-            //if (id == null || !res || card == null)
-            //    throw new ArgumentNullException();
+            if (id == null || !res || card == null)
+                throw new ArgumentNullException();
 
-            //var param1 = new SqlParameter("@cardID", cardID);
+            var param1 = new SqlParameter("@creditID", creditID);
 
-            //await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ClientCardID = @cardID", param1);
+            await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ID = @creditID", param1);
 
-            //return card;
+            return card;
         }
 
         public async Task<IEnumerable<Credit>> GetAll()
@@ -58,7 +81,27 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
             if (entity == null)
                 throw new ArgumentNullException();
 
-            context.Credit.Update(entity);
+            var paramID = new SqlParameter("@ID", entity.ID);
+
+            var paramAmout = new SqlParameter("@AmountOfCredit", entity.AmountOfCredit);
+            var paramCreditStart = new SqlParameter("@CreditStart", entity.CreditStart);
+            var paramCreditStop = new SqlParameter("@CreditStop", entity.CreditStop);
+            var paramInterestRate = new SqlParameter("@InterestRate", entity.InterestRate);
+            var paramReapidLoan = new SqlParameter("@RepaidLoan", entity.RepaidLoan);
+            var paramNumberCardID = new SqlParameter("@ClientCardID", entity.ClientCardID);
+
+            await context.Database.
+                ExecuteSqlRawAsync(@"UPDATE [dbo].[Credit]
+                                        SET [AmountOfCredit] = @AmountOfCredit,
+                                            [CreditStart] = @CreditStart,
+                                            [CreditStop] = @CreditStop,
+                                            [InterestRate] = @InterestRate,
+                                            [RepaidLoan] = @RepaidLoan,
+                                            [ClientCardID] = @ClientCardID
+                                        WHERE ID = @ID",
+                                    paramAmout, paramCreditStart, paramCreditStop, paramInterestRate, 
+                                    paramReapidLoan, paramNumberCardID, paramID);
+
             return entity;
         }
     }

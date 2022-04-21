@@ -12,13 +12,14 @@ namespace PrototypeBankSystem.Domain.Entities
         public double InterestRate { get; set; }
         public int ClientCardID { get; set; }
 
-        public Deposit(double amountOfDeposit, string rateType ,DateTime depositStart, DateTime depositStop, double interestRate)
+        public Deposit(double amountOfDeposit, string rateType ,DateTime depositStart, DateTime depositStop, double interestRate, int clientCardID)
         {
             AmountOfDeposit = amountOfDeposit;
             RateType = rateType;
             DepositStart = depositStart;
             DepositStop = depositStop;
             InterestRate = interestRate;
+            ClientCardID = clientCardID;
         }
     }
 }

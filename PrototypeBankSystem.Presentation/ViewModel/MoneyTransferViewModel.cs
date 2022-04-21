@@ -1,4 +1,5 @@
 ﻿using PrototypeBankSystem.Application.HelpersMethodsSession;
+using PrototypeBankSystem.Application.Models.Api;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
 using System.Collections.ObjectModel;
@@ -145,6 +146,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 SelectedCardFrom.Cash -= int.Parse(_sumOfTransfer);
                 SelectedCardTo.Cash += int.Parse(_sumOfTransfer);
 
+                await ApiClientCards.UpdateAsync(SelectedCardTo);
+                await ApiClientCards.UpdateAsync(SelectedCardFrom);
                 // await _clientRepository.UpdateClientCard(SelectedCardFrom);
                 // await _clientRepository.UpdateClientCard(SelectedCardTo);
 
@@ -172,7 +175,16 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            //ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+
+            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+
+            foreach (var clientItem in client)
+                foreach (var cardItem in card)
+                    if (clientItem.ID == cardItem.ClientID)
+                        clientItem.ClientCard.Add(cardItem);
+
+            ListViewClient = client;
         }
     }
 }

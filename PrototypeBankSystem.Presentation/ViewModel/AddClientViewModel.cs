@@ -163,9 +163,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 else
                 {
                     var client = new Client(_textFirstName, _textLastName, _textSurName, byte.Parse(_textAge), _textPhone, _enumerationsPrivilege);
-                    var a = await ApiClient.GetAllAsync();
-                    client = await ApiClient.CreateAsync(client);
-                   // _ = _clientRepository.CreateClient(client);
+
+                    await ApiClient.CreateAsync(client);
                     
                     if (_generateCard)
                     {

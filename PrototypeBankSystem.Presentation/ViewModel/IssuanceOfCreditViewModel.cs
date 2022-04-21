@@ -10,6 +10,7 @@ using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
 using System.Diagnostics;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
+using PrototypeBankSystem.Application.Models.Api;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -198,8 +199,12 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 _selectedCard.Cash += int.Parse(TextSumCredit);
 
+                await ApiClientCards.UpdateAsync(_selectedCard);
                 //await _clientRepository.UpdateClientCard(_selectedCard);
 
+                var credit = new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0]));
+
+                await ApiCredit.CreateAsync(credit);
                 //await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
 
                 double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
@@ -233,7 +238,23 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            //ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+
+            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+
+            var credit = new ObservableCollection<Credit>(await ApiCredit.GetAllAsync());
+
+            foreach (var clientItem in client)
+                foreach (var cardItem in card)
+                    foreach (var creditItem in credit)
+                        if (clientItem.ID == cardItem.ClientID)
+                        {
+                            clientItem.ClientCard.Add(cardItem);
+                            if (cardItem.ID == creditItem.ClientCardID)
+                                cardItem.Credits.Add(creditItem);
+                        }
+                    
+            ListViewClient = client;
         }
     }
 }

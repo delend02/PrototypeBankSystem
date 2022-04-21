@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
 using PrototypeBankSystem.Application.HelpersMethodsSession;
+using PrototypeBankSystem.Application.Models.Api;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
 {
@@ -210,57 +211,55 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         #region Button
         public ICommand OpenDeposit { get; }
 
-        private void OnOpenDeposit(object p)
+        private async void OnOpenDeposit(object p)
         {
-            //if (_textSumDeposit == null || _DepositTerm == null || SelectedClient == null)
-            //    MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            //else if (SelectedClient.ClientCard.Cash < int.Parse(_textSumDeposit))
-            //    MessageBox.Show("Недостаточно средств для открытия вклада", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            //else
-            //{
-            //    var dateCreate = DateTime.UtcNow;
-            //    var rate = TextDepositRates.Split('%');
+            if (_textSumDeposit == null || _DepositTerm == null || SelectedClient == null)
+                MessageBox.Show("Заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            else if (SelectedCard.Cash < int.Parse(_textSumDeposit))
+                MessageBox.Show("Недостаточно средств для открытия вклада", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+            else
+            {
+                var dateCreate = DateTime.UtcNow;
+                var rate = TextDepositRates.Split('%');
 
-            //    int index = ListViewClient.IndexOf(SelectedClient);
+                var deposit = new Deposit(double.Parse(_textSumDeposit), TextPrivilege, dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0]), SelectedCard.ID);
 
-            //    ListViewClient[index].ClientCard.CreditHistory.Add
-            //        (new Credit(int.Parse(_textSumDeposit), dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0])));
-            //    double finalPayment;
-            //    if (_checkCapitalization)
-            //    {
-            //        var sumOfDeposit = double.Parse(_textSumDeposit);
-            //        for (int i = 0; i < int.Parse(_DepositTerm); i++)
-            //        {
-            //            double nextMounthPay = sumOfDeposit * (double.Parse(rate[0]) / 100) / int.Parse(_DepositTerm);
-            //            sumOfDeposit += nextMounthPay;
-            //        }
-            //        finalPayment = sumOfDeposit - double.Parse(_textSumDeposit);
-            //    }
-            //    else
-            //        finalPayment = double.Parse(_textSumDeposit) * (double.Parse(rate[0]) / 100);
+                await ApiDeposit.CreateAsync(deposit);
 
-            //    finalPayment = Math.Round(finalPayment, 2);
+                double finalPayment;
+                if (_checkCapitalization)
+                {
+                    var sumOfDeposit = double.Parse(_textSumDeposit);
+                    for (int i = 0; i < int.Parse(_DepositTerm); i++)
+                    {
+                        double nextMounthPay = sumOfDeposit * (double.Parse(rate[0]) / 100) / int.Parse(_DepositTerm);
+                        sumOfDeposit += nextMounthPay;
+                    }
+                    finalPayment = sumOfDeposit - double.Parse(_textSumDeposit);
+                }
+                else
+                    finalPayment = double.Parse(_textSumDeposit) * (double.Parse(rate[0]) / 100);
 
-            //    ListViewClient[index].ClientCard.Cash += finalPayment;
+                finalPayment = Math.Round(finalPayment, 2);
 
-            //    _clientRepository.Save(ListViewClient);
+                //SelectedCard.Cash += finalPayment;
 
 
-            //    var capitalization = _checkCapitalization ? "есть" : "нет";
+                var capitalization = _checkCapitalization ? "есть" : "нет";
 
-                //MessageBox.Show($"Клиенту был одобрен и открыт вклад!" +
-                //    $"\nСумма: {_textSumDeposit} рублей" +
-                //    $"\nCтавка: {_textDepositRates}" +
-                //    $"\nНа срок: {_DepositTerm} месяца" +
-                //    $"\nКапитализация: {capitalization}" +
-                //    $"\nКлиенту будет в плюсе на: {finalPayment} рублей",
-                //                "Успешно",
-                //                MessageBoxButton.OK,
-                //                MessageBoxImage.Information,
-                //                MessageBoxResult.OK);;
-                
+                MessageBox.Show($"Клиенту был одобрен и открыт вклад!" +
+                    $"\nСумма: {_textSumDeposit} рублей" +
+                    $"\nCтавка: {_textDepositRates}" +
+                    $"\nНа срок: {_DepositTerm} месяца" +
+                    $"\nКапитализация: {capitalization}" +
+                    $"\nКлиенту будет в плюсе на: {finalPayment} рублей",
+                                "Успешно",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information,
+                                MessageBoxResult.OK);
+
                 _mainWindow.TransitionWithClosureToMain();
-            //}
+            }
 
         }
 
@@ -278,7 +277,23 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadDataClient()
         {
-            //ListViewClient = new ObservableCollection<Client>(await _clientRepository.GetAllClient());
+            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+
+            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+
+            var credit = new ObservableCollection<Credit>(await ApiCredit.GetAllAsync());
+
+            foreach (var clientItem in client)
+                foreach (var cardItem in card)
+                    foreach (var creditItem in credit)
+                        if (clientItem.ID == cardItem.ClientID)
+                        {
+                            clientItem.ClientCard.Add(cardItem);
+                            if (cardItem.ID == creditItem.ClientCardID)
+                                cardItem.Credits.Add(creditItem);
+                        }
+
+            ListViewClient = client;
         }
     }
 }

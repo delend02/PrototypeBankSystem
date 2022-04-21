@@ -68,7 +68,6 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
 
         public async Task<IEnumerable<Client>> GetAll()
         {
-
             return context.Client.ToList();
         }
 

@@ -87,7 +87,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
         {
             if (_textNumberCard != null && _selectedClient != null)
             {
-               // _  = _clientRepository.CreateCard(new ClientCard(_selectedClient.ID, _textNumberCard, 0));
+                var clientCard = new ClientCard(_selectedClient.ID, _textNumberCard, 0);
+
+                await ApiClientCards.CreateAsync(clientCard);
+
                 MessageBox.Show($"Карта успешно прикреплена к клиенту",
                                 "Успешно",
                                 MessageBoxButton.OK,

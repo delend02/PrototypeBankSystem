@@ -21,12 +21,27 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Vertical"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="1"
+                    Margin="20 10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center">
+            <TextBox    materialDesign:HintAssist.Hint="Поиск"
+                        Style="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"
+                        Margin="0 5"
+                        Height="25"
+                        Width="150"
+                        Text="{Binding TextSearch}" Cursor="IBeam"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
                     Grid.ColumnSpan="2"
                     Margin="10"
                     HorizontalAlignment="Center"
@@ -39,12 +54,11 @@
                        FontFamily="Yu Gothic UI Light"
                        FontWeight="Normal" 
                        FontStyle="Italic"
-                       FontSize="24"
-                       Margin="0 0 10 0"/>
+                       FontSize="24"/>
         </StackPanel>
 
         <DataGrid 
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
             AutoGenerateColumns="False"
@@ -61,11 +75,12 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="2"
+        <StackPanel Grid.Row="3"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Top"
+                    Margin="10 10 10 10">
 
-            <TextBlock Text="Управление клиентами" 
+            <TextBlock Text="Карта клиента" 
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Grid.ColumnSpan="2"
@@ -73,45 +88,57 @@
                        FontFamily="Yu Gothic UI Light"
                        FontWeight="Normal" 
                        FontStyle="Italic"
-                       FontSize="24"
-                       Margin="0 0 10 0"/>
-
+                       FontSize="20"
+                       Margin="0 0 0 10"/>
+            
+            <ComboBox  ItemsSource="{Binding ComboBoxCard, UpdateSourceTrigger=PropertyChanged}"
+                       SelectedItem="{Binding SelectedCard, UpdateSourceTrigger=PropertyChanged}"
+                       Width="200"
+                       Padding="5">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Number}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 20 0"/>
+                            <TextBlock Text="{Binding Cash}" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         
         <StackPanel Grid.Column="1"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Center"
+                    Margin="10">
+            
+            <Button Content="Удалить клиента"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
+                    Width="Auto"
+                    Command="{Binding DeleteClient}" Cursor="Hand"/>
 
-            <TextBlock Text="Управление клиентами" 
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Grid.ColumnSpan="2"
-                       Foreground="Black" 
-                       FontFamily="Yu Gothic UI Light"
-                       FontWeight="Normal" 
-                       FontStyle="Italic"
-                       FontSize="24"
-                       Margin="0 0 10 0"/>
+            <Button Content="Удалить карту"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
+                    Width="Auto"
+                    Height="Auto"
+                    Command="{Binding DeleteCard}" Cursor="Hand"/>
 
         </StackPanel>
 
 
         <StackPanel Grid.ColumnSpan="2"
-                    Grid.Row="3"
+                    Grid.Row="4"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Bottom">
             <Button Content="Сохранить и выйти"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FF673AB7"
                     Width="Auto"
-                    Height="Auto"
-                    Margin="100 0"
-                    Command="{Binding RewindTime}"/>
+                    Height="Auto" Margin="100 0"
+                    Command="{Binding SaveAndExit}"/>
             <Button Content="Выйти в главное меню"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
                     Width="Auto"
-                    Height="Auto"
-                    Margin="100 10"
+                    Height="Auto" Margin="100 10"
                     Command="{Binding ExitMain}"/>
         </StackPanel>
     </Grid>

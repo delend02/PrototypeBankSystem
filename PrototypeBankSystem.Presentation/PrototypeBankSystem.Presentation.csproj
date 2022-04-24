@@ -8,17 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\AddCard.png" />
-    <None Remove="Resources\AddClient.png" />
-    <None Remove="Resources\client.jpg" />
-    <None Remove="Resources\Credit.jpg" />
-    <None Remove="Resources\Investment.jpg" />
-    <None Remove="Resources\MoneyTransfer.png" />
+    <None Remove="Resources\AddCard.svg" />
+    <None Remove="Resources\Alteration.svg" />
+    <None Remove="Resources\CreditAdd.svg" />
+    <None Remove="Resources\DepositAdd.svg" />
+    <None Remove="Resources\InsertNewCustomers.svg" />
+    <None Remove="Resources\LastAction.svg" />
+    <None Remove="Resources\MoneyTransfer.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.3.0" />
     <PackageReference Include="NLog" Version="4.7.14" />
+    <PackageReference Include="SharpVectors" Version="1.7.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,12 +28,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\AddCard.png" />
-    <Resource Include="Resources\AddClient.png" />
-    <Resource Include="Resources\client.jpg" />
-    <Resource Include="Resources\Credit.jpg" />
-    <Resource Include="Resources\Investment.jpg" />
-    <Resource Include="Resources\MoneyTransfer.png" />
+    <Resource Include="Resources\AddCard.svg" />
+    <Resource Include="Resources\Alteration.svg" />
+    <Resource Include="Resources\CreditAdd.svg" />
+    <Resource Include="Resources\DepositAdd.svg" />
+    <Resource Include="Resources\InsertNewCustomers.svg" />
+    <Resource Include="Resources\LastAction.svg" />
+    <Resource Include="Resources\MoneyTransfer.svg" />
   </ItemGroup>
 
 </Project>

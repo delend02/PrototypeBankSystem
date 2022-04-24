@@ -57,6 +57,13 @@ namespace PrototypeBankSystem.Application.Models.Http
             return await GetDataFromResponseAsync<TOut>(response);
         }
 
+        public async Task<T> DeleteAsync<T>(string endpoint, CancellationToken cancellationToken = default)
+        {
+            var response = await Client.DeleteAsync(endpoint, cancellationToken);
+
+            return await GetDataFromResponseAsync<T>(response);
+        }
+
         private static async Task<T> GetDataFromResponseAsync<T>(HttpResponseMessage response)
         {
             if (!response.IsSuccessStatusCode)
@@ -85,7 +92,6 @@ namespace PrototypeBankSystem.Application.Models.Http
     public static class JsonUtility
     {
         public static JsonSerializerOptions JsonOptions { get; } = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-
         public static string GetJson<T>(T data) => JsonSerializer.Serialize(data, JsonOptions);
         public static T GetData<T>(string json) => JsonSerializer.Deserialize<T>(json, JsonOptions);
     }

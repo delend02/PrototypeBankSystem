@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PrototypeBankSystem.Presentation.ViewModel"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
         mc:Ignorable="d"
         Title="Главное меню" MinHeight="450" MinWidth="800" 
         WindowStartupLocation="CenterScreen"
@@ -24,6 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
 
@@ -36,8 +38,9 @@
 
             <StackPanel Width="auto"
                         Height="auto">
-                <Image Source="/Resources/AddClient.png"
-                   Height="70"/>
+                <svgc:SvgViewbox Source="/Resources/InsertNewCustomers.svg"
+                                 Width="70"
+                                 Height="70"/>
                 <TextBlock Text="Добавить клиента" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
@@ -50,11 +53,12 @@
                 Height="auto"
                 Grid.Column="3"
                 Grid.Row="1"
-                Command="{Binding TransferMoneyButton}">
+                Command="{Binding TransferMoneyButton}" Cursor="Hand">
             <StackPanel Width="auto"
                         Height="auto">
-                <Image Source="/Resources/MoneyTransfer.png"
-                   Height="70"/>
+                <svgc:SvgViewbox Source="/Resources/MoneyTransfer.svg"
+                                 Height="70"
+                                 Width="70"/>
                 <TextBlock Text="Переводы" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
@@ -64,13 +68,14 @@
                 BorderBrush="White"
                 Width="auto"
                 Height="auto"
-                Grid.Column="1"
-                Grid.Row="1"
-                Command="{Binding InvestmentButton}">
+                Grid.Column="2"
+                Grid.Row="2"
+                Command="{Binding InvestmentButton}" Cursor="Hand">
             <StackPanel Width="auto"
                         Height="auto">
-                <Image Source="/Resources/Investment.jpg"
-                   Height="70"/>
+                <svgc:SvgViewbox Source="/Resources/DepositAdd.svg"
+                                 Height="70"
+                                 Width="70"/>
                 <TextBlock Text="Открыть вклад" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
@@ -80,13 +85,30 @@
                 BorderBrush="White"
                 Width="auto"
                 Height="auto"
-                Grid.Column="1"
+                Grid.Row="2"
                 Command="{Binding GiveCreditButton}">
             <StackPanel Width="auto"
                         Height="auto">
-                <Image Source="/Resources/Credit.jpg"
-                   Height="70"/>
+                <svgc:SvgViewbox Source="/Resources/CreditAdd.svg"
+                                 Height="70"
+                                 Width="70"/>
                 <TextBlock Text="Выдать кредит" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
+            </StackPanel>
+        </Button>
+
+        <Button Background="White"
+                Margin="30" 
+                BorderBrush="White"
+                Width="auto"
+                Height="auto"
+                Grid.Column="1"
+                Command="{Binding LastActions}" Cursor="Hand">
+            <StackPanel Width="auto"
+                        Height="auto">
+                <svgc:SvgViewbox Source="/Resources/LastAction.svg"
+                                 Height="70"
+                                 Width="70"/>
+                <TextBlock Text="Последние действия" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
 
@@ -99,8 +121,9 @@
                 Command="{Binding ListClient}">
             <StackPanel Width="auto"
                         Height="auto">
-                <Image Source="/Resources/client.jpg"
-                   Height="70"/>
+                <svgc:SvgViewbox Source="/Resources/Alteration.svg"
+                                 Height="70"
+                                 Width="70"/>
                 <TextBlock Text="Внесение изменений" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
@@ -114,8 +137,10 @@
                 Command="{Binding AddCardClient}">
             <StackPanel Width="auto"
                         Height="auto">
-                <Image Source="/Resources/AddCard.png"
-                   Height="70"/>
+                <svgc:SvgViewbox Source="/Resources/AddCard.svg"
+                                 Height="70"
+                                 Width="70"/>
+
                 <TextBlock Text="Добавить карту" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>

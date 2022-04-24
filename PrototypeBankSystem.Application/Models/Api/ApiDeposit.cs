@@ -30,5 +30,12 @@ namespace PrototypeBankSystem.Application.Models.Api
             return await Api.Client.PutAsJsonAsync<Deposit, Deposit>(url, deposit, cancellationToken);
         }
 
+        public static async Task<Deposit> DeleteAsync(Deposit deposit, CancellationToken cancellationToken = default)
+        {
+            var url = $"{ApiEndpoints.Deposit}/{deposit.ID}";
+
+            return await Api.Client.DeleteAsync<Deposit>(url, cancellationToken);
+        }
+
     }
 }

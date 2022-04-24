@@ -186,13 +186,13 @@
                     Width="Auto"
                     Height="Auto"
                     Margin="100 0"
-                    Command="{Binding AcceptTransfer}"/>
+                    Command="{Binding AcceptTransfer}" Cursor="Hand"/>
             <Button Content="Выйти в главное меню"
                     Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
                     Width="Auto"
                     Height="Auto"
                     Margin="100 10"
-                    Command="{Binding ExitMain}"/>
+                    Command="{Binding ExitMain}" Cursor="Hand"/>
         </StackPanel>
     </Grid>
 </Window>

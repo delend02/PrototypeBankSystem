@@ -102,7 +102,7 @@
                 Width="auto"
                 Height="auto"
                 Grid.Column="1"
-                Command="{Binding LastActions}" Cursor="Hand">
+                Command="{Binding LastAction}" Cursor="Hand">
             <StackPanel Width="auto"
                         Height="auto">
                 <svgc:SvgViewbox Source="/Resources/LastAction.svg"
@@ -144,6 +144,17 @@
                 <TextBlock Text="Добавить карту" Foreground="Black" FontFamily="Yu Gothic UI Light" FontWeight="Normal" FontStyle="Italic" FontSize="24"/>
             </StackPanel>
         </Button>
+
+        <!--<StackPanel Grid.Column="1"
+                    Grid.Row="3"
+                    VerticalAlignment="Bottom">
+            <Button Content="Выйти с аккаунта"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
+                    Width="Auto"
+                    Height="Auto"
+                    Margin="100 10"
+                    Command="{Binding Exit}" Cursor="Hand"/>
+        </StackPanel>-->
 
     </Grid>
 </Window>

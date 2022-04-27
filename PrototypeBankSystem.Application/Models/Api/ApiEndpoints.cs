@@ -7,5 +7,6 @@
         public const string Credit = $"{Api}/credit";
         public const string Deposit = $"{Api}/deposit";
         public const string ClientCard = $"{Api}/clientcards";
+        public const string History = $"{Api}/history";
     }
 }

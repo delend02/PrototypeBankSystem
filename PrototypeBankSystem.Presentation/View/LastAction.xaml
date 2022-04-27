@@ -35,13 +35,14 @@
 
         <ListView HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
-                          ItemsSource="{Binding ListViewClient, UpdateSourceTrigger=PropertyChanged}"
+                          ItemsSource="{Binding ListViewAction, UpdateSourceTrigger=PropertyChanged}"
                           ScrollViewer.VerticalScrollBarVisibility="Visible"
                           Grid.Row="1"
                   Margin="20">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn  DisplayMemberBinding="{Binding FirstName}"/>
+                    <GridViewColumn  Header="Дата" DisplayMemberBinding="{Binding CreateAt}"/>
+                    <GridViewColumn  Header="Событие" DisplayMemberBinding="{Binding Event}"  />
                 </GridView>
             </ListView.View>
         </ListView>

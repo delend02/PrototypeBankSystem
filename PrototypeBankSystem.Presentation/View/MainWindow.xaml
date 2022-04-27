@@ -102,7 +102,7 @@
                 Width="auto"
                 Height="auto"
                 Grid.Column="1"
-                Command="{Binding LastActions}" Cursor="Hand">
+                Command="{Binding LastAction}" Cursor="Hand">
             <StackPanel Width="auto"
                         Height="auto">
                 <svgc:SvgViewbox Source="/Resources/LastAction.svg"

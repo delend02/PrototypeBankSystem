@@ -1,13 +1,9 @@
 ﻿using PrototypeBankSystem.Application.HelpersMethodsSession;
 using PrototypeBankSystem.Application.Models.Api;
+using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Presentation.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PrototypeBankSystem.Presentation.ViewModel
@@ -18,21 +14,18 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         public LastActionViewModel()
         {
+            LoadData();
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
         }
 
         #region ListView
-        private ObservableCollection<string> _listViewAction = new();
+        private ObservableCollection<History> _listViewAction = new();
 
-        public ObservableCollection<string> ListViewAction
+        public ObservableCollection<History> ListViewAction
         {
             get => _listViewAction;
             set => Set(ref _listViewAction, value);
         }
-
-        #endregion
-
-        #region SelectedItem
 
         #endregion
 
@@ -49,7 +42,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void LoadData()
         {
+            var history = await ApiHistory.GetAllAsync();
 
+            ListViewAction = new ObservableCollection<History>(history);
         }
     }
 }

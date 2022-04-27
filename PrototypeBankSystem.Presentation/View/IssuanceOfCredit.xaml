@@ -226,7 +226,7 @@
                     Width="Auto"
                     Height="Auto"
                     Margin="100 10"
-                    Command="{Binding ExitMain}"/>
+                    Command="{Binding ExitMain}" Cursor="Hand"/>
         </StackPanel>
     </Grid>
 </Window>

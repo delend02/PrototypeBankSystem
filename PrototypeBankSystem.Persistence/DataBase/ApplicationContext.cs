@@ -12,6 +12,7 @@ namespace PrototypeBankSystem.Persistence.DataBase
         public DbSet<Credit> Credit { get; set; }
         public DbSet<ClientCard> ClientCard { get; set; }
         public DbSet<Deposit> Deposit { get; set; }
+        public DbSet<History> History { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)

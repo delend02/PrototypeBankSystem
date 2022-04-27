@@ -145,5 +145,16 @@
             </StackPanel>
         </Button>
 
+        <!--<StackPanel Grid.Column="1"
+                    Grid.Row="3"
+                    VerticalAlignment="Bottom">
+            <Button Content="Выйти с аккаунта"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
+                    Width="Auto"
+                    Height="Auto"
+                    Margin="100 10"
+                    Command="{Binding Exit}" Cursor="Hand"/>
+        </StackPanel>-->
+
     </Grid>
 </Window>

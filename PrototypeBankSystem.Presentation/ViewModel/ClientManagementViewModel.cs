@@ -21,6 +21,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             ExitMain = new LamdaCommand(OnExitMain, CanExitMain);
             DeleteCard = new LamdaCommand(OnDeleteCard, CanDeleteCard);
             DeleteClient = new LamdaCommand(OnDeleteClient, CanDeleteClient);
+            SaveAndExit = new LamdaCommand(OnSaveAndExit, CanSaveAndExit);
         }
 
         #region ComboBox
@@ -85,7 +86,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             if (SelectedClient == null)
                 MessageBox.Show("Для удаления, выберите клиента", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
+            {
                 await ApiClient.DeleteAsync(SelectedClient);
+                ListViewClient.Remove(SelectedClient);
+            }
         }
 
         private bool CanDeleteClient(object p) => true;
@@ -97,10 +101,21 @@ namespace PrototypeBankSystem.Presentation.ViewModel
             if (SelectedCard == null)
                 MessageBox.Show("Для удаления, выберите карту", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
+            {
                 await ApiClientCards.DeleteAsync(SelectedCard);
+                ComboBoxCard.Remove(SelectedCard);
+            }
         }
 
         private bool CanDeleteCard(object p) => true;
+        public ICommand SaveAndExit { get; }
+
+        private async void OnSaveAndExit(object p)
+        {
+            _mainWindow.TransitionWithClosureToMain();
+        }
+
+        private bool CanSaveAndExit(object p) => true;
         #endregion
 
         private async void LoadDataClient()
@@ -116,5 +131,6 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
             ListViewClient = client;
         }
+
     }
 }

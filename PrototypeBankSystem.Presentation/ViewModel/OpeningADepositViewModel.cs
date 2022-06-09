@@ -283,15 +283,19 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
             var credit = new ObservableCollection<Credit>(await ApiCredit.GetAllAsync());
 
-            foreach (var clientItem in client)
-                foreach (var cardItem in card)
-                    foreach (var creditItem in credit)
-                        if (clientItem.ID == cardItem.ClientID)
-                        {
-                            clientItem.ClientCard.Add(cardItem);
-                            if (cardItem.ID == creditItem.ClientCardID)
-                                cardItem.Credits.Add(creditItem);
-                        }
+            foreach (var itemClient in client)
+            {
+                foreach (var itemCard in card)
+                {
+                    foreach (var itemCredit in credit)
+                    {
+                        if (itemCard.ID == itemCredit.ClientCardID)
+                            itemCard.Credits.Add(itemCredit);
+                    }
+                    if (itemClient.ID == itemCard.ClientID)
+                        itemClient.ClientCard.Add(itemCard);
+                }
+            }
 
             ListViewClient = client;
         }

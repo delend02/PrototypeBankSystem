@@ -168,7 +168,8 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                     
                     if (_generateCard)
                     {
-                       // _ = _clientRepository.CreateCard(new ClientCard(client.ID, _textNumberCard, 0));
+                        var clientcard = new ClientCard(client.ID, _textNumberCard, 0);
+                        await ApiClientCards.CreateAsync(clientcard);
                     }
 
                     MessageBox.Show($"Клиент успешно внесен в базу",

@@ -32,13 +32,13 @@ namespace PrototypeBankSystem.Persistence.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-           return Ok(await _repository.GetAll());
+            return Ok(await _repository.GetAll());
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByID(string id)
         {
-           return Ok(await _repository.GetByID(id));
+            return Ok(await _repository.GetByID(id));
         }
 
         [HttpPut]

@@ -3,25 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using PrototypeBankSystem.Application.DateBase;
-using PrototypeBankSystem.Domain.Entities;
 using PrototypeBankSystem.Persistence.DataBase;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using PrototypeBankSystem.Persistence.Middleware;
 
 namespace PrototypeBankSystem.Persistenc
 {
     public class Startup
     {
-
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -66,6 +54,8 @@ namespace PrototypeBankSystem.Persistenc
                 endpoints.MapControllers();
             });
 
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<AuthenticationMiddleware>();
         }
 
     }

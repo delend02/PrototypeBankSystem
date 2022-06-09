@@ -43,7 +43,7 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
                                  @ClientCardID)",
                    paramAmout, paramRateType, paramDepositStart, paramDepositStop, paramInterestRate, paramNumberCardID);
 
-            return context.Deposit.Where(c => c.ID == entity.ID).SingleOrDefault();
+            return entity;
         }
 
         public async Task<Deposit> Delete(string id)

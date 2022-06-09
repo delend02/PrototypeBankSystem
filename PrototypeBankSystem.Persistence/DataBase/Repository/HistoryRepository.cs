@@ -14,7 +14,10 @@ namespace PrototypeBankSystem.Persistence.DataBase.Repository
 
         public async Task<IEnumerable<History>> GetAll()
         {
-            return context.History.Take(15);
+            var his = context.History.OrderByDescending(x => x.ID);
+            
+            var a = his.Take(15);
+            return a;
         }
     }
 }

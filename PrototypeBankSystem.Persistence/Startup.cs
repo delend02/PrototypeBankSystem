@@ -24,7 +24,7 @@ namespace PrototypeBankSystem.Persistenc
             {
                 var section = Configuration.GetSection("ConnectionString");
                 var connectionDB = section.GetSection("DefaultConnectionMSSQLDatabase").Value;
-                services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionDB));
+                var a = services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connectionDB));
                 
                 Console.WriteLine("Connection successfully!");
             }

@@ -207,6 +207,7 @@ namespace PrototypeBankSystem.Presentation.ViewModel
                 await ApiCredit.CreateAsync(credit);
                 //await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
 
+                //double s = Math.Round((double.Parse(TextSumCredit) * float.Parse(rate[0])) / (1 - (1 / Math.Pow((1 + float.Parse(rate[0])), int.Parse(TextCreditTerm)))), 2);
                 double endingCredit = Math.Round(double.Parse(TextSumCredit) + (double.Parse(TextSumCredit) * float.Parse(rate[0]) / 100), 2);
                 double monthlyPayment = Math.Round(endingCredit / int.Parse(TextCreditTerm), 2);
 

@@ -72,7 +72,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top">
 
-            <TextBlock Text="Параметры кредита" 
+            <TextBlock Text="Параметры вклада" 
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Margin="10"

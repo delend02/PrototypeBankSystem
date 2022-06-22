@@ -112,6 +112,10 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
         private async void OnSaveAndExit(object p)
         {
+            foreach (var item in ListViewClient)
+            {
+                await ApiClient.UpdateAsync(item);
+            }
             _mainWindow.TransitionWithClosureToMain();
         }
 

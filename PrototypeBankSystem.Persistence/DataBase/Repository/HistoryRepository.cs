@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PrototypeBankSystem.Domain.Entities;
-
-namespace PrototypeBankSystem.Persistence.DataBase.Repository
+﻿namespace PrototypeBankSystem.Persistence.DataBase.Repository
 {
     public class HistoryRepository
     {

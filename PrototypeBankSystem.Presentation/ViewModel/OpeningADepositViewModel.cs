@@ -242,7 +242,9 @@ namespace PrototypeBankSystem.Presentation.ViewModel
 
                 finalPayment = Math.Round(finalPayment, 2);
 
-                //SelectedCard.Cash += finalPayment;
+                SelectedCard.Cash += (int)finalPayment;
+
+                await ApiClientCards.UpdateAsync(SelectedCard);
 
 
                 var capitalization = _checkCapitalization ? "есть" : "нет";

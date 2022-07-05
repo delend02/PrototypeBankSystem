@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace PrototypeBankSystem.Persistence.Middleware
+﻿namespace PrototypeBankSystem.Persistence.Middleware
 {
     public class AuthenticationMiddleware
     {

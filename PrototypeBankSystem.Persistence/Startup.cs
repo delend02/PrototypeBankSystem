@@ -1,11 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Persistence.Middleware;
-
 namespace PrototypeBankSystem.Persistenc
 {
     public class Startup

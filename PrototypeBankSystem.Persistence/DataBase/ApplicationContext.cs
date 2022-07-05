@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PrototypeBankSystem.Domain.Entities;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using System.Collections.Specialized;
-
-namespace PrototypeBankSystem.Persistence.DataBase
+﻿namespace PrototypeBankSystem.Persistence.DataBase
 {
     public class ApplicationContext : DbContext
     {

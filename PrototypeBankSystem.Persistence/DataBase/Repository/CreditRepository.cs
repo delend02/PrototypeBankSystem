@@ -1,9 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using PrototypeBankSystem.Application.DateBase;
-using PrototypeBankSystem.Domain.Entities;
-
-namespace PrototypeBankSystem.Persistence.DataBase.Repository
+﻿namespace PrototypeBankSystem.Persistence.DataBase.Repository
 {
     public class CreditRepository : IRepository<Credit>
     {

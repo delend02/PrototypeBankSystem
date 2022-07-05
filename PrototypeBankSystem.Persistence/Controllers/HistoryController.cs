@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PrototypeBankSystem.Persistence.DataBase;
-using PrototypeBankSystem.Persistence.DataBase.Repository;
-
-namespace PrototypeBankSystem.Persistence.Controllers
+﻿namespace PrototypeBankSystem.Persistence.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

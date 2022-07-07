@@ -4,11 +4,11 @@
     [ApiController]
     public class DepositController : ControllerBase
     {
-        private readonly DepositRepository _repository;
+        private readonly IRepository<Deposit> _repository;
 
-        public DepositController(ApplicationContext db)
+        public DepositController(IRepository<Deposit> repository)
         {
-            _repository = new DepositRepository(db);
+            _repository = repository;
         }
 
         [HttpPost]

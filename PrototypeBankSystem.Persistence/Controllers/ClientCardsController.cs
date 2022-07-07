@@ -4,11 +4,11 @@
     [ApiController]
     public class ClientCardsController : ControllerBase
     {
-        private readonly ClientCardRepository _repository;
+        private readonly IRepository<ClientCard> _repository;
 
-        public ClientCardsController(ApplicationContext db)
+        public ClientCardsController(IRepository<ClientCard> repository)
         {
-            _repository = new ClientCardRepository(db);
+            _repository = repository;
         }
 
         [HttpPost]

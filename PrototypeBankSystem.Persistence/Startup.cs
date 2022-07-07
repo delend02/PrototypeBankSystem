@@ -25,6 +25,11 @@ namespace PrototypeBankSystem.Persistenc
                 Console.WriteLine(ex.Message);
             }
             services.AddControllers();
+            services.AddScoped<IRepository<Client>, ClientRepository>();
+            services.AddScoped<IRepository<ClientCard>, ClientCardRepository>();
+            services.AddScoped<IRepository<Credit>, CreditRepository>();
+            services.AddScoped<IRepository<Deposit>, DepositRepository>();
+            services.AddScoped<IRepository<History>, HistoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,11 +4,11 @@
     [ApiController]
     public class CreditController : Controller
     {
-        private readonly CreditRepository _repository;
+        private readonly IRepository<Credit> _repository;
 
-        public CreditController(ApplicationContext db)
+        public CreditController(IRepository<Credit> repository)
         {
-            _repository = new CreditRepository(db);
+            _repository = repository;
         }
 
         [HttpPost]

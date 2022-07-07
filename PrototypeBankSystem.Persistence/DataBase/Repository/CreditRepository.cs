@@ -14,29 +14,7 @@
             if (entity == null)
                 throw new ArgumentNullException();
 
-            var paramAmout = new SqlParameter("@AmountOfCredit", entity.AmountOfCredit);
-            var paramCreditStart = new SqlParameter("@CreditStart", entity.CreditStart);
-            var paramCreditStop = new SqlParameter("@CreditStop", entity.CreditStop);
-            var paramInterestRate = new SqlParameter("@InterestRate", entity.InterestRate);
-            var paramReapidLoan = new SqlParameter("@RepaidLoan", entity.RepaidLoan);
-            var paramNumberCardID = new SqlParameter("@ClientCardID", entity.ClientCardID);
-
-            await context.Database.ExecuteSqlRawAsync(
-                   @"INSERT INTO [dbo].[Credit]
-                    ([AmountOfCredit]
-                    ,[CreditStart]
-                    ,[CreditStop]
-                    ,[InterestRate]
-                    ,[RepaidLoan]
-                    ,[ClientCardID])
-                VALUES
-                    (@AmountOfCredit,
-                     @CreditStart,
-                     @CreditStop,
-                     @InterestRate,
-                     @RepaidLoan,
-                     @ClientCardID)",
-                   paramAmout, paramCreditStart, paramCreditStop, paramInterestRate, paramReapidLoan, paramNumberCardID);
+            await context.Credit.AddAsync(entity);
 
             return entity;
         }
@@ -45,14 +23,12 @@
         {
             var res = int.TryParse(id, out var creditID);
 
-            var card = context.Credit.Where(c => c.ID == creditID).SingleOrDefault();
+            var card = await context.Credit.FindAsync(creditID);
 
             if (id == null || !res || card == null)
                 throw new ArgumentNullException();
 
-            var param1 = new SqlParameter("@creditID", creditID);
-
-            await context.Database.ExecuteSqlRawAsync("DELETE FROM Credit WHERE ID = @creditID", param1);
+            context.Credit.Remove(card);
 
             return card;
         }
@@ -64,11 +40,11 @@
 
         public async Task<Credit> GetByID(string id)
         {
-            var res = int.TryParse(id, out var cardID);
+            var res = int.TryParse(id, out var creditID);
             if (id == null || !res)
                 throw new ArgumentNullException();
 
-            return context.Credit.Where(c => c.ID == cardID).SingleOrDefault();
+            return await context.Credit.FindAsync(creditID);
         }
 
         public async Task<Credit> Update(Credit entity)
@@ -76,26 +52,7 @@
             if (entity == null)
                 throw new ArgumentNullException();
 
-            var paramID = new SqlParameter("@ID", entity.ID);
-
-            var paramAmout = new SqlParameter("@AmountOfCredit", entity.AmountOfCredit);
-            var paramCreditStart = new SqlParameter("@CreditStart", entity.CreditStart);
-            var paramCreditStop = new SqlParameter("@CreditStop", entity.CreditStop);
-            var paramInterestRate = new SqlParameter("@InterestRate", entity.InterestRate);
-            var paramReapidLoan = new SqlParameter("@RepaidLoan", entity.RepaidLoan);
-            var paramNumberCardID = new SqlParameter("@ClientCardID", entity.ClientCardID);
-
-            await context.Database.
-                ExecuteSqlRawAsync(@"UPDATE [dbo].[Credit]
-                                        SET [AmountOfCredit] = @AmountOfCredit,
-                                            [CreditStart] = @CreditStart,
-                                            [CreditStop] = @CreditStop,
-                                            [InterestRate] = @InterestRate,
-                                            [RepaidLoan] = @RepaidLoan,
-                                            [ClientCardID] = @ClientCardID
-                                        WHERE ID = @ID",
-                                    paramAmout, paramCreditStart, paramCreditStop, paramInterestRate, 
-                                    paramReapidLoan, paramNumberCardID, paramID);
+            context.Credit.Update(entity);
 
             return entity;
         }

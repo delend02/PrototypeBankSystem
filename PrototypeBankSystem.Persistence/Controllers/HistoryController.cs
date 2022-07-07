@@ -4,11 +4,11 @@
     [ApiController]
     public class HistoryController : ControllerBase
     {
-        private readonly HistoryRepository _repository;
+        private readonly IRepository<History> _repository;
 
-        public HistoryController(ApplicationContext db)
+        public HistoryController(IRepository<History> repository)
         {
-            _repository = new HistoryRepository(db);
+            _repository = repository;
         }
 
         [HttpGet]

@@ -4,11 +4,11 @@
     [ApiController]
     public class ClientsController : Controller
     {
-        private readonly ClientRepository _repository;
+        private readonly IRepository<Client> _repository;
 
-        public ClientsController(ApplicationContext db)
+        public ClientsController(IRepository<Client> repository)
         {
-            _repository = new ClientRepository(db);
+            _repository = repository;
         }
         
         [HttpPost]

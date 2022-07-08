@@ -16,6 +16,8 @@
 
             await context.ClientCard.AddAsync(entity);
 
+            await context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -29,6 +31,8 @@
                 throw new ArgumentNullException();
 
             context.ClientCard.Remove(card);
+
+            await context.SaveChangesAsync();
 
             return card;
         }
@@ -53,6 +57,8 @@
                 throw new ArgumentNullException();
 
             context.ClientCard.Update(entity);
+
+            await context.SaveChangesAsync();
 
             return entity;
         }

@@ -16,6 +16,8 @@
 
             await context.Deposit.AddAsync(entity);
 
+            await context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -29,6 +31,8 @@
                 throw new ArgumentNullException();
 
             context.Deposit.Remove(deposit);
+
+            await context.SaveChangesAsync();
 
             return deposit;
         }
@@ -53,6 +57,8 @@
                 throw new ArgumentNullException();
 
             context.Deposit.Update(entity);
+
+            await context.SaveChangesAsync();
 
             return entity;
         }

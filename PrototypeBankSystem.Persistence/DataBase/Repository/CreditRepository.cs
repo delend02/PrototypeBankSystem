@@ -16,6 +16,8 @@
 
             await context.Credit.AddAsync(entity);
 
+            await context.SaveChangesAsync();
+
             return entity;
         }
 
@@ -29,6 +31,8 @@
                 throw new ArgumentNullException();
 
             context.Credit.Remove(card);
+
+            await context.SaveChangesAsync();
 
             return card;
         }
@@ -53,6 +57,8 @@
                 throw new ArgumentNullException();
 
             context.Credit.Update(entity);
+
+            await context.SaveChangesAsync();
 
             return entity;
         }

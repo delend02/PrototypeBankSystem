@@ -14,7 +14,9 @@
             if (entity == null)
                 throw new ArgumentNullException();
 
-            await context.Client.AddAsync(entity);
+            context.Client.Add(entity);
+
+            await context.SaveChangesAsync();
 
             return await context.Client.FindAsync(entity.ID);
         }
@@ -29,6 +31,8 @@
                 throw new ArgumentNullException();
 
             context.Client.Remove(client);
+
+            await context.SaveChangesAsync();
 
             return client;
         }
@@ -55,6 +59,8 @@
                 throw new ArgumentNullException();
 
             context.Client.Update(entity);
+
+            await context.SaveChangesAsync();
 
             return entity;
         }

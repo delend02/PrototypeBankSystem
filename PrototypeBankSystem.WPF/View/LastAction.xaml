@@ -1,0 +1,61 @@
+﻿<Window x:Class="PrototypeBankSystem.WPF.View.LastAction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PrototypeBankSystem.WPF.ViewModel"
+        mc:Ignorable="d"
+        Title="LastAction" MinHeight="450" MinWidth="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+
+    <Window.DataContext>
+        <local:LastActionViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Окно последних действий" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Margin="10"
+                   Foreground="Black" 
+                   FontFamily="Yu Gothic UI Light"
+                   FontWeight="Normal" 
+                   FontStyle="Italic"
+                   FontSize="24"/>
+
+        <ListView HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          ItemsSource="{Binding ListViewAction, UpdateSourceTrigger=PropertyChanged}"
+                          ScrollViewer.VerticalScrollBarVisibility="Visible"
+                          Grid.Row="1"
+                  Margin="20">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="Дата" DisplayMemberBinding="{Binding CreateAt}"/>
+                    <GridViewColumn  Header="Событие" DisplayMemberBinding="{Binding Event}"  />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.ColumnSpan="3"
+                    Grid.Row="3"
+                    VerticalAlignment="Center">
+            <Button Content="Выйти в главное меню"
+                    Style="{StaticResource MaterialDesignFlatButton}" Foreground="#FFB73A51"
+                    Width="Auto"
+                    Height="Auto"
+                    Margin="100 10"
+                    Command="{Binding ExitMain}" Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>

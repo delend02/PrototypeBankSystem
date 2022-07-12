@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32002.185
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Application", "PrototypeBankSystem.Application\PrototypeBankSystem.Application.csproj", "{9237FDE4-E9E1-412A-87AA-E093A4A48AFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.DAL", "PrototypeBankSystem.DAL\PrototypeBankSystem.DAL.csproj", "{9237FDE4-E9E1-412A-87AA-E093A4A48AFD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Domain", "PrototypeBankSystem.Domain\PrototypeBankSystem.Domain.csproj", "{947E71C8-AC1F-40E5-9505-3048EF6F785C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.BLL", "PrototypeBankSystem.BLL\PrototypeBankSystem.BLL.csproj", "{947E71C8-AC1F-40E5-9505-3048EF6F785C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Presentation", "PrototypeBankSystem.Presentation\PrototypeBankSystem.Presentation.csproj", "{BAB137A1-D131-4370-B895-C3950A8FD1D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.WPF", "PrototypeBankSystem.WPF\PrototypeBankSystem.WPF.csproj", "{BAB137A1-D131-4370-B895-C3950A8FD1D6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.Persistence", "PrototypeBankSystem.Persistence\PrototypeBankSystem.Persistence.csproj", "{272CA3F8-98BE-473D-AADC-BB9334BFA4A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrototypeBankSystem.API", "PrototypeBankSystem.API\PrototypeBankSystem.API.csproj", "{272CA3F8-98BE-473D-AADC-BB9334BFA4A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

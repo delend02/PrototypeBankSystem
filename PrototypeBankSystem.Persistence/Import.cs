@@ -1,9 +1,0 @@
-﻿global using System.Net;
-global using Microsoft.EntityFrameworkCore;
-global using Microsoft.Data.SqlClient;
-global using Microsoft.AspNetCore.Mvc;
-global using PrototypeBankSystem.Domain.Entities;
-global using PrototypeBankSystem.Application.DateBase;
-global using PrototypeBankSystem.Persistence.DataBase;
-global using PrototypeBankSystem.Persistence.DataBase.Repository;
-global using PrototypeBankSystem.Persistence.Middleware;

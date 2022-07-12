@@ -1,0 +1,9 @@
+﻿global using System.Net;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Data.SqlClient;
+global using Microsoft.AspNetCore.Mvc;
+global using PrototypeBankSystem.BLL.Entities;
+global using PrototypeBankSystem.DAL.DateBase;
+global using PrototypeBankSystem.API.DataBase;
+global using PrototypeBankSystem.API.DataBase.Repository;
+global using PrototypeBankSystem.API.Middleware;

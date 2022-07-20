@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Collections.ObjectModel;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
-using System.Diagnostics;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.DAL.Models.Api;
+using PrototypeBankSystem.API.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

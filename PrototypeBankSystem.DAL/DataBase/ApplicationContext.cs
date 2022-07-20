@@ -1,4 +1,7 @@
-﻿namespace PrototypeBankSystem.API.DataBase
+﻿using Microsoft.EntityFrameworkCore;
+using PrototypeBankSystem.BLL.Entities;
+
+namespace PrototypeBankSystem.DAL.DataBase
 {
     public class ApplicationContext : DbContext
     {

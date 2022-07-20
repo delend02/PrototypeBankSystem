@@ -1,4 +1,6 @@
-﻿namespace PrototypeBankSystem.API.Middleware
+﻿using System.Net;
+
+namespace PrototypeBankSystem.API.Middleware
 {
     public class AuthenticationMiddleware
     {

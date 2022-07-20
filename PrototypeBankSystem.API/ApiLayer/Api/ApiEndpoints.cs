@@ -1,4 +1,4 @@
-﻿namespace PrototypeBankSystem.DAL.Models.Api
+﻿namespace PrototypeBankSystem.API.ApiLayer.Api
 {
     public static class ApiEndpoints
     {

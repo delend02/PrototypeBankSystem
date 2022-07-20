@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.DAL.Models.Api;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
+using PrototypeBankSystem.API.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

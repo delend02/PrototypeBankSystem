@@ -1,6 +1,6 @@
-﻿using PrototypeBankSystem.DAL.Models.Http;
+﻿using PrototypeBankSystem.API.ApiLayer.Http;
 
-namespace PrototypeBankSystem.DAL.Models.Api
+namespace PrototypeBankSystem.API.ApiLayer.Api
 {
     public static class Api
     {

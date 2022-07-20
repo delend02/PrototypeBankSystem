@@ -1,4 +1,7 @@
-﻿namespace PrototypeBankSystem.API.DataBase.Repository
+﻿using PrototypeBankSystem.BLL.Entities;
+using PrototypeBankSystem.DAL.DataBase;
+
+namespace PrototypeBankSystem.DAL.DataBase.Repository
 {
     public class ClientRepository : IRepository<Client>
     {

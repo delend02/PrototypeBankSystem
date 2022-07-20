@@ -1,6 +1,6 @@
 ﻿using PrototypeBankSystem.BLL.Entities;
 
-namespace PrototypeBankSystem.DAL.Models.Api
+namespace PrototypeBankSystem.API.ApiLayer.Api
 {
     public static class ApiDeposit
     {

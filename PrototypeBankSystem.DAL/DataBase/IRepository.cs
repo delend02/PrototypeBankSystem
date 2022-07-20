@@ -1,6 +1,4 @@
-﻿using PrototypeBankSystem.BLL.Entities;
-
-namespace PrototypeBankSystem.DAL.DateBase
+﻿namespace PrototypeBankSystem.DAL.DataBase
 {
     public interface IRepository<T>
         where T : class

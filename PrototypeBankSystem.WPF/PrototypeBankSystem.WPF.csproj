@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -24,7 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrototypeBankSystem.Application\PrototypeBankSystem.DAL.csproj" />
+    <ProjectReference Include="..\PrototypeBankSystem.API\PrototypeBankSystem.API.csproj" />
+    <ProjectReference Include="..\PrototypeBankSystem.BLL\PrototypeBankSystem.BLL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

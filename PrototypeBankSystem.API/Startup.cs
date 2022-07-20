@@ -1,3 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using PrototypeBankSystem.API.Middleware;
+using PrototypeBankSystem.BLL.Entities;
+using PrototypeBankSystem.DAL.DataBase.Repository;
+using PrototypeBankSystem.DAL.DataBase;
+
 namespace PrototypeBankSystem.API
 {
     public class Startup

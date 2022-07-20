@@ -1,6 +1,4 @@
-﻿using PrototypeBankSystem.DAL.DateBase;
-using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.DAL.Models.Api;
+﻿using PrototypeBankSystem.WPF.HelpersMethodsSession;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
 using System;
@@ -12,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using PrototypeBankSystem.API.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

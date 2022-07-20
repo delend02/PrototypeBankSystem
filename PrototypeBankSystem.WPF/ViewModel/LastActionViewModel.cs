@@ -1,10 +1,10 @@
 ﻿using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.DAL.Models.Api;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
+using PrototypeBankSystem.API.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

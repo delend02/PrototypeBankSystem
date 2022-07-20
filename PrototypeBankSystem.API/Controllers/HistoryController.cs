@@ -1,4 +1,8 @@
-﻿namespace PrototypeBankSystem.API.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+using PrototypeBankSystem.BLL.Entities;
+using PrototypeBankSystem.DAL.DataBase;
+
+namespace PrototypeBankSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

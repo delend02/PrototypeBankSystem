@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace PrototypeBankSystem.DAL.Models.Http
+namespace PrototypeBankSystem.API.ApiLayer.Http
 {
     public class CustomHttpClient
     {

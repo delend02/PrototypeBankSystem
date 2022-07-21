@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.API.ApiLayer.Api;
+using PrototypeBankSystem.BLL.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrototypeBankSystem.API\PrototypeBankSystem.API.csproj" />
     <ProjectReference Include="..\PrototypeBankSystem.BLL\PrototypeBankSystem.BLL.csproj" />
   </ItemGroup>
 

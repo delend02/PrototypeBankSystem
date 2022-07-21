@@ -4,7 +4,7 @@ using PrototypeBankSystem.WPF.View;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
-using PrototypeBankSystem.API.ApiLayer.Api;
+using PrototypeBankSystem.BLL.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

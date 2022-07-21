@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using PrototypeBankSystem.API.ApiLayer.Api;
+using PrototypeBankSystem.BLL.ApiLayer.Api;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {

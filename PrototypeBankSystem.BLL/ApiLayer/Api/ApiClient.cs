@@ -1,6 +1,6 @@
 ﻿using PrototypeBankSystem.BLL.Entities;
 
-namespace PrototypeBankSystem.API.ApiLayer.Api
+namespace PrototypeBankSystem.BLL.ApiLayer.Api
 {
     public static class ApiClient
     {

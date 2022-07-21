@@ -1,4 +1,4 @@
-﻿namespace PrototypeBankSystem.API.ApiLayer.Api
+﻿namespace PrototypeBankSystem.BLL.ApiLayer.Api
 {
     public static class ApiEndpoints
     {

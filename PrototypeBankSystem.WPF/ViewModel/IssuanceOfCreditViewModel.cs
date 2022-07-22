@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -197,12 +197,12 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
                 _selectedCard.Cash += int.Parse(TextSumCredit);
 
-                await ApiClientCards.UpdateAsync(_selectedCard);
+                await ClientCardsServices.UpdateAsync(_selectedCard);
                 //await _clientRepository.UpdateClientCard(_selectedCard);
 
                 var credit = new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0]));
 
-                await ApiCredit.CreateAsync(credit);
+                await CreditServices.CreateAsync(credit);
                 //await _clientRepository.CreateCredit(new Credit(_selectedCard.ID, float.Parse(TextSumCredit), dateCreate, dateCreate.AddMonths(int.Parse(TextCreditTerm)), float.Parse(rate[0])));
 
                 //double s = Math.Round((double.Parse(TextSumCredit) * float.Parse(rate[0])) / (1 - (1 / Math.Pow((1 + float.Parse(rate[0])), int.Parse(TextCreditTerm)))), 2);
@@ -237,11 +237,11 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
         private async void LoadDataClient()
         {
-            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+            var card = new ObservableCollection<ClientCard>(await ClientCardsServices.GetAllAsync());
 
-            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+            var client = new ObservableCollection<Client>(await ClientServices.GetAllAsync());
 
-            var credit = new ObservableCollection<Credit>(await ApiCredit.GetAllAsync());
+            var credit = new ObservableCollection<Credit>(await CreditServices.GetAllAsync());
 
             foreach (var itemClient in client)
             {

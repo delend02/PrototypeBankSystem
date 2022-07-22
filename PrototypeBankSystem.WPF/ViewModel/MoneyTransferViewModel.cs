@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -146,8 +146,8 @@ namespace PrototypeBankSystem.WPF.ViewModel
                 SelectedCardFrom.Cash -= int.Parse(_sumOfTransfer);
                 SelectedCardTo.Cash += int.Parse(_sumOfTransfer);
 
-                await ApiClientCards.UpdateAsync(SelectedCardTo);
-                await ApiClientCards.UpdateAsync(SelectedCardFrom);
+                await ClientCardsServices.UpdateAsync(SelectedCardTo);
+                await ClientCardsServices.UpdateAsync(SelectedCardFrom);
                 // await _clientRepository.UpdateClientCard(SelectedCardFrom);
                 // await _clientRepository.UpdateClientCard(SelectedCardTo);
 
@@ -175,9 +175,9 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
         private async void LoadDataClient()
         {
-            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+            var card = new ObservableCollection<ClientCard>(await ClientCardsServices.GetAllAsync());
 
-            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+            var client = new ObservableCollection<Client>(await ClientServices.GetAllAsync());
 
             foreach (var clientItem in client)
                 foreach (var cardItem in card)

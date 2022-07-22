@@ -4,7 +4,7 @@ using PrototypeBankSystem.WPF.View;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -42,7 +42,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
         private async void LoadData()
         {
-            var history = await ApiHistory.GetAllAsync();
+            var history = await HistoryServices.GetAllAsync();
 
             ListViewAction = new ObservableCollection<History>(history);
         }

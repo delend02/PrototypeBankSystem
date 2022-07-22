@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -224,7 +224,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
                 var deposit = new Deposit(double.Parse(_textSumDeposit), TextPrivilege, dateCreate, dateCreate.AddMonths(int.Parse(TextDepositTerm)), float.Parse(rate[0]), SelectedCard.ID);
 
-                await ApiDeposit.CreateAsync(deposit);
+                await DepositServices.CreateAsync(deposit);
 
                 double finalPayment;
                 if (_checkCapitalization)
@@ -244,7 +244,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
                 SelectedCard.Cash += (int)finalPayment;
 
-                await ApiClientCards.UpdateAsync(SelectedCard);
+                await ClientCardsServices.UpdateAsync(SelectedCard);
 
 
                 var capitalization = _checkCapitalization ? "есть" : "нет";
@@ -279,11 +279,11 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
         private async void LoadDataClient()
         {
-            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+            var card = new ObservableCollection<ClientCard>(await ClientCardsServices.GetAllAsync());
 
-            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+            var client = new ObservableCollection<Client>(await ClientServices.GetAllAsync());
 
-            var credit = new ObservableCollection<Credit>(await ApiCredit.GetAllAsync());
+            var credit = new ObservableCollection<Credit>(await CreditServices.GetAllAsync());
 
             foreach (var itemClient in client)
             {

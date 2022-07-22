@@ -1,6 +1,6 @@
-﻿using PrototypeBankSystem.BLL.ApiLayer.Http;
+﻿using PrototypeBankSystem.BLL.Services.Http;
 
-namespace PrototypeBankSystem.BLL.ApiLayer.Api
+namespace PrototypeBankSystem.BLL.Services
 {
     public static class Api
     {

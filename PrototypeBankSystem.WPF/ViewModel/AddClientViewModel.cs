@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -164,12 +164,12 @@ namespace PrototypeBankSystem.WPF.ViewModel
                 {
                     var client = new Client(_textFirstName, _textLastName, _textSurName, byte.Parse(_textAge), _textPhone, _enumerationsPrivilege);
 
-                    await ApiClient.CreateAsync(client);
+                    await ClientServices.CreateAsync(client);
                     
                     if (_generateCard)
                     {
                         var clientcard = new ClientCard(client.ID, _textNumberCard, 0);
-                        await ApiClientCards.CreateAsync(clientcard);
+                        await ClientCardsServices.CreateAsync(clientcard);
                     }
 
                     MessageBox.Show($"Клиент успешно внесен в базу",

@@ -1,12 +1,12 @@
 ﻿using PrototypeBankSystem.BLL.Entities;
 
-namespace PrototypeBankSystem.BLL.ApiLayer.Api
+namespace PrototypeBankSystem.BLL.Services
 {
-    public class ApiHistory
+    public class HistoryServices
     {
         public static async Task<IEnumerable<History>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            var url = $"{ApiEndpoints.History}";
+            var url = $"{EndpointsServices.History}";
             return await Api.Client.GetAsync<IEnumerable<History>>(url, cancellationToken);
         }
     }

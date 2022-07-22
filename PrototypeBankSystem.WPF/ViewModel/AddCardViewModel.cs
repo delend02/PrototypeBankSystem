@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -88,7 +88,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
             {
                 var clientCard = new ClientCard(_selectedClient.ID, _textNumberCard, 0);
 
-                await ApiClientCards.CreateAsync(clientCard);
+                await ClientCardsServices.CreateAsync(clientCard);
 
                 MessageBox.Show($"Карта успешно прикреплена к клиенту",
                                 "Успешно",
@@ -122,7 +122,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
         private async void LoadDataClient()
         {
-            ListViewClient = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+            ListViewClient = new ObservableCollection<Client>(await ClientServices.GetAllAsync());
         }
     }
 }

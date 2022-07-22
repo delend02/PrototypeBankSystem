@@ -7,7 +7,7 @@ using System.Windows.Input;
 using PrototypeBankSystem.WPF.HelpersMethodsSession;
 using PrototypeBankSystem.BLL.Entities;
 using PrototypeBankSystem.WPF.View;
-using PrototypeBankSystem.BLL.ApiLayer.Api;
+using PrototypeBankSystem.BLL.Services;
 
 namespace PrototypeBankSystem.WPF.ViewModel
 {
@@ -87,7 +87,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
                 MessageBox.Show("Для удаления, выберите клиента", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
             {
-                await ApiClient.DeleteAsync(SelectedClient);
+                await ClientServices.DeleteAsync(SelectedClient);
                 ListViewClient.Remove(SelectedClient);
             }
         }
@@ -102,7 +102,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
                 MessageBox.Show("Для удаления, выберите карту", "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
             {
-                await ApiClientCards.DeleteAsync(SelectedCard);
+                await ClientCardsServices.DeleteAsync(SelectedCard);
                 ComboBoxCard.Remove(SelectedCard);
             }
         }
@@ -114,7 +114,7 @@ namespace PrototypeBankSystem.WPF.ViewModel
         {
             foreach (var item in ListViewClient)
             {
-                await ApiClient.UpdateAsync(item);
+                await ClientServices.UpdateAsync(item);
             }
             _mainWindow.TransitionWithClosureToMain();
         }
@@ -124,9 +124,9 @@ namespace PrototypeBankSystem.WPF.ViewModel
 
         private async void LoadDataClient()
         {
-            var card = new ObservableCollection<ClientCard>(await ApiClientCards.GetAllAsync());
+            var card = new ObservableCollection<ClientCard>(await ClientCardsServices.GetAllAsync());
 
-            var client = new ObservableCollection<Client>(await ApiClient.GetAllAsync());
+            var client = new ObservableCollection<Client>(await ClientServices.GetAllAsync());
 
             foreach (var clientItem in client)
                 foreach (var cardItem in card)

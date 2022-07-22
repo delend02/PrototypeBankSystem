@@ -1,6 +1,6 @@
-﻿namespace PrototypeBankSystem.BLL.ApiLayer.Api
+﻿namespace PrototypeBankSystem.BLL.Services
 {
-    public static class ApiEndpoints
+    public static class EndpointsServices
     {
         public const string Api = "api";
         public const string Client = $"{Api}/clients";
